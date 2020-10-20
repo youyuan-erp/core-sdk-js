@@ -479,7 +479,8 @@ declare global {
       purchaseAt: Date;
       plateAt: Date;
       operateAt: Date;
-      retireAt: Date;
+      retireAt?: Date;
+      year: string;
       license?: string;
       brands: string;
       plate: string;
@@ -490,7 +491,7 @@ declare global {
       batteryPN: string;
       batteryNum: string;
       batteryPropRight: string;
-      power: string;
+      power: number;
       bmuHardware: string;
       bmuSoftware: string;
       cscHardware: string;
@@ -552,6 +553,10 @@ declare global {
        */
       retireAt?: Date;
       /**
+       * 年份
+       */
+      year?: string;
+      /**
        * 车辆行驶证
        */
       license?: string;
@@ -594,7 +599,7 @@ declare global {
       /**
        * 功率
        */
-      power?: string;
+      power?: number;
       /**
        * BMU硬件版本
        */
@@ -708,6 +713,10 @@ declare global {
        */
       retireAt?: Date;
       /**
+       * 年份
+       */
+      year?: string;
+      /**
        * 车辆行驶证
        */
       license?: string;
@@ -750,7 +759,7 @@ declare global {
       /**
        * 功率
        */
-      power?: string;
+      power?: number;
       /**
        * BMU硬件版本
        */
@@ -860,6 +869,10 @@ declare global {
        */
       retireAt?: Date;
       /**
+       * 年份
+       */
+      year?: string;
+      /**
        * 车辆行驶证
        */
       license?: string;
@@ -902,7 +915,7 @@ declare global {
       /**
        * 功率
        */
-      power?: string;
+      power?: number;
       /**
        * BMU硬件版本
        */
@@ -1007,6 +1020,10 @@ declare global {
        */
       retireAt?: Date;
       /**
+       * 年份
+       */
+      year?: string;
+      /**
        * 车辆行驶证
        */
       license?: string;
@@ -1049,7 +1066,7 @@ declare global {
       /**
        * 功率
        */
-      power?: string;
+      power?: number;
       /**
        * BMU硬件版本
        */
@@ -1147,6 +1164,10 @@ declare global {
        */
       retireAt?: Date;
       /**
+       * 年份
+       */
+      year?: string;
+      /**
        * 车辆行驶证
        */
       license?: string;
@@ -1189,7 +1210,7 @@ declare global {
       /**
        * 功率
        */
-      power?: string;
+      power?: number;
       /**
        * BMU硬件版本
        */
@@ -1339,9 +1360,12 @@ declare global {
         mileages: string;
         routeMap?: string;
         faultCell: string;
+        faultCellCustom?: string;
         workHours: string;
         failReason: string;
+        failReasonCustom?: string;
         processMethod: string;
+        processMethodCustom?: string;
         faultAttr: string;
         faultMode: string;
         backups?: {
@@ -1504,9 +1528,12 @@ declare global {
         mileages: string;
         routeMap?: string;
         faultCell: string;
+        faultCellCustom?: string;
         workHours: string;
         failReason: string;
+        failReasonCustom?: string;
         processMethod: string;
+        processMethodCustom?: string;
         faultAttr: string;
         faultMode: string;
         backups?: {
@@ -1651,9 +1678,12 @@ declare global {
         mileages: string;
         routeMap?: string;
         faultCell: string;
+        faultCellCustom?: string;
         workHours: string;
         failReason: string;
+        failReasonCustom?: string;
         processMethod: string;
+        processMethodCustom?: string;
         faultAttr: string;
         faultMode: string;
         backups?: {
@@ -1793,9 +1823,12 @@ declare global {
         mileages: string;
         routeMap?: string;
         faultCell: string;
+        faultCellCustom?: string;
         workHours: string;
         failReason: string;
+        failReasonCustom?: string;
         processMethod: string;
+        processMethodCustom?: string;
         faultAttr: string;
         faultMode: string;
         backups?: {
@@ -1928,9 +1961,12 @@ declare global {
         mileages: string;
         routeMap?: string;
         faultCell: string;
+        faultCellCustom?: string;
         workHours: string;
         failReason: string;
+        failReasonCustom?: string;
         processMethod: string;
+        processMethodCustom?: string;
         faultAttr: string;
         faultMode: string;
         backups?: {
@@ -2008,9 +2044,12 @@ declare global {
       mileages: string;
       routeMap?: string;
       faultCell: string;
+      faultCellCustom?: string;
       workHours: string;
       failReason: string;
+      failReasonCustom?: string;
       processMethod: string;
+      processMethodCustom?: string;
       faultAttr: string;
       faultMode: string;
       backups?: {
@@ -2069,9 +2108,12 @@ declare global {
       mileages: string;
       routeMap?: string;
       faultCell: string;
+      faultCellCustom?: string;
       workHours: string;
       failReason: string;
+      failReasonCustom?: string;
       processMethod: string;
+      processMethodCustom?: string;
       faultAttr: string;
       faultMode: string;
       backups?: {
@@ -3527,9 +3569,12 @@ declare global {
         mileages: string;
         routeMap?: string;
         faultCell: string;
+        faultCellCustom?: string;
         workHours: string;
         failReason: string;
+        failReasonCustom?: string;
         processMethod: string;
+        processMethodCustom?: string;
         faultAttr: string;
         faultMode: string;
         backups?: {
