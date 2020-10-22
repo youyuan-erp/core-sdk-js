@@ -84,6 +84,10 @@ declare global {
      *
      */
     deleteVehicle(req: DeleteVehicleRequest): Promise<DeleteVehicleResponse>;
+    /**
+     * List all alerts by vehicleId
+     */
+    listVehicleAlerts(req: ListVehicleAlertsRequest): Promise<ListVehicleAlertsResponse>;
   }
   export interface RepairAPI {
     /**
@@ -152,6 +156,18 @@ declare global {
      * List all records
      */
     listRecords(req: ListRecordsRequest): Promise<ListRecordsResponse>;
+    /**
+     * Find record by id
+     */
+    getRecord(req: GetRecordRequest): Promise<GetRecordResponse>;
+    /**
+     * Update record
+     */
+    updateRecord(req: UpdateRecordRequest): Promise<UpdateRecordResponse>;
+    /**
+     *
+     */
+    deleteRecord(req: DeleteRecordRequest): Promise<DeleteRecordResponse>;
   }
 
   export interface CreateParkRequest {
@@ -1248,6 +1264,49 @@ declare global {
   }
   export interface DeleteVehicleRequest {
     vehicleId: string;
+  }
+  export interface ListVehicleAlertsRequest {
+    query?: {
+      _limit?: number;
+      _offset?: number;
+      _sort?: string;
+      _select?: string[];
+      level?: number;
+    };
+    vehicleId: string;
+  }
+  export interface ListVehicleAlertsResponse {
+    content?: ({
+      /**
+       * 故障等级
+       */
+      level?: number;
+      /**
+       * 故障码
+       */
+      code?: string;
+      /**
+       * 故障名称
+       */
+      name?: string;
+      /**
+       * 开始报警的时间
+       */
+      startedAt?: string;
+      /**
+       * 次数
+       */
+      count?: number;
+    } & {
+      id: string;
+      updateAt?: Date;
+      updateBy?: string;
+      createAt?: Date;
+      createBy?: string;
+    })[];
+    headers?: {
+      "X-Total-Count": number;
+    };
   }
   export interface CreateRepairRequest {
     /**
@@ -3455,136 +3514,17 @@ declare global {
   export interface ListRecordsResponse {
     content?: ({
       /**
-       * 关联的工单 id
+       * 关联工单 id
        */
       ticket?: string;
       /**
-       * 维修单工单状态
+       * 操作记录简介
        */
-      status?:
-        | "CREATING"
-        | "FILLING"
-        | "DELIVERED"
-        | "REPARING"
-        | "REPARED"
-        | "PAUSING"
-        | "PENDING"
-        | "PASSED";
+      title?: string;
       /**
-       * 工单曾经被驳回
+       * 操作记录详情
        */
-      rejected?: boolean;
-      /**
-       * CRM 订单号
-       */
-      crm?: string;
-      /**
-       * 关联车辆 id
-       */
-      vehicle?: string;
-      /**
-       * 关联车辆车牌
-       */
-      plate?: string;
-      /**
-       * 关联车辆vin码
-       */
-      vin?: string;
-      /**
-       * 故障地点
-       */
-      address?: string;
-      /**
-       * 报修人姓名
-       */
-      reporter?: string;
-      /**
-       * 报修人联系方式
-       */
-      reporterPhone?: string;
-      /**
-       * 问题描述
-       */
-      problem?: string;
-      /**
-       * 派工人员 id
-       */
-      assignee?: string;
-      /**
-       * 派送时间
-       */
-      assigneAt?: Date;
-      /**
-       * 完工时间
-       */
-      closeAt?: Date;
-      /**
-       * 维修单维修记录
-       */
-      record?: {
-        signAddress: string;
-        arrivalAt: Date;
-        mileages: string;
-        routeMap?: string;
-        faultCell: string;
-        workHours: string;
-        failReason: string;
-        processMethod: string;
-        faultAttr: string;
-        faultMode: string;
-        backups?: {
-          /**
-           * 物料号
-           */
-          itemNo?: string;
-          /**
-           * 单价
-           */
-          unitPrice?: string;
-          /**
-           * 数量
-           */
-          quantity?: number;
-          /**
-           * 是否收费
-           */
-          free?: boolean;
-        }[];
-        livePic: string[];
-        resultDesc: string;
-        softwarePic: string[];
-        frontPic: string[];
-        nameplatePic: string[];
-        meterPic: string[];
-        batteryPic: string[];
-        otherPic?: string[];
-        dataFile?: string;
-        otherCost?: string;
-        remark?: string;
-        workers: {
-          /**
-           * 关联 user id
-           */
-          user?: string;
-          /**
-           * 出工里程
-           */
-          mileages?: string;
-          /**
-           * 工作量
-           */
-          Workload?: number;
-        }[];
-        pauseReason?: string;
-      };
-      /**
-       * 暂停原因
-       */
-      pauseReason?: string;
-      /**
-       * 关联维修单id
-       */
-      maintain?: string;
+      desc?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -3595,6 +3535,73 @@ declare global {
     headers?: {
       "X-Total-Count": number;
     };
+  }
+  export interface GetRecordRequest {
+    recordId: string;
+  }
+  export interface GetRecordResponse {
+    content?: {
+      /**
+       * 关联工单 id
+       */
+      ticket?: string;
+      /**
+       * 操作记录简介
+       */
+      title?: string;
+      /**
+       * 操作记录详情
+       */
+      desc?: string;
+    } & {
+      id: string;
+      updateAt?: Date;
+      updateBy?: string;
+      createAt?: Date;
+      createBy?: string;
+    };
+  }
+  export interface UpdateRecordRequest {
+    recordId: string;
+    body: {
+      /**
+       * 关联工单 id
+       */
+      ticket?: string;
+      /**
+       * 操作记录简介
+       */
+      title?: string;
+      /**
+       * 操作记录详情
+       */
+      desc?: string;
+    };
+  }
+  export interface UpdateRecordResponse {
+    content?: {
+      /**
+       * 关联工单 id
+       */
+      ticket?: string;
+      /**
+       * 操作记录简介
+       */
+      title?: string;
+      /**
+       * 操作记录详情
+       */
+      desc?: string;
+    } & {
+      id: string;
+      updateAt?: Date;
+      updateBy?: string;
+      createAt?: Date;
+      createBy?: string;
+    };
+  }
+  export interface DeleteRecordRequest {
+    recordId: string;
   }
 }
 

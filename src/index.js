@@ -294,6 +294,24 @@ export default class SDK {
         headers: { Authorization: this.auth },
       });
     },
+    /**
+     * List all alerts by vehicleId
+     *
+     * @param {ListVehicleAlertsRequest} req listVehicleAlerts request
+     * @returns {Promise<ListVehicleAlertsResponse>} A paged array of vehicle alerts
+     */
+    listVehicleAlerts: req => {
+      const { vehicleId, query } = req || {};
+
+      if (!vehicleId)
+        throw new Error("vehicleId is required for listVehicleAlerts");
+
+      return fetch(`${this.base}/vehicles/${vehicleId}/alerts`, {
+        method: "GET",
+        query,
+        headers: { Authorization: this.auth },
+      });
+    },
   };
   /**
    * repair's methods
@@ -561,6 +579,55 @@ export default class SDK {
       return fetch(`${this.base}/records`, {
         method: "GET",
         query,
+        headers: { Authorization: this.auth },
+      });
+    },
+    /**
+     * Find record by id
+     *
+     * @param {GetRecordRequest} req getRecord request
+     * @returns {Promise<GetRecordResponse>} Expected response to a valid request
+     */
+    getRecord: req => {
+      const { recordId } = req || {};
+
+      if (!recordId) throw new Error("recordId is required for getRecord");
+
+      return fetch(`${this.base}/records/${recordId}`, {
+        method: "GET",
+        headers: { Authorization: this.auth },
+      });
+    },
+    /**
+     * Update record
+     *
+     * @param {UpdateRecordRequest} req updateRecord request
+     * @returns {Promise<UpdateRecordResponse>} The record
+     */
+    updateRecord: req => {
+      const { recordId, body } = req || {};
+
+      if (!recordId) throw new Error("recordId is required for updateRecord");
+      if (!body) throw new Error("requetBody is required for updateRecord");
+
+      return fetch(`${this.base}/records/${recordId}`, {
+        method: "PUT",
+        body,
+        headers: { Authorization: this.auth },
+      });
+    },
+    /**
+     *
+     *
+     * @param {DeleteRecordRequest} req deleteRecord request
+     */
+    deleteRecord: req => {
+      const { recordId } = req || {};
+
+      if (!recordId) throw new Error("recordId is required for deleteRecord");
+
+      return fetch(`${this.base}/records/${recordId}`, {
+        method: "DELETE",
         headers: { Authorization: this.auth },
       });
     },
