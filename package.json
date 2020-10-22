@@ -24,7 +24,7 @@
   "scripts": {
     "build": "sketch build",
     "format": "prettier --trailing-comma es5 --write 'src/**/*.js'",
-    "gen": "swagen sdk ../youyuan-core/openapi.yml && npm run format",
+    "gen": "swagen sdk https://api.youyuan.36node.com/core/uat/openapi.yml&& npm run format",
     "lint": "sketch lint src",
     "release": "standard-version",
     "start": "bin/mock-server.js",
