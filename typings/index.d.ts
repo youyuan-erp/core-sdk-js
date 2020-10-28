@@ -344,6 +344,10 @@ declare global {
   export interface CreateDraftRequest {
     body: {
       /**
+       * 草稿所属ns
+       */
+      ns?: string;
+      /**
        * 关联资源 id
        */
       resource?: string;
@@ -355,16 +359,23 @@ declare global {
        * 草稿箱内容
        */
       content?: string;
-    } & {
       /**
-       * 草稿类型
+       * 创建用户id
        */
+      createBy?: string;
+    } & {
       type: "VEHICLE" | "REPAIR" | "MAINTAIN";
+      ns: string;
+      createBy: string;
     };
   }
   export interface CreateDraftResponse {
     content?: {
       /**
+       * 草稿所属ns
+       */
+      ns?: string;
+      /**
        * 关联资源 id
        */
       resource?: string;
@@ -376,6 +387,10 @@ declare global {
        * 草稿箱内容
        */
       content?: string;
+      /**
+       * 创建用户id
+       */
+      createBy?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -391,10 +406,16 @@ declare global {
       _sort?: string;
       _select?: string[];
       type: "VEHICLE" | "REPAIR" | "MAINTAIN";
+      ns_like?: string;
+      createBy?: string;
     };
   }
   export interface ListDaftsResponse {
     content?: ({
+      /**
+       * 草稿所属ns
+       */
+      ns?: string;
       /**
        * 关联资源 id
        */
@@ -407,6 +428,10 @@ declare global {
        * 草稿箱内容
        */
       content?: string;
+      /**
+       * 创建用户id
+       */
+      createBy?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -424,6 +449,10 @@ declare global {
   export interface GetDraftResponse {
     content?: {
       /**
+       * 草稿所属ns
+       */
+      ns?: string;
+      /**
        * 关联资源 id
        */
       resource?: string;
@@ -435,6 +464,10 @@ declare global {
        * 草稿箱内容
        */
       content?: string;
+      /**
+       * 创建用户id
+       */
+      createBy?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -450,6 +483,10 @@ declare global {
      */
     body: {
       /**
+       * 草稿所属ns
+       */
+      ns?: string;
+      /**
        * 关联资源 id
        */
       resource?: string;
@@ -461,11 +498,19 @@ declare global {
        * 草稿箱内容
        */
       content?: string;
+      /**
+       * 创建用户id
+       */
+      createBy?: string;
     };
   }
   export interface UpdateDraftResponse {
     content?: {
       /**
+       * 草稿所属ns
+       */
+      ns?: string;
+      /**
        * 关联资源 id
        */
       resource?: string;
@@ -477,6 +522,10 @@ declare global {
        * 草稿箱内容
        */
       content?: string;
+      /**
+       * 创建用户id
+       */
+      createBy?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -495,8 +544,38 @@ declare global {
       purchaseAt: Date;
       plateAt: Date;
       operateAt: Date;
-      retireAt: Date;
-      license?: string;
+      retireAt?: Date;
+      year: number;
+      license?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       brands: string;
       plate: string;
       vin: string;
@@ -506,19 +585,195 @@ declare global {
       batteryPN: string;
       batteryNum: string;
       batteryPropRight: string;
-      power: string;
+      power: number;
       bmuHardware: string;
       bmuSoftware: string;
       cscHardware: string;
       cscSoftware: string;
       rdb: string;
       remark?: string;
-      softwarePic: string[];
-      frontPic: string[];
-      nameplatePic: string[];
-      meterPic: string[];
-      batteryPic: string[];
-      otherPic: string[];
+      status?: string;
+      softwarePic: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      frontPic: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      nameplatePic: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      meterPic: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      batteryPic: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      otherPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      createBy: string;
     };
   }
   export interface CreateVehicleResponse {
@@ -568,9 +823,42 @@ declare global {
        */
       retireAt?: Date;
       /**
+       * 年份
+       */
+      year?: number;
+      /**
        * 车辆行驶证
        */
-      license?: string;
+      license?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 整车品牌
        */
@@ -610,7 +898,7 @@ declare global {
       /**
        * 功率
        */
-      power?: string;
+      power?: number;
       /**
        * BMU硬件版本
        */
@@ -638,27 +926,205 @@ declare global {
       /**
        * 上位机软件图片
        */
-      softwarePic?: string[];
+      softwarePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 正面车头图片
        */
-      frontPic?: string[];
+      frontPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 车辆铭牌图片
        */
-      nameplatePic?: string[];
+      nameplatePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 车辆仪表图片
        */
-      meterPic?: string[];
+      meterPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 电池号图片
        */
-      batteryPic?: string[];
+      batteryPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 其他图片
        */
-      otherPic?: string[];
+      otherPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 录入者
+       */
+      createBy?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -673,8 +1139,17 @@ declare global {
       _offset?: number;
       _sort?: string;
       _select?: string[];
-      running?: boolean;
-      status?: "CREATING" | "FILLING" | "PENDING" | "PASSED";
+      ticket?: string;
+      createAt_gte?: string;
+      createAt_lte?: string;
+      plate?: string;
+      crm?: string;
+      vin?: string;
+      createBy?: string;
+      brands?: string | string[];
+      terminal?: string | string[];
+      park?: string | string[];
+      status?: ("PENDING" | "PASSED" | "REJECTED") | ("PENDING" | "PASSED" | "REJECTED")[];
     };
   }
   export interface ListVehiclesResponse {
@@ -724,9 +1199,42 @@ declare global {
        */
       retireAt?: Date;
       /**
+       * 年份
+       */
+      year?: number;
+      /**
        * 车辆行驶证
        */
-      license?: string;
+      license?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 整车品牌
        */
@@ -766,7 +1274,7 @@ declare global {
       /**
        * 功率
        */
-      power?: string;
+      power?: number;
       /**
        * BMU硬件版本
        */
@@ -794,27 +1302,205 @@ declare global {
       /**
        * 上位机软件图片
        */
-      softwarePic?: string[];
+      softwarePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 正面车头图片
        */
-      frontPic?: string[];
+      frontPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 车辆铭牌图片
        */
-      nameplatePic?: string[];
+      nameplatePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 车辆仪表图片
        */
-      meterPic?: string[];
+      meterPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 电池号图片
        */
-      batteryPic?: string[];
+      batteryPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 其他图片
        */
-      otherPic?: string[];
+      otherPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 录入者
+       */
+      createBy?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -876,9 +1562,42 @@ declare global {
        */
       retireAt?: Date;
       /**
+       * 年份
+       */
+      year?: number;
+      /**
        * 车辆行驶证
        */
-      license?: string;
+      license?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 整车品牌
        */
@@ -918,7 +1637,7 @@ declare global {
       /**
        * 功率
        */
-      power?: string;
+      power?: number;
       /**
        * BMU硬件版本
        */
@@ -946,27 +1665,205 @@ declare global {
       /**
        * 上位机软件图片
        */
-      softwarePic?: string[];
+      softwarePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 正面车头图片
        */
-      frontPic?: string[];
+      frontPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 车辆铭牌图片
        */
-      nameplatePic?: string[];
+      nameplatePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 车辆仪表图片
        */
-      meterPic?: string[];
+      meterPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 电池号图片
        */
-      batteryPic?: string[];
+      batteryPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 其他图片
        */
-      otherPic?: string[];
+      otherPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 录入者
+       */
+      createBy?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -1023,9 +1920,42 @@ declare global {
        */
       retireAt?: Date;
       /**
+       * 年份
+       */
+      year?: number;
+      /**
        * 车辆行驶证
        */
-      license?: string;
+      license?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 整车品牌
        */
@@ -1065,7 +1995,7 @@ declare global {
       /**
        * 功率
        */
-      power?: string;
+      power?: number;
       /**
        * BMU硬件版本
        */
@@ -1093,27 +2023,205 @@ declare global {
       /**
        * 上位机软件图片
        */
-      softwarePic?: string[];
+      softwarePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 正面车头图片
        */
-      frontPic?: string[];
+      frontPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 车辆铭牌图片
        */
-      nameplatePic?: string[];
+      nameplatePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 车辆仪表图片
        */
-      meterPic?: string[];
+      meterPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 电池号图片
        */
-      batteryPic?: string[];
+      batteryPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 其他图片
        */
-      otherPic?: string[];
+      otherPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 录入者
+       */
+      createBy?: string;
     };
   }
   export interface UpdateVehicleResponse {
@@ -1163,9 +2271,42 @@ declare global {
        */
       retireAt?: Date;
       /**
+       * 年份
+       */
+      year?: number;
+      /**
        * 车辆行驶证
        */
-      license?: string;
+      license?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 整车品牌
        */
@@ -1205,7 +2346,7 @@ declare global {
       /**
        * 功率
        */
-      power?: string;
+      power?: number;
       /**
        * BMU硬件版本
        */
@@ -1233,27 +2374,205 @@ declare global {
       /**
        * 上位机软件图片
        */
-      softwarePic?: string[];
+      softwarePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 正面车头图片
        */
-      frontPic?: string[];
+      frontPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 车辆铭牌图片
        */
-      nameplatePic?: string[];
+      nameplatePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 车辆仪表图片
        */
-      meterPic?: string[];
+      meterPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 电池号图片
        */
-      batteryPic?: string[];
+      batteryPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
       /**
        * 其他图片
        */
-      otherPic?: string[];
+      otherPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 录入者
+       */
+      createBy?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -1271,7 +2590,7 @@ declare global {
       _offset?: number;
       _sort?: string;
       _select?: string[];
-      level?: number;
+      level?: number[] | number;
     };
     vehicleId: string;
   }
@@ -1292,7 +2611,7 @@ declare global {
       /**
        * 开始报警的时间
        */
-      startedAt?: string;
+      startedAt?: Date;
       /**
        * 次数
        */
@@ -1321,6 +2640,20 @@ declare global {
       reporter?: string;
       reporterPhone?: string;
       problem?: string;
+      /**
+       * 派工人员 id
+       */
+      assignee: string;
+      /**
+       * 派送时间
+       */
+      assignAt: Date;
+      /**
+       * 创建者
+       */
+      createBy: string;
+      ticket?: string;
+      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
     };
   }
   export interface CreateRepairResponse {
@@ -1332,15 +2665,7 @@ declare global {
       /**
        * 维修单工单状态
        */
-      status?:
-        | "CREATING"
-        | "FILLING"
-        | "DELIVERED"
-        | "REPARING"
-        | "REPARED"
-        | "PAUSING"
-        | "PENDING"
-        | "PASSED";
+      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
       /**
        * 工单曾经被驳回
        */
@@ -1384,7 +2709,7 @@ declare global {
       /**
        * 派送时间
        */
-      assigneAt?: Date;
+      assignAt?: Date;
       /**
        * 完工时间
        */
@@ -1447,6 +2772,7 @@ declare global {
           Workload?: number;
         }[];
         pauseReason?: string;
+        status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
       };
       /**
        * 暂停原因
@@ -1456,6 +2782,7 @@ declare global {
        * 关联维修单id
        */
       maintain?: string;
+      createBy?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -1497,15 +2824,7 @@ declare global {
       /**
        * 维修单工单状态
        */
-      status?:
-        | "CREATING"
-        | "FILLING"
-        | "DELIVERED"
-        | "REPARING"
-        | "REPARED"
-        | "PAUSING"
-        | "PENDING"
-        | "PASSED";
+      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
       /**
        * 工单曾经被驳回
        */
@@ -1549,7 +2868,7 @@ declare global {
       /**
        * 派送时间
        */
-      assigneAt?: Date;
+      assignAt?: Date;
       /**
        * 完工时间
        */
@@ -1612,6 +2931,7 @@ declare global {
           Workload?: number;
         }[];
         pauseReason?: string;
+        status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
       };
       /**
        * 暂停原因
@@ -1621,6 +2941,7 @@ declare global {
        * 关联维修单id
        */
       maintain?: string;
+      createBy?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -1644,15 +2965,7 @@ declare global {
       /**
        * 维修单工单状态
        */
-      status?:
-        | "CREATING"
-        | "FILLING"
-        | "DELIVERED"
-        | "REPARING"
-        | "REPARED"
-        | "PAUSING"
-        | "PENDING"
-        | "PASSED";
+      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
       /**
        * 工单曾经被驳回
        */
@@ -1696,7 +3009,7 @@ declare global {
       /**
        * 派送时间
        */
-      assigneAt?: Date;
+      assignAt?: Date;
       /**
        * 完工时间
        */
@@ -1759,6 +3072,7 @@ declare global {
           Workload?: number;
         }[];
         pauseReason?: string;
+        status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
       };
       /**
        * 暂停原因
@@ -1768,6 +3082,7 @@ declare global {
        * 关联维修单id
        */
       maintain?: string;
+      createBy?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -1786,15 +3101,7 @@ declare global {
       /**
        * 维修单工单状态
        */
-      status?:
-        | "CREATING"
-        | "FILLING"
-        | "DELIVERED"
-        | "REPARING"
-        | "REPARED"
-        | "PAUSING"
-        | "PENDING"
-        | "PASSED";
+      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
       /**
        * 工单曾经被驳回
        */
@@ -1838,7 +3145,7 @@ declare global {
       /**
        * 派送时间
        */
-      assigneAt?: Date;
+      assignAt?: Date;
       /**
        * 完工时间
        */
@@ -1901,6 +3208,7 @@ declare global {
           Workload?: number;
         }[];
         pauseReason?: string;
+        status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
       };
       /**
        * 暂停原因
@@ -1910,6 +3218,7 @@ declare global {
        * 关联维修单id
        */
       maintain?: string;
+      createBy?: string;
     };
   }
   export interface UpdateRepairResponse {
@@ -1921,15 +3230,7 @@ declare global {
       /**
        * 维修单工单状态
        */
-      status?:
-        | "CREATING"
-        | "FILLING"
-        | "DELIVERED"
-        | "REPARING"
-        | "REPARED"
-        | "PAUSING"
-        | "PENDING"
-        | "PASSED";
+      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
       /**
        * 工单曾经被驳回
        */
@@ -1973,7 +3274,7 @@ declare global {
       /**
        * 派送时间
        */
-      assigneAt?: Date;
+      assignAt?: Date;
       /**
        * 完工时间
        */
@@ -2036,6 +3337,7 @@ declare global {
           Workload?: number;
         }[];
         pauseReason?: string;
+        status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
       };
       /**
        * 暂停原因
@@ -2045,6 +3347,7 @@ declare global {
        * 关联维修单id
        */
       maintain?: string;
+      createBy?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -2116,6 +3419,7 @@ declare global {
         Workload?: number;
       }[];
       pauseReason?: string;
+      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
     };
   }
   export interface UpdateRecordResponse {
@@ -2177,6 +3481,7 @@ declare global {
         Workload?: number;
       }[];
       pauseReason?: string;
+      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
     };
   }
   export interface CreateMaintainRequest {
@@ -2188,14 +3493,7 @@ declare global {
       /**
        * 维保单工单状态
        */
-      status?:
-        | "CREATING"
-        | "WAITING"
-        | "MAINTAINING"
-        | "REPARING"
-        | "MAINTAINED"
-        | "PENDING"
-        | "PASSED";
+      status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
       /**
        * 工单曾经被驳回
        */
@@ -2284,6 +3582,7 @@ declare global {
         nameplatePic: string[];
         meterPic: string[];
         batteryPic: string[];
+        status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
       };
       /**
        * 维保单软件诊断记录
@@ -2340,6 +3639,7 @@ declare global {
         nochargeNegative: string;
         nochargeNegativeResult?: string;
         nochargePositiveDesc?: string;
+        status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
       };
       /**
        * 关联维修单 id
@@ -2356,14 +3656,7 @@ declare global {
       /**
        * 维保单工单状态
        */
-      status?:
-        | "CREATING"
-        | "WAITING"
-        | "MAINTAINING"
-        | "REPARING"
-        | "MAINTAINED"
-        | "PENDING"
-        | "PASSED";
+      status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
       /**
        * 工单曾经被驳回
        */
@@ -2452,6 +3745,7 @@ declare global {
         nameplatePic: string[];
         meterPic: string[];
         batteryPic: string[];
+        status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
       };
       /**
        * 维保单软件诊断记录
@@ -2508,6 +3802,7 @@ declare global {
         nochargeNegative: string;
         nochargeNegativeResult?: string;
         nochargePositiveDesc?: string;
+        status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
       };
       /**
        * 关联维修单 id
@@ -2553,14 +3848,7 @@ declare global {
       /**
        * 维保单工单状态
        */
-      status?:
-        | "CREATING"
-        | "WAITING"
-        | "MAINTAINING"
-        | "REPARING"
-        | "MAINTAINED"
-        | "PENDING"
-        | "PASSED";
+      status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
       /**
        * 工单曾经被驳回
        */
@@ -2649,6 +3937,7 @@ declare global {
         nameplatePic: string[];
         meterPic: string[];
         batteryPic: string[];
+        status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
       };
       /**
        * 维保单软件诊断记录
@@ -2705,6 +3994,7 @@ declare global {
         nochargeNegative: string;
         nochargeNegativeResult?: string;
         nochargePositiveDesc?: string;
+        status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
       };
       /**
        * 关联维修单 id
@@ -2733,14 +4023,7 @@ declare global {
       /**
        * 维保单工单状态
        */
-      status?:
-        | "CREATING"
-        | "WAITING"
-        | "MAINTAINING"
-        | "REPARING"
-        | "MAINTAINED"
-        | "PENDING"
-        | "PASSED";
+      status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
       /**
        * 工单曾经被驳回
        */
@@ -2829,6 +4112,7 @@ declare global {
         nameplatePic: string[];
         meterPic: string[];
         batteryPic: string[];
+        status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
       };
       /**
        * 维保单软件诊断记录
@@ -2885,6 +4169,7 @@ declare global {
         nochargeNegative: string;
         nochargeNegativeResult?: string;
         nochargePositiveDesc?: string;
+        status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
       };
       /**
        * 关联维修单 id
@@ -2908,14 +4193,7 @@ declare global {
       /**
        * 维保单工单状态
        */
-      status?:
-        | "CREATING"
-        | "WAITING"
-        | "MAINTAINING"
-        | "REPARING"
-        | "MAINTAINED"
-        | "PENDING"
-        | "PASSED";
+      status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
       /**
        * 工单曾经被驳回
        */
@@ -3004,6 +4282,7 @@ declare global {
         nameplatePic: string[];
         meterPic: string[];
         batteryPic: string[];
+        status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
       };
       /**
        * 维保单软件诊断记录
@@ -3060,6 +4339,7 @@ declare global {
         nochargeNegative: string;
         nochargeNegativeResult?: string;
         nochargePositiveDesc?: string;
+        status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
       };
       /**
        * 关联维修单 id
@@ -3076,14 +4356,7 @@ declare global {
       /**
        * 维保单工单状态
        */
-      status?:
-        | "CREATING"
-        | "WAITING"
-        | "MAINTAINING"
-        | "REPARING"
-        | "MAINTAINED"
-        | "PENDING"
-        | "PASSED";
+      status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
       /**
        * 工单曾经被驳回
        */
@@ -3172,6 +4445,7 @@ declare global {
         nameplatePic: string[];
         meterPic: string[];
         batteryPic: string[];
+        status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
       };
       /**
        * 维保单软件诊断记录
@@ -3228,6 +4502,7 @@ declare global {
         nochargeNegative: string;
         nochargeNegativeResult?: string;
         nochargePositiveDesc?: string;
+        status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
       };
       /**
        * 关联维修单 id
@@ -3294,6 +4569,7 @@ declare global {
       nameplatePic: string[];
       meterPic: string[];
       batteryPic: string[];
+      status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
     };
   }
   export interface UpdateAppearanceRecordResponse {
@@ -3345,6 +4621,7 @@ declare global {
       nameplatePic: string[];
       meterPic: string[];
       batteryPic: string[];
+      status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
     };
   }
   export interface UpdateSoftwareRecordRequest {
@@ -3404,6 +4681,7 @@ declare global {
       nochargeNegative: string;
       nochargeNegativeResult?: string;
       nochargePositiveDesc?: string;
+      status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
     };
   }
   export interface UpdateSoftwareRecordResponse {
@@ -3462,6 +4740,7 @@ declare global {
       nochargeNegative: string;
       nochargeNegativeResult?: string;
       nochargePositiveDesc?: string;
+      status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
     };
   }
   export interface CreateRecordRequest {
