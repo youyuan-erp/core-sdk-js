@@ -1,4 +1,4 @@
-# @36node/template-sdk
+# core-sdk-js
 
 [![version][0]][1] [![downloads][2]][3]
 
@@ -11,7 +11,7 @@ yarn add module
 ## Usage
 
 ```js
-const SDK = require("@36node/template-sdk");
+const SDK = require("@youyuan-erp/core-sdk-js");
 
 const sdk = new SDK({ base: "http://localhost:3000" });
 await sdk.pet.listPets();
