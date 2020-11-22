@@ -1,9 +1,9 @@
 {
-  "name": "@36node/youyuan-core-sdk-js",
+  "name": "@youyuan-erp/core-sdk-js",
   "version": "0.0.6",
-  "description": "A SDK boilerplate.",
+  "description": "youyuan erp core sdk",
   "repository": {
-    "url": "36node/youyuan-core-sdk-js",
+    "url": "youyuan-erp/core-sdk-js",
     "type": "git"
   },
   "license": "MIT",
@@ -26,7 +26,7 @@
     "format": "prettier --trailing-comma es5 --write 'src/**/*.js'",
     "gen": "swagen sdk https://api.youyuan.36node.com/core/uat/openapi.yml&& npm run format",
     "lint": "sketch lint src",
-    "release": "standard-version",
+    "release": "standard-version -t release-v",
     "start": "bin/mock-server.js",
     "test:int": "sketch test --env=node"
   },
