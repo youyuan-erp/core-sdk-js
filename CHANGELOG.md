@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.7 (2020-11-22)
+
+
+### Features
+
+* add github action ([4d93387](https://github.com/youyuan-erp/core-sdk-js/commit/4d93387346d898d7c64a89dba010803fb5a7a52c))
+* update github action & package.json ([e65018a](https://github.com/youyuan-erp/core-sdk-js/commit/e65018ae6dfb314b29d831319f59aec0dbd0bcaa))
+
 ### [0.0.6](https://github.com/36node/youyuan-core-sdk-js/compare/v0.0.5...v0.0.6) (2020-11-22)
 
 
