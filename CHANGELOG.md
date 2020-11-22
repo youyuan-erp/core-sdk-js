@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/36node/youyuan-core-sdk-js/compare/v0.0.5...v0.0.6) (2020-11-22)
+
+
+### Features
+
+* add github action ([4d93387](https://github.com/36node/youyuan-core-sdk-js/commit/4d93387346d898d7c64a89dba010803fb5a7a52c))
+
 ### [0.0.5](https://github.com/36node/youyuan-core-sdk-js/compare/v0.0.4...v0.0.5) (2020-10-28)
 
 ### [0.0.4](https://github.com/36node/youyuan-core-sdk-js/compare/v0.0.3...v0.0.4) (2020-10-22)
