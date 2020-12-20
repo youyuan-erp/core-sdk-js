@@ -149,8 +149,6 @@ export default class SDK {
     listDafts: req => {
       const { query } = req || {};
 
-      if (!query) throw new Error("query is required for draft");
-
       return fetch(`${this.base}/drafts`, {
         method: "GET",
         query,
@@ -295,6 +293,44 @@ export default class SDK {
       });
     },
     /**
+     * Create a vehicle record
+     *
+     * @param {CreateVehicleRecordRequest} req createVehicleRecord request
+     * @returns {Promise<CreateVehicleRecordResponse>} The Vehicle created
+     */
+    createVehicleRecord: req => {
+      const { body } = req || {};
+
+      if (!body)
+        throw new Error("requetBody is required for createVehicleRecord");
+
+      return fetch(`${this.base}/vehicles/record`, {
+        method: "POST",
+        body,
+        headers: { Authorization: this.auth },
+      });
+    },
+    /**
+     * Update vehicle
+     *
+     * @param {UpdateVehicleRecordRequest} req updateVehicleRecord request
+     * @returns {Promise<UpdateVehicleRecordResponse>} The vehicle
+     */
+    updateVehicleRecord: req => {
+      const { vehicleId, body } = req || {};
+
+      if (!vehicleId)
+        throw new Error("vehicleId is required for updateVehicleRecord");
+      if (!body)
+        throw new Error("requetBody is required for updateVehicleRecord");
+
+      return fetch(`${this.base}/vehicles/${vehicleId}/record`, {
+        method: "PUT",
+        body,
+        headers: { Authorization: this.auth },
+      });
+    },
+    /**
      * List all alerts by vehicleId
      *
      * @param {ListVehicleAlertsRequest} req listVehicleAlerts request
@@ -401,14 +437,16 @@ export default class SDK {
     /**
      * update repair order record
      *
-     * @param {UpdateRecordRequest} req updateRecord request
-     * @returns {Promise<UpdateRecordResponse>} The repair order
+     * @param {UpdateRepairRecordRequest} req updateRepairRecord request
+     * @returns {Promise<UpdateRepairRecordResponse>} The repair order
      */
-    updateRecord: req => {
+    updateRepairRecord: req => {
       const { repairId, body } = req || {};
 
-      if (!repairId) throw new Error("repairId is required for updateRecord");
-      if (!body) throw new Error("requetBody is required for updateRecord");
+      if (!repairId)
+        throw new Error("repairId is required for updateRepairRecord");
+      if (!body)
+        throw new Error("requetBody is required for updateRepairRecord");
 
       return fetch(`${this.base}/repairs/${repairId}/record`, {
         method: "PUT",

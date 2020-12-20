@@ -85,6 +85,14 @@ declare global {
      */
     deleteVehicle(req: DeleteVehicleRequest): Promise<DeleteVehicleResponse>;
     /**
+     * Create a vehicle record
+     */
+    createVehicleRecord(req: CreateVehicleRecordRequest): Promise<CreateVehicleRecordResponse>;
+    /**
+     * Update vehicle
+     */
+    updateVehicleRecord(req: UpdateVehicleRecordRequest): Promise<UpdateVehicleRecordResponse>;
+    /**
      * List all alerts by vehicleId
      */
     listVehicleAlerts(req: ListVehicleAlertsRequest): Promise<ListVehicleAlertsResponse>;
@@ -113,7 +121,7 @@ declare global {
     /**
      * update repair order record
      */
-    updateRecord(req: UpdateRecordRequest): Promise<UpdateRecordResponse>;
+    updateRepairRecord(req: UpdateRepairRecordRequest): Promise<UpdateRepairRecordResponse>;
   }
   export interface MaintainAPI {
     /**
@@ -344,17 +352,9 @@ declare global {
   export interface CreateDraftRequest {
     body: {
       /**
-       * 草稿所属ns
-       */
-      ns?: string;
-      /**
        * 关联资源 id
        */
       resource?: string;
-      /**
-       * 草稿类型
-       */
-      type?: "VEHICLE" | "REPAIR" | "MAINTAIN";
       /**
        * 草稿箱内容
        */
@@ -364,25 +364,15 @@ declare global {
        */
       createBy?: string;
     } & {
-      type: "VEHICLE" | "REPAIR" | "MAINTAIN";
-      ns: string;
       createBy: string;
     };
   }
   export interface CreateDraftResponse {
     content?: {
       /**
-       * 草稿所属ns
-       */
-      ns?: string;
-      /**
        * 关联资源 id
        */
       resource?: string;
-      /**
-       * 草稿类型
-       */
-      type?: "VEHICLE" | "REPAIR" | "MAINTAIN";
       /**
        * 草稿箱内容
        */
@@ -405,7 +395,7 @@ declare global {
       _offset?: number;
       _sort?: string;
       _select?: string[];
-      type: "VEHICLE" | "REPAIR" | "MAINTAIN";
+      resource?: string;
       ns_like?: string;
       createBy?: string;
     };
@@ -413,17 +403,9 @@ declare global {
   export interface ListDaftsResponse {
     content?: ({
       /**
-       * 草稿所属ns
-       */
-      ns?: string;
-      /**
        * 关联资源 id
        */
       resource?: string;
-      /**
-       * 草稿类型
-       */
-      type?: "VEHICLE" | "REPAIR" | "MAINTAIN";
       /**
        * 草稿箱内容
        */
@@ -449,17 +431,9 @@ declare global {
   export interface GetDraftResponse {
     content?: {
       /**
-       * 草稿所属ns
-       */
-      ns?: string;
-      /**
        * 关联资源 id
        */
       resource?: string;
-      /**
-       * 草稿类型
-       */
-      type?: "VEHICLE" | "REPAIR" | "MAINTAIN";
       /**
        * 草稿箱内容
        */
@@ -483,17 +457,9 @@ declare global {
      */
     body: {
       /**
-       * 草稿所属ns
-       */
-      ns?: string;
-      /**
        * 关联资源 id
        */
       resource?: string;
-      /**
-       * 草稿类型
-       */
-      type?: "VEHICLE" | "REPAIR" | "MAINTAIN";
       /**
        * 草稿箱内容
        */
@@ -507,17 +473,9 @@ declare global {
   export interface UpdateDraftResponse {
     content?: {
       /**
-       * 草稿所属ns
-       */
-      ns?: string;
-      /**
        * 关联资源 id
        */
       resource?: string;
-      /**
-       * 草稿类型
-       */
-      type?: "VEHICLE" | "REPAIR" | "MAINTAIN";
       /**
        * 草稿箱内容
        */
@@ -539,265 +497,14 @@ declare global {
   }
   export interface CreateVehicleRequest {
     body: {
-      terminal: string;
-      park: string;
-      purchaseAt: Date;
-      plateAt: Date;
-      operateAt: Date;
-      retireAt?: Date;
-      year: number;
-      license?: {
-        /**
-         * 原始文件名
-         */
-        name?: string;
-        /**
-         * oss上的文件名
-         */
-        ossName?: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid?: string;
-        /**
-         * url
-         */
-        url?: string;
-      }[];
-      brands: string;
-      plate: string;
-      vin: string;
-      jobNum: string;
-      num: string;
-      catl: string;
-      batteryPN: string;
-      batteryNum: string;
-      batteryPropRight: string;
-      power: number;
-      bmuHardware: string;
-      bmuSoftware: string;
-      cscHardware: string;
-      cscSoftware: string;
-      rdb: string;
-      remark?: string;
-      status?: string;
-      softwarePic: {
-        /**
-         * 原始文件名
-         */
-        name?: string;
-        /**
-         * oss上的文件名
-         */
-        ossName?: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid?: string;
-        /**
-         * url
-         */
-        url?: string;
-      }[];
-      frontPic: {
-        /**
-         * 原始文件名
-         */
-        name?: string;
-        /**
-         * oss上的文件名
-         */
-        ossName?: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid?: string;
-        /**
-         * url
-         */
-        url?: string;
-      }[];
-      nameplatePic: {
-        /**
-         * 原始文件名
-         */
-        name?: string;
-        /**
-         * oss上的文件名
-         */
-        ossName?: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid?: string;
-        /**
-         * url
-         */
-        url?: string;
-      }[];
-      meterPic: {
-        /**
-         * 原始文件名
-         */
-        name?: string;
-        /**
-         * oss上的文件名
-         */
-        ossName?: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid?: string;
-        /**
-         * url
-         */
-        url?: string;
-      }[];
-      batteryPic: {
-        /**
-         * 原始文件名
-         */
-        name?: string;
-        /**
-         * oss上的文件名
-         */
-        ossName?: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid?: string;
-        /**
-         * url
-         */
-        url?: string;
-      }[];
-      otherPic?: {
-        /**
-         * 原始文件名
-         */
-        name?: string;
-        /**
-         * oss上的文件名
-         */
-        ossName?: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid?: string;
-        /**
-         * url
-         */
-        url?: string;
-      }[];
-      createBy: string;
-    };
-  }
-  export interface CreateVehicleResponse {
-    content?: {
       /**
-       * 关联的工单 id
+       * 车辆工单所属部门
        */
-      ticket?: string;
+      ticketNs?: string;
       /**
-       * 车辆录入工单状态
+       * 录入者
        */
-      status?: "CREATING" | "FILLING" | "PENDING" | "PASSED";
-      /**
-       * 工单曾经被驳回
-       */
-      rejected?: boolean;
-      /**
-       * 车辆是否报废
-       */
-      scrapped?: boolean;
-      /**
-       * CRM 订单号
-       */
-      crm?: string;
+      createBy?: string;
       /**
        * 终端用户
        */
@@ -1122,9 +829,672 @@ declare global {
         url?: string;
       }[];
       /**
+       * 故障部位图片
+       */
+      faultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-开始图片
+       */
+      softwareStartPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机故障显示图片
+       */
+      softwareFaultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-结束图片
+       */
+      softwareEndPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      [k: string]: any;
+    } & {
+      /**
+       * 关联的工单 id
+       */
+      ticket?: string;
+      /**
+       * 车辆录入工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
+       */
+      status?: "CREATING" | "REJECTED" | "PENDING" | "PASSED";
+      /**
+       * 工单曾经被驳回
+       */
+      rejected?: boolean;
+      /**
+       * 驳回时间
+       */
+      rejectAt?: Date;
+      /**
+       * 驳回时间
+       */
+      rejectReason?: string;
+      /**
+       * 驳回人
+       */
+      rejectBy?: string;
+      /**
+       * 车辆是否报废
+       */
+      scrapped?: boolean;
+      /**
+       * CRM 订单号
+       */
+      crm?: string;
+    };
+  }
+  export interface CreateVehicleResponse {
+    content?: {
+      /**
+       * 车辆工单所属部门
+       */
+      ticketNs?: string;
+      /**
        * 录入者
        */
       createBy?: string;
+      /**
+       * 终端用户
+       */
+      terminal?: string;
+      /**
+       * 车场
+       */
+      park?: string;
+      /**
+       * 购买日期
+       */
+      purchaseAt?: Date;
+      /**
+       * 上牌日期
+       */
+      plateAt?: Date;
+      /**
+       * 运营日期
+       */
+      operateAt?: Date;
+      /**
+       * 报废日期
+       */
+      retireAt?: Date;
+      /**
+       * 年份
+       */
+      year?: number;
+      /**
+       * 车辆行驶证
+       */
+      license?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 整车品牌
+       */
+      brands?: string;
+      /**
+       * 车牌号
+       */
+      plate?: string;
+      /**
+       * VIN号
+       */
+      vin?: string;
+      /**
+       * 车辆工号
+       */
+      jobNum?: string;
+      /**
+       * 车辆自编号
+       */
+      num?: string;
+      /**
+       * CATL项目名称
+       */
+      catl?: string;
+      /**
+       * 电池PN
+       */
+      batteryPN?: string;
+      /**
+       * 电池号
+       */
+      batteryNum?: string;
+      /**
+       * 电池产权
+       */
+      batteryPropRight?: string;
+      /**
+       * 功率
+       */
+      power?: number;
+      /**
+       * BMU硬件版本
+       */
+      bmuHardware?: string;
+      /**
+       * BMU软件版本
+       */
+      bmuSoftware?: string;
+      /**
+       * CSC硬件版本
+       */
+      cscHardware?: string;
+      /**
+       * CSC软件版本
+       */
+      cscSoftware?: string;
+      /**
+       * RDB
+       */
+      rdb?: string;
+      /**
+       * 备注
+       */
+      remark?: string;
+      /**
+       * 上位机软件图片
+       */
+      softwarePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 正面车头图片
+       */
+      frontPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 车辆铭牌图片
+       */
+      nameplatePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 车辆仪表图片
+       */
+      meterPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 电池号图片
+       */
+      batteryPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 其他图片
+       */
+      otherPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 故障部位图片
+       */
+      faultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-开始图片
+       */
+      softwareStartPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机故障显示图片
+       */
+      softwareFaultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-结束图片
+       */
+      softwareEndPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      [k: string]: any;
+    } & {
+      /**
+       * 关联的工单 id
+       */
+      ticket?: string;
+      /**
+       * 车辆录入工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
+       */
+      status?: "CREATING" | "REJECTED" | "PENDING" | "PASSED";
+      /**
+       * 工单曾经被驳回
+       */
+      rejected?: boolean;
+      /**
+       * 驳回时间
+       */
+      rejectAt?: Date;
+      /**
+       * 驳回时间
+       */
+      rejectReason?: string;
+      /**
+       * 驳回人
+       */
+      rejectBy?: string;
+      /**
+       * 车辆是否报废
+       */
+      scrapped?: boolean;
+      /**
+       * CRM 订单号
+       */
+      crm?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -1139,13 +1509,18 @@ declare global {
       _offset?: number;
       _sort?: string;
       _select?: string[];
-      ticket?: string;
+      id?: string;
       createAt_gte?: string;
       createAt_lte?: string;
       plate?: string;
+      plate_like?: string;
       crm?: string;
       vin?: string;
       createBy?: string;
+      ns_like?: string;
+      num_like?: string;
+      batteryNum_like?: string;
+      scrapped?: boolean[];
       brands?: string | string[];
       terminal?: string | string[];
       park?: string | string[];
@@ -1155,25 +1530,13 @@ declare global {
   export interface ListVehiclesResponse {
     content?: ({
       /**
-       * 关联的工单 id
+       * 车辆工单所属部门
        */
-      ticket?: string;
+      ticketNs?: string;
       /**
-       * 车辆录入工单状态
+       * 录入者
        */
-      status?: "CREATING" | "FILLING" | "PENDING" | "PASSED";
-      /**
-       * 工单曾经被驳回
-       */
-      rejected?: boolean;
-      /**
-       * 车辆是否报废
-       */
-      scrapped?: boolean;
-      /**
-       * CRM 订单号
-       */
-      crm?: string;
+      createBy?: string;
       /**
        * 终端用户
        */
@@ -1498,9 +1861,171 @@ declare global {
         url?: string;
       }[];
       /**
-       * 录入者
+       * 故障部位图片
        */
-      createBy?: string;
+      faultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-开始图片
+       */
+      softwareStartPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机故障显示图片
+       */
+      softwareFaultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-结束图片
+       */
+      softwareEndPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      [k: string]: any;
+    } & {
+      /**
+       * 关联的工单 id
+       */
+      ticket?: string;
+      /**
+       * 车辆录入工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
+       */
+      status?: "CREATING" | "REJECTED" | "PENDING" | "PASSED";
+      /**
+       * 工单曾经被驳回
+       */
+      rejected?: boolean;
+      /**
+       * 驳回时间
+       */
+      rejectAt?: Date;
+      /**
+       * 驳回时间
+       */
+      rejectReason?: string;
+      /**
+       * 驳回人
+       */
+      rejectBy?: string;
+      /**
+       * 车辆是否报废
+       */
+      scrapped?: boolean;
+      /**
+       * CRM 订单号
+       */
+      crm?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -1518,25 +2043,13 @@ declare global {
   export interface GetVehicleResponse {
     content?: {
       /**
-       * 关联的工单 id
+       * 车辆工单所属部门
        */
-      ticket?: string;
+      ticketNs?: string;
       /**
-       * 车辆录入工单状态
+       * 录入者
        */
-      status?: "CREATING" | "FILLING" | "PENDING" | "PASSED";
-      /**
-       * 工单曾经被驳回
-       */
-      rejected?: boolean;
-      /**
-       * 车辆是否报废
-       */
-      scrapped?: boolean;
-      /**
-       * CRM 订单号
-       */
-      crm?: string;
+      createBy?: string;
       /**
        * 终端用户
        */
@@ -1861,9 +2374,171 @@ declare global {
         url?: string;
       }[];
       /**
-       * 录入者
+       * 故障部位图片
        */
-      createBy?: string;
+      faultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-开始图片
+       */
+      softwareStartPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机故障显示图片
+       */
+      softwareFaultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-结束图片
+       */
+      softwareEndPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      [k: string]: any;
+    } & {
+      /**
+       * 关联的工单 id
+       */
+      ticket?: string;
+      /**
+       * 车辆录入工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
+       */
+      status?: "CREATING" | "REJECTED" | "PENDING" | "PASSED";
+      /**
+       * 工单曾经被驳回
+       */
+      rejected?: boolean;
+      /**
+       * 驳回时间
+       */
+      rejectAt?: Date;
+      /**
+       * 驳回时间
+       */
+      rejectReason?: string;
+      /**
+       * 驳回人
+       */
+      rejectBy?: string;
+      /**
+       * 车辆是否报废
+       */
+      scrapped?: boolean;
+      /**
+       * CRM 订单号
+       */
+      crm?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -1876,25 +2551,13 @@ declare global {
     vehicleId: string;
     body: {
       /**
-       * 关联的工单 id
+       * 车辆工单所属部门
        */
-      ticket?: string;
+      ticketNs?: string;
       /**
-       * 车辆录入工单状态
+       * 录入者
        */
-      status?: "CREATING" | "FILLING" | "PENDING" | "PASSED";
-      /**
-       * 工单曾经被驳回
-       */
-      rejected?: boolean;
-      /**
-       * 车辆是否报废
-       */
-      scrapped?: boolean;
-      /**
-       * CRM 订单号
-       */
-      crm?: string;
+      createBy?: string;
       /**
        * 终端用户
        */
@@ -2219,33 +2882,183 @@ declare global {
         url?: string;
       }[];
       /**
-       * 录入者
+       * 故障部位图片
        */
-      createBy?: string;
+      faultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-开始图片
+       */
+      softwareStartPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机故障显示图片
+       */
+      softwareFaultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-结束图片
+       */
+      softwareEndPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      [k: string]: any;
+    } & {
+      /**
+       * 关联的工单 id
+       */
+      ticket?: string;
+      /**
+       * 车辆录入工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
+       */
+      status?: "CREATING" | "REJECTED" | "PENDING" | "PASSED";
+      /**
+       * 工单曾经被驳回
+       */
+      rejected?: boolean;
+      /**
+       * 驳回时间
+       */
+      rejectAt?: Date;
+      /**
+       * 驳回时间
+       */
+      rejectReason?: string;
+      /**
+       * 驳回人
+       */
+      rejectBy?: string;
+      /**
+       * 车辆是否报废
+       */
+      scrapped?: boolean;
+      /**
+       * CRM 订单号
+       */
+      crm?: string;
     };
   }
   export interface UpdateVehicleResponse {
     content?: {
       /**
-       * 关联的工单 id
+       * 车辆工单所属部门
        */
-      ticket?: string;
+      ticketNs?: string;
       /**
-       * 车辆录入工单状态
+       * 录入者
        */
-      status?: "CREATING" | "FILLING" | "PENDING" | "PASSED";
-      /**
-       * 工单曾经被驳回
-       */
-      rejected?: boolean;
-      /**
-       * 车辆是否报废
-       */
-      scrapped?: boolean;
-      /**
-       * CRM 订单号
-       */
-      crm?: string;
+      createBy?: string;
       /**
        * 终端用户
        */
@@ -2570,9 +3383,171 @@ declare global {
         url?: string;
       }[];
       /**
-       * 录入者
+       * 故障部位图片
        */
-      createBy?: string;
+      faultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-开始图片
+       */
+      softwareStartPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机故障显示图片
+       */
+      softwareFaultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-结束图片
+       */
+      softwareEndPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      [k: string]: any;
+    } & {
+      /**
+       * 关联的工单 id
+       */
+      ticket?: string;
+      /**
+       * 车辆录入工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
+       */
+      status?: "CREATING" | "REJECTED" | "PENDING" | "PASSED";
+      /**
+       * 工单曾经被驳回
+       */
+      rejected?: boolean;
+      /**
+       * 驳回时间
+       */
+      rejectAt?: Date;
+      /**
+       * 驳回时间
+       */
+      rejectReason?: string;
+      /**
+       * 驳回人
+       */
+      rejectBy?: string;
+      /**
+       * 车辆是否报废
+       */
+      scrapped?: boolean;
+      /**
+       * CRM 订单号
+       */
+      crm?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -2583,6 +3558,1960 @@ declare global {
   }
   export interface DeleteVehicleRequest {
     vehicleId: string;
+  }
+  export interface CreateVehicleRecordRequest {
+    body: {
+      /**
+       * 车辆工单所属部门
+       */
+      ticketNs?: string;
+      /**
+       * 录入者
+       */
+      createBy?: string;
+      /**
+       * 终端用户
+       */
+      terminal?: string;
+      /**
+       * 车场
+       */
+      park?: string;
+      /**
+       * 购买日期
+       */
+      purchaseAt?: Date;
+      /**
+       * 上牌日期
+       */
+      plateAt?: Date;
+      /**
+       * 运营日期
+       */
+      operateAt?: Date;
+      /**
+       * 报废日期
+       */
+      retireAt?: Date;
+      /**
+       * 年份
+       */
+      year?: number;
+      /**
+       * 车辆行驶证
+       */
+      license?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 整车品牌
+       */
+      brands?: string;
+      /**
+       * 车牌号
+       */
+      plate?: string;
+      /**
+       * VIN号
+       */
+      vin?: string;
+      /**
+       * 车辆工号
+       */
+      jobNum?: string;
+      /**
+       * 车辆自编号
+       */
+      num?: string;
+      /**
+       * CATL项目名称
+       */
+      catl?: string;
+      /**
+       * 电池PN
+       */
+      batteryPN?: string;
+      /**
+       * 电池号
+       */
+      batteryNum?: string;
+      /**
+       * 电池产权
+       */
+      batteryPropRight?: string;
+      /**
+       * 功率
+       */
+      power?: number;
+      /**
+       * BMU硬件版本
+       */
+      bmuHardware?: string;
+      /**
+       * BMU软件版本
+       */
+      bmuSoftware?: string;
+      /**
+       * CSC硬件版本
+       */
+      cscHardware?: string;
+      /**
+       * CSC软件版本
+       */
+      cscSoftware?: string;
+      /**
+       * RDB
+       */
+      rdb?: string;
+      /**
+       * 备注
+       */
+      remark?: string;
+      /**
+       * 上位机软件图片
+       */
+      softwarePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 正面车头图片
+       */
+      frontPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 车辆铭牌图片
+       */
+      nameplatePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 车辆仪表图片
+       */
+      meterPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 电池号图片
+       */
+      batteryPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 其他图片
+       */
+      otherPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 故障部位图片
+       */
+      faultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-开始图片
+       */
+      softwareStartPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机故障显示图片
+       */
+      softwareFaultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-结束图片
+       */
+      softwareEndPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      [k: string]: any;
+    } & {
+      ticketNs: string;
+      createBy: string;
+    };
+  }
+  export interface CreateVehicleRecordResponse {
+    content?: {
+      /**
+       * 车辆工单所属部门
+       */
+      ticketNs?: string;
+      /**
+       * 录入者
+       */
+      createBy?: string;
+      /**
+       * 终端用户
+       */
+      terminal?: string;
+      /**
+       * 车场
+       */
+      park?: string;
+      /**
+       * 购买日期
+       */
+      purchaseAt?: Date;
+      /**
+       * 上牌日期
+       */
+      plateAt?: Date;
+      /**
+       * 运营日期
+       */
+      operateAt?: Date;
+      /**
+       * 报废日期
+       */
+      retireAt?: Date;
+      /**
+       * 年份
+       */
+      year?: number;
+      /**
+       * 车辆行驶证
+       */
+      license?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 整车品牌
+       */
+      brands?: string;
+      /**
+       * 车牌号
+       */
+      plate?: string;
+      /**
+       * VIN号
+       */
+      vin?: string;
+      /**
+       * 车辆工号
+       */
+      jobNum?: string;
+      /**
+       * 车辆自编号
+       */
+      num?: string;
+      /**
+       * CATL项目名称
+       */
+      catl?: string;
+      /**
+       * 电池PN
+       */
+      batteryPN?: string;
+      /**
+       * 电池号
+       */
+      batteryNum?: string;
+      /**
+       * 电池产权
+       */
+      batteryPropRight?: string;
+      /**
+       * 功率
+       */
+      power?: number;
+      /**
+       * BMU硬件版本
+       */
+      bmuHardware?: string;
+      /**
+       * BMU软件版本
+       */
+      bmuSoftware?: string;
+      /**
+       * CSC硬件版本
+       */
+      cscHardware?: string;
+      /**
+       * CSC软件版本
+       */
+      cscSoftware?: string;
+      /**
+       * RDB
+       */
+      rdb?: string;
+      /**
+       * 备注
+       */
+      remark?: string;
+      /**
+       * 上位机软件图片
+       */
+      softwarePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 正面车头图片
+       */
+      frontPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 车辆铭牌图片
+       */
+      nameplatePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 车辆仪表图片
+       */
+      meterPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 电池号图片
+       */
+      batteryPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 其他图片
+       */
+      otherPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 故障部位图片
+       */
+      faultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-开始图片
+       */
+      softwareStartPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机故障显示图片
+       */
+      softwareFaultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-结束图片
+       */
+      softwareEndPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      [k: string]: any;
+    } & {
+      /**
+       * 关联的工单 id
+       */
+      ticket?: string;
+      /**
+       * 车辆录入工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
+       */
+      status?: "CREATING" | "REJECTED" | "PENDING" | "PASSED";
+      /**
+       * 工单曾经被驳回
+       */
+      rejected?: boolean;
+      /**
+       * 驳回时间
+       */
+      rejectAt?: Date;
+      /**
+       * 驳回时间
+       */
+      rejectReason?: string;
+      /**
+       * 驳回人
+       */
+      rejectBy?: string;
+      /**
+       * 车辆是否报废
+       */
+      scrapped?: boolean;
+      /**
+       * CRM 订单号
+       */
+      crm?: string;
+    } & {
+      id: string;
+      updateAt?: Date;
+      updateBy?: string;
+      createAt?: Date;
+      createBy?: string;
+    };
+  }
+  export interface UpdateVehicleRecordRequest {
+    vehicleId: string;
+    body: {
+      /**
+       * 车辆工单所属部门
+       */
+      ticketNs?: string;
+      /**
+       * 录入者
+       */
+      createBy?: string;
+      /**
+       * 终端用户
+       */
+      terminal?: string;
+      /**
+       * 车场
+       */
+      park?: string;
+      /**
+       * 购买日期
+       */
+      purchaseAt?: Date;
+      /**
+       * 上牌日期
+       */
+      plateAt?: Date;
+      /**
+       * 运营日期
+       */
+      operateAt?: Date;
+      /**
+       * 报废日期
+       */
+      retireAt?: Date;
+      /**
+       * 年份
+       */
+      year?: number;
+      /**
+       * 车辆行驶证
+       */
+      license?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 整车品牌
+       */
+      brands?: string;
+      /**
+       * 车牌号
+       */
+      plate?: string;
+      /**
+       * VIN号
+       */
+      vin?: string;
+      /**
+       * 车辆工号
+       */
+      jobNum?: string;
+      /**
+       * 车辆自编号
+       */
+      num?: string;
+      /**
+       * CATL项目名称
+       */
+      catl?: string;
+      /**
+       * 电池PN
+       */
+      batteryPN?: string;
+      /**
+       * 电池号
+       */
+      batteryNum?: string;
+      /**
+       * 电池产权
+       */
+      batteryPropRight?: string;
+      /**
+       * 功率
+       */
+      power?: number;
+      /**
+       * BMU硬件版本
+       */
+      bmuHardware?: string;
+      /**
+       * BMU软件版本
+       */
+      bmuSoftware?: string;
+      /**
+       * CSC硬件版本
+       */
+      cscHardware?: string;
+      /**
+       * CSC软件版本
+       */
+      cscSoftware?: string;
+      /**
+       * RDB
+       */
+      rdb?: string;
+      /**
+       * 备注
+       */
+      remark?: string;
+      /**
+       * 上位机软件图片
+       */
+      softwarePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 正面车头图片
+       */
+      frontPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 车辆铭牌图片
+       */
+      nameplatePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 车辆仪表图片
+       */
+      meterPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 电池号图片
+       */
+      batteryPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 其他图片
+       */
+      otherPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 故障部位图片
+       */
+      faultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-开始图片
+       */
+      softwareStartPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机故障显示图片
+       */
+      softwareFaultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-结束图片
+       */
+      softwareEndPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      [k: string]: any;
+    };
+  }
+  export interface UpdateVehicleRecordResponse {
+    content?: {
+      /**
+       * 车辆工单所属部门
+       */
+      ticketNs?: string;
+      /**
+       * 录入者
+       */
+      createBy?: string;
+      /**
+       * 终端用户
+       */
+      terminal?: string;
+      /**
+       * 车场
+       */
+      park?: string;
+      /**
+       * 购买日期
+       */
+      purchaseAt?: Date;
+      /**
+       * 上牌日期
+       */
+      plateAt?: Date;
+      /**
+       * 运营日期
+       */
+      operateAt?: Date;
+      /**
+       * 报废日期
+       */
+      retireAt?: Date;
+      /**
+       * 年份
+       */
+      year?: number;
+      /**
+       * 车辆行驶证
+       */
+      license?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 整车品牌
+       */
+      brands?: string;
+      /**
+       * 车牌号
+       */
+      plate?: string;
+      /**
+       * VIN号
+       */
+      vin?: string;
+      /**
+       * 车辆工号
+       */
+      jobNum?: string;
+      /**
+       * 车辆自编号
+       */
+      num?: string;
+      /**
+       * CATL项目名称
+       */
+      catl?: string;
+      /**
+       * 电池PN
+       */
+      batteryPN?: string;
+      /**
+       * 电池号
+       */
+      batteryNum?: string;
+      /**
+       * 电池产权
+       */
+      batteryPropRight?: string;
+      /**
+       * 功率
+       */
+      power?: number;
+      /**
+       * BMU硬件版本
+       */
+      bmuHardware?: string;
+      /**
+       * BMU软件版本
+       */
+      bmuSoftware?: string;
+      /**
+       * CSC硬件版本
+       */
+      cscHardware?: string;
+      /**
+       * CSC软件版本
+       */
+      cscSoftware?: string;
+      /**
+       * RDB
+       */
+      rdb?: string;
+      /**
+       * 备注
+       */
+      remark?: string;
+      /**
+       * 上位机软件图片
+       */
+      softwarePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 正面车头图片
+       */
+      frontPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 车辆铭牌图片
+       */
+      nameplatePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 车辆仪表图片
+       */
+      meterPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 电池号图片
+       */
+      batteryPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 其他图片
+       */
+      otherPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 故障部位图片
+       */
+      faultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-开始图片
+       */
+      softwareStartPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机故障显示图片
+       */
+      softwareFaultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-结束图片
+       */
+      softwareEndPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      [k: string]: any;
+    } & {
+      /**
+       * 关联的工单 id
+       */
+      ticket?: string;
+      /**
+       * 车辆录入工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
+       */
+      status?: "CREATING" | "REJECTED" | "PENDING" | "PASSED";
+      /**
+       * 工单曾经被驳回
+       */
+      rejected?: boolean;
+      /**
+       * 驳回时间
+       */
+      rejectAt?: Date;
+      /**
+       * 驳回时间
+       */
+      rejectReason?: string;
+      /**
+       * 驳回人
+       */
+      rejectBy?: string;
+      /**
+       * 车辆是否报废
+       */
+      scrapped?: boolean;
+      /**
+       * CRM 订单号
+       */
+      crm?: string;
+    } & {
+      id: string;
+      updateAt?: Date;
+      updateBy?: string;
+      createAt?: Date;
+      createBy?: string;
+    };
   }
   export interface ListVehicleAlertsRequest {
     query?: {
@@ -2628,48 +5557,39 @@ declare global {
     };
   }
   export interface CreateRepairRequest {
-    /**
-     * 维修单创建信息
-     */
     body: {
-      maintain?: string;
-      vehicle: string;
-      plate: string;
-      vin: string;
-      address: string;
-      reporter?: string;
-      reporterPhone?: string;
-      problem?: string;
-      /**
-       * 派工人员 id
-       */
-      assignee: string;
-      /**
-       * 派送时间
-       */
-      assignAt: Date;
       /**
        * 创建者
        */
-      createBy: string;
-      ticket?: string;
-      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
-    };
-  }
-  export interface CreateRepairResponse {
-    content?: {
+      createBy?: string;
       /**
-       * 关联的工单 id
+       * 维修单所属部门
        */
-      ticket?: string;
-      /**
-       * 维修单工单状态
-       */
-      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
+      ticketNs?: string;
       /**
        * 工单曾经被驳回
        */
       rejected?: boolean;
+      /**
+       * 驳回时间
+       */
+      rejectAt?: Date;
+      /**
+       * 驳回时间
+       */
+      rejectReason?: string;
+      /**
+       * 驳回人
+       */
+      rejectBy?: string;
+      /**
+       * 曾经是否超时
+       */
+      resubmitTimedOut?: boolean;
+      /**
+       * 驳回后再次提交审核的截止日期
+       */
+      resubmitDeadline?: Date;
       /**
        * CRM 订单号
        */
@@ -2681,11 +5601,31 @@ declare global {
       /**
        * 关联车辆车牌
        */
-      plate?: string;
+      vehiclePlate?: string;
       /**
        * 关联车辆vin码
        */
-      vin?: string;
+      vehicleVin?: string;
+      /**
+       * 关联车辆自编号
+       */
+      vehicleNo?: string;
+      /**
+       * 关联车辆品牌
+       */
+      vehicleBrands?: string;
+      /**
+       * 关联车辆终端用户
+       */
+      vehicleTerminal?: string;
+      /**
+       * 关联车辆停保场
+       */
+      vehiclePark?: string;
+      /**
+       * 关联车辆是否退役
+       */
+      vehicleScrapped?: boolean;
       /**
        * 故障地点
        */
@@ -2695,13 +5635,25 @@ declare global {
        */
       reporter?: string;
       /**
+       * 报修时间
+       */
+      reportAt?: Date;
+      /**
        * 报修人联系方式
        */
       reporterPhone?: string;
       /**
+       * 报修人职称
+       */
+      reporterPosition?: string;
+      /**
        * 问题描述
        */
       problem?: string;
+      /**
+       * 关联维修单id
+       */
+      maintain?: string;
       /**
        * 派工人员 id
        */
@@ -2718,25 +5670,82 @@ declare global {
        * 维修单维修记录
        */
       record?: {
-        signAddress: string;
-        arrivalAt: Date;
-        mileages: string;
-        routeMap?: string;
-        faultCell: string;
-        workHours: string;
-        failReason: string;
-        processMethod: string;
-        faultAttr: string;
-        faultMode: string;
+        /**
+         * 车辆里程数
+         */
+        mileages?: number;
+        /**
+         * 容量数据
+         */
+        soc?: string;
+        /**
+         * 签到地址
+         */
+        signAddress?: string;
+        /**
+         * 到场时间
+         */
+        arrivalAt?: Date;
+        /**
+         * 提交时间
+         */
+        submitAt?: Date;
+        /**
+         * 提交人
+         */
+        submitBy?: string;
+        /**
+         * 故障元件
+         */
+        faultCells?: string[];
+        /**
+         * 工时
+         */
+        workHours?: number;
+        /**
+         * 失效原因
+         */
+        failReason?: string;
+        /**
+         * 处理方式
+         */
+        processMethod?: string;
+        /**
+         * 故障属性
+         */
+        faultAttr?: string;
+        /**
+         * 故障模式分类
+         */
+        faultMode?: string;
+        /**
+         * 备件
+         */
         backups?: {
+          /**
+           * id
+           */
+          _id?: string;
           /**
            * 物料号
            */
           itemNo?: string;
           /**
+           * 物料名称
+           */
+          name?: string;
+          /**
+           * 物流编号
+           */
+          flowNo?: string;
+          /**
+           * 物流费
+           */
+          flowPrice?: number;
+          /**
            * 单价
            */
-          unitPrice?: string;
+          unitPrice?: number;
           /**
            * 数量
            */
@@ -2745,19 +5754,452 @@ declare global {
            * 是否收费
            */
           free?: boolean;
+          /**
+           * 新件barcode
+           */
+          newBarcode?: string;
+          /**
+           * 旧件barcode
+           */
+          oldBarcode?: string;
         }[];
-        livePic: string[];
-        resultDesc: string;
-        softwarePic: string[];
-        frontPic: string[];
-        nameplatePic: string[];
-        meterPic: string[];
-        batteryPic: string[];
-        otherPic?: string[];
-        dataFile?: string;
-        otherCost?: string;
+        /**
+         * 客户的故障描述
+         */
+        clientDesc?: string;
+        /**
+         * 客户反馈
+         */
+        clientOrigin?: string;
+        /**
+         * 己方的故障描述, 检查过程
+         */
+        ownDesc?: string;
+        /**
+         * 现场图片
+         */
+        livePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 处理结果描述
+         */
+        resultDesc?: string;
+        /**
+         * 上位机图片
+         */
+        softwarePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 车头正面图片
+         */
+        frontPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 整车铭牌图片
+         */
+        nameplatePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 仪表图片
+         */
+        meterPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 电池号图片
+         */
+        batteryPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 其他图片
+         */
+        otherPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 故障部位图片
+         */
+        faultPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-开始图片
+         */
+        softwareStartPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机故障显示图片
+         */
+        softwareFaultPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-结束图片
+         */
+        softwareEndPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 采集数据文件
+         */
+        dataFile?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 其他花费
+         */
+        otherCost?: number;
+        /**
+         * 备注
+         */
         remark?: string;
-        workers: {
+        /**
+         * bmu软件版本
+         */
+        bmuSoftware?: string;
+        /**
+         * csc软件版本
+         */
+        cscSoftware?: string;
+        /**
+         * 审核通过后是否同步软件信息到车辆
+         */
+        syncSoftware?: boolean;
+        workers?: {
+          /**
+           * id
+           */
+          _id?: string;
           /**
            * 关联 user id
            */
@@ -2765,24 +6207,802 @@ declare global {
           /**
            * 出工里程
            */
-          mileages?: string;
+          mileages?: number;
           /**
            * 工作量
            */
-          Workload?: number;
+          workload?: number;
+          /**
+           * 线路图
+           */
+          linePic?: {
+            /**
+             * 原始文件名
+             */
+            name?: string;
+            /**
+             * oss上的文件名
+             */
+            ossName?: string;
+            /**
+             * 备注
+             */
+            remark?: string;
+            /**
+             * 文件大小
+             */
+            size?: number;
+            /**
+             * 上传状态
+             */
+            status?: string;
+            /**
+             * uid
+             */
+            uid?: string;
+            /**
+             * url
+             */
+            url?: string;
+          };
         }[];
-        pauseReason?: string;
-        status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
       };
+      /**
+       * 共同出工人id数组
+       */
+      collaborators?: string[];
       /**
        * 暂停原因
        */
       pauseReason?: string;
       /**
+       * 提交时间
+       */
+      submitAt?: Date;
+      /**
+       * 提交人
+       */
+      submitBy?: string;
+      /**
+       * 工时计算公式
+       */
+      workHoursCalc?: string;
+      /**
+       * 工时
+       */
+      workHours?: number;
+    } & {
+      createBy: string;
+      ticketNs: string;
+      vehicle: string;
+      assignee: string;
+      assignAt: Date;
+    };
+  }
+  export interface CreateRepairResponse {
+    content?: {
+      /**
+       * 创建者
+       */
+      createBy?: string;
+      /**
+       * 维修单所属部门
+       */
+      ticketNs?: string;
+      /**
+       * 工单曾经被驳回
+       */
+      rejected?: boolean;
+      /**
+       * 驳回时间
+       */
+      rejectAt?: Date;
+      /**
+       * 驳回时间
+       */
+      rejectReason?: string;
+      /**
+       * 驳回人
+       */
+      rejectBy?: string;
+      /**
+       * 曾经是否超时
+       */
+      resubmitTimedOut?: boolean;
+      /**
+       * 驳回后再次提交审核的截止日期
+       */
+      resubmitDeadline?: Date;
+      /**
+       * CRM 订单号
+       */
+      crm?: string;
+      /**
+       * 关联车辆 id
+       */
+      vehicle?: string;
+      /**
+       * 关联车辆车牌
+       */
+      vehiclePlate?: string;
+      /**
+       * 关联车辆vin码
+       */
+      vehicleVin?: string;
+      /**
+       * 关联车辆自编号
+       */
+      vehicleNo?: string;
+      /**
+       * 关联车辆品牌
+       */
+      vehicleBrands?: string;
+      /**
+       * 关联车辆终端用户
+       */
+      vehicleTerminal?: string;
+      /**
+       * 关联车辆停保场
+       */
+      vehiclePark?: string;
+      /**
+       * 关联车辆是否退役
+       */
+      vehicleScrapped?: boolean;
+      /**
+       * 故障地点
+       */
+      address?: string;
+      /**
+       * 报修人姓名
+       */
+      reporter?: string;
+      /**
+       * 报修时间
+       */
+      reportAt?: Date;
+      /**
+       * 报修人联系方式
+       */
+      reporterPhone?: string;
+      /**
+       * 报修人职称
+       */
+      reporterPosition?: string;
+      /**
+       * 问题描述
+       */
+      problem?: string;
+      /**
        * 关联维修单id
        */
       maintain?: string;
-      createBy?: string;
+      /**
+       * 派工人员 id
+       */
+      assignee?: string;
+      /**
+       * 派送时间
+       */
+      assignAt?: Date;
+      /**
+       * 完工时间
+       */
+      closeAt?: Date;
+      /**
+       * 维修单维修记录
+       */
+      record?: {
+        /**
+         * 车辆里程数
+         */
+        mileages?: number;
+        /**
+         * 容量数据
+         */
+        soc?: string;
+        /**
+         * 签到地址
+         */
+        signAddress?: string;
+        /**
+         * 到场时间
+         */
+        arrivalAt?: Date;
+        /**
+         * 提交时间
+         */
+        submitAt?: Date;
+        /**
+         * 提交人
+         */
+        submitBy?: string;
+        /**
+         * 故障元件
+         */
+        faultCells?: string[];
+        /**
+         * 工时
+         */
+        workHours?: number;
+        /**
+         * 失效原因
+         */
+        failReason?: string;
+        /**
+         * 处理方式
+         */
+        processMethod?: string;
+        /**
+         * 故障属性
+         */
+        faultAttr?: string;
+        /**
+         * 故障模式分类
+         */
+        faultMode?: string;
+        /**
+         * 备件
+         */
+        backups?: {
+          /**
+           * id
+           */
+          _id?: string;
+          /**
+           * 物料号
+           */
+          itemNo?: string;
+          /**
+           * 物料名称
+           */
+          name?: string;
+          /**
+           * 物流编号
+           */
+          flowNo?: string;
+          /**
+           * 物流费
+           */
+          flowPrice?: number;
+          /**
+           * 单价
+           */
+          unitPrice?: number;
+          /**
+           * 数量
+           */
+          quantity?: number;
+          /**
+           * 是否收费
+           */
+          free?: boolean;
+          /**
+           * 新件barcode
+           */
+          newBarcode?: string;
+          /**
+           * 旧件barcode
+           */
+          oldBarcode?: string;
+        }[];
+        /**
+         * 客户的故障描述
+         */
+        clientDesc?: string;
+        /**
+         * 客户反馈
+         */
+        clientOrigin?: string;
+        /**
+         * 己方的故障描述, 检查过程
+         */
+        ownDesc?: string;
+        /**
+         * 现场图片
+         */
+        livePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 处理结果描述
+         */
+        resultDesc?: string;
+        /**
+         * 上位机图片
+         */
+        softwarePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 车头正面图片
+         */
+        frontPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 整车铭牌图片
+         */
+        nameplatePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 仪表图片
+         */
+        meterPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 电池号图片
+         */
+        batteryPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 其他图片
+         */
+        otherPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 故障部位图片
+         */
+        faultPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-开始图片
+         */
+        softwareStartPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机故障显示图片
+         */
+        softwareFaultPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-结束图片
+         */
+        softwareEndPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 采集数据文件
+         */
+        dataFile?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 其他花费
+         */
+        otherCost?: number;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * bmu软件版本
+         */
+        bmuSoftware?: string;
+        /**
+         * csc软件版本
+         */
+        cscSoftware?: string;
+        /**
+         * 审核通过后是否同步软件信息到车辆
+         */
+        syncSoftware?: boolean;
+        workers?: {
+          /**
+           * id
+           */
+          _id?: string;
+          /**
+           * 关联 user id
+           */
+          user?: string;
+          /**
+           * 出工里程
+           */
+          mileages?: number;
+          /**
+           * 工作量
+           */
+          workload?: number;
+          /**
+           * 线路图
+           */
+          linePic?: {
+            /**
+             * 原始文件名
+             */
+            name?: string;
+            /**
+             * oss上的文件名
+             */
+            ossName?: string;
+            /**
+             * 备注
+             */
+            remark?: string;
+            /**
+             * 文件大小
+             */
+            size?: number;
+            /**
+             * 上传状态
+             */
+            status?: string;
+            /**
+             * uid
+             */
+            uid?: string;
+            /**
+             * url
+             */
+            url?: string;
+          };
+        }[];
+      };
+      /**
+       * 共同出工人id数组
+       */
+      collaborators?: string[];
+      /**
+       * 暂停原因
+       */
+      pauseReason?: string;
+      /**
+       * 提交时间
+       */
+      submitAt?: Date;
+      /**
+       * 提交人
+       */
+      submitBy?: string;
+      /**
+       * 工时计算公式
+       */
+      workHoursCalc?: string;
+      /**
+       * 工时
+       */
+      workHours?: number;
+    } & {
+      /**
+       * 关联的工单 id
+       */
+      ticket?: string;
+      /**
+       * 维修单工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
+       */
+      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
     } & {
       id: string;
       updateAt?: Date;
@@ -2797,38 +7017,59 @@ declare global {
       _offset?: number;
       _sort?: string;
       _select?: string[];
-      id_like?: string;
+      id?: string;
       status?:
-        | "CREATING"
-        | "FILLING"
-        | "DELIVERED"
-        | "REPARING"
-        | "REPARED"
-        | "PAUSING"
-        | "PENDING"
-        | "PASSED";
-      createAt_gt?: Date;
-      createAt_lt?: Date;
-      dispatchWorker_like?: string;
-      plate_like?: string;
+        | ("CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED")
+        | ("CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED")[];
+      createAt_gte?: Date;
+      createAt_lte?: Date;
+      assignee?: string;
+      vehiclePlate_like?: string;
       crm_like?: string;
-      vin_like?: string;
+      vehicleVin_like?: string;
+      ticketNs?: string;
+      ticketNs_like?: string;
+      collaborators?: string;
+      participant?: string;
+      vehicleBrands?: string | string[];
+      vehicleTerminal?: string | string[];
+      vehicleScrapped?: boolean | boolean[];
     };
   }
   export interface ListRepairsResponse {
     content?: ({
       /**
-       * 关联的工单 id
+       * 创建者
        */
-      ticket?: string;
+      createBy?: string;
       /**
-       * 维修单工单状态
+       * 维修单所属部门
        */
-      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
+      ticketNs?: string;
       /**
        * 工单曾经被驳回
        */
       rejected?: boolean;
+      /**
+       * 驳回时间
+       */
+      rejectAt?: Date;
+      /**
+       * 驳回时间
+       */
+      rejectReason?: string;
+      /**
+       * 驳回人
+       */
+      rejectBy?: string;
+      /**
+       * 曾经是否超时
+       */
+      resubmitTimedOut?: boolean;
+      /**
+       * 驳回后再次提交审核的截止日期
+       */
+      resubmitDeadline?: Date;
       /**
        * CRM 订单号
        */
@@ -2840,11 +7081,31 @@ declare global {
       /**
        * 关联车辆车牌
        */
-      plate?: string;
+      vehiclePlate?: string;
       /**
        * 关联车辆vin码
        */
-      vin?: string;
+      vehicleVin?: string;
+      /**
+       * 关联车辆自编号
+       */
+      vehicleNo?: string;
+      /**
+       * 关联车辆品牌
+       */
+      vehicleBrands?: string;
+      /**
+       * 关联车辆终端用户
+       */
+      vehicleTerminal?: string;
+      /**
+       * 关联车辆停保场
+       */
+      vehiclePark?: string;
+      /**
+       * 关联车辆是否退役
+       */
+      vehicleScrapped?: boolean;
       /**
        * 故障地点
        */
@@ -2854,13 +7115,25 @@ declare global {
        */
       reporter?: string;
       /**
+       * 报修时间
+       */
+      reportAt?: Date;
+      /**
        * 报修人联系方式
        */
       reporterPhone?: string;
       /**
+       * 报修人职称
+       */
+      reporterPosition?: string;
+      /**
        * 问题描述
        */
       problem?: string;
+      /**
+       * 关联维修单id
+       */
+      maintain?: string;
       /**
        * 派工人员 id
        */
@@ -2877,25 +7150,82 @@ declare global {
        * 维修单维修记录
        */
       record?: {
-        signAddress: string;
-        arrivalAt: Date;
-        mileages: string;
-        routeMap?: string;
-        faultCell: string;
-        workHours: string;
-        failReason: string;
-        processMethod: string;
-        faultAttr: string;
-        faultMode: string;
+        /**
+         * 车辆里程数
+         */
+        mileages?: number;
+        /**
+         * 容量数据
+         */
+        soc?: string;
+        /**
+         * 签到地址
+         */
+        signAddress?: string;
+        /**
+         * 到场时间
+         */
+        arrivalAt?: Date;
+        /**
+         * 提交时间
+         */
+        submitAt?: Date;
+        /**
+         * 提交人
+         */
+        submitBy?: string;
+        /**
+         * 故障元件
+         */
+        faultCells?: string[];
+        /**
+         * 工时
+         */
+        workHours?: number;
+        /**
+         * 失效原因
+         */
+        failReason?: string;
+        /**
+         * 处理方式
+         */
+        processMethod?: string;
+        /**
+         * 故障属性
+         */
+        faultAttr?: string;
+        /**
+         * 故障模式分类
+         */
+        faultMode?: string;
+        /**
+         * 备件
+         */
         backups?: {
+          /**
+           * id
+           */
+          _id?: string;
           /**
            * 物料号
            */
           itemNo?: string;
           /**
+           * 物料名称
+           */
+          name?: string;
+          /**
+           * 物流编号
+           */
+          flowNo?: string;
+          /**
+           * 物流费
+           */
+          flowPrice?: number;
+          /**
            * 单价
            */
-          unitPrice?: string;
+          unitPrice?: number;
           /**
            * 数量
            */
@@ -2904,19 +7234,452 @@ declare global {
            * 是否收费
            */
           free?: boolean;
+          /**
+           * 新件barcode
+           */
+          newBarcode?: string;
+          /**
+           * 旧件barcode
+           */
+          oldBarcode?: string;
         }[];
-        livePic: string[];
-        resultDesc: string;
-        softwarePic: string[];
-        frontPic: string[];
-        nameplatePic: string[];
-        meterPic: string[];
-        batteryPic: string[];
-        otherPic?: string[];
-        dataFile?: string;
-        otherCost?: string;
+        /**
+         * 客户的故障描述
+         */
+        clientDesc?: string;
+        /**
+         * 客户反馈
+         */
+        clientOrigin?: string;
+        /**
+         * 己方的故障描述, 检查过程
+         */
+        ownDesc?: string;
+        /**
+         * 现场图片
+         */
+        livePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 处理结果描述
+         */
+        resultDesc?: string;
+        /**
+         * 上位机图片
+         */
+        softwarePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 车头正面图片
+         */
+        frontPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 整车铭牌图片
+         */
+        nameplatePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 仪表图片
+         */
+        meterPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 电池号图片
+         */
+        batteryPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 其他图片
+         */
+        otherPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 故障部位图片
+         */
+        faultPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-开始图片
+         */
+        softwareStartPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机故障显示图片
+         */
+        softwareFaultPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-结束图片
+         */
+        softwareEndPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 采集数据文件
+         */
+        dataFile?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 其他花费
+         */
+        otherCost?: number;
+        /**
+         * 备注
+         */
         remark?: string;
-        workers: {
+        /**
+         * bmu软件版本
+         */
+        bmuSoftware?: string;
+        /**
+         * csc软件版本
+         */
+        cscSoftware?: string;
+        /**
+         * 审核通过后是否同步软件信息到车辆
+         */
+        syncSoftware?: boolean;
+        workers?: {
+          /**
+           * id
+           */
+          _id?: string;
           /**
            * 关联 user id
            */
@@ -2924,24 +7687,79 @@ declare global {
           /**
            * 出工里程
            */
-          mileages?: string;
+          mileages?: number;
           /**
            * 工作量
            */
-          Workload?: number;
+          workload?: number;
+          /**
+           * 线路图
+           */
+          linePic?: {
+            /**
+             * 原始文件名
+             */
+            name?: string;
+            /**
+             * oss上的文件名
+             */
+            ossName?: string;
+            /**
+             * 备注
+             */
+            remark?: string;
+            /**
+             * 文件大小
+             */
+            size?: number;
+            /**
+             * 上传状态
+             */
+            status?: string;
+            /**
+             * uid
+             */
+            uid?: string;
+            /**
+             * url
+             */
+            url?: string;
+          };
         }[];
-        pauseReason?: string;
-        status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
       };
+      /**
+       * 共同出工人id数组
+       */
+      collaborators?: string[];
       /**
        * 暂停原因
        */
       pauseReason?: string;
       /**
-       * 关联维修单id
+       * 提交时间
        */
-      maintain?: string;
-      createBy?: string;
+      submitAt?: Date;
+      /**
+       * 提交人
+       */
+      submitBy?: string;
+      /**
+       * 工时计算公式
+       */
+      workHoursCalc?: string;
+      /**
+       * 工时
+       */
+      workHours?: number;
+    } & {
+      /**
+       * 关联的工单 id
+       */
+      ticket?: string;
+      /**
+       * 维修单工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
+       */
+      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
     } & {
       id: string;
       updateAt?: Date;
@@ -2959,17 +7777,37 @@ declare global {
   export interface GetRepairResponse {
     content?: {
       /**
-       * 关联的工单 id
+       * 创建者
        */
-      ticket?: string;
+      createBy?: string;
       /**
-       * 维修单工单状态
+       * 维修单所属部门
        */
-      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
+      ticketNs?: string;
       /**
        * 工单曾经被驳回
        */
       rejected?: boolean;
+      /**
+       * 驳回时间
+       */
+      rejectAt?: Date;
+      /**
+       * 驳回时间
+       */
+      rejectReason?: string;
+      /**
+       * 驳回人
+       */
+      rejectBy?: string;
+      /**
+       * 曾经是否超时
+       */
+      resubmitTimedOut?: boolean;
+      /**
+       * 驳回后再次提交审核的截止日期
+       */
+      resubmitDeadline?: Date;
       /**
        * CRM 订单号
        */
@@ -2981,11 +7819,31 @@ declare global {
       /**
        * 关联车辆车牌
        */
-      plate?: string;
+      vehiclePlate?: string;
       /**
        * 关联车辆vin码
        */
-      vin?: string;
+      vehicleVin?: string;
+      /**
+       * 关联车辆自编号
+       */
+      vehicleNo?: string;
+      /**
+       * 关联车辆品牌
+       */
+      vehicleBrands?: string;
+      /**
+       * 关联车辆终端用户
+       */
+      vehicleTerminal?: string;
+      /**
+       * 关联车辆停保场
+       */
+      vehiclePark?: string;
+      /**
+       * 关联车辆是否退役
+       */
+      vehicleScrapped?: boolean;
       /**
        * 故障地点
        */
@@ -2995,13 +7853,25 @@ declare global {
        */
       reporter?: string;
       /**
+       * 报修时间
+       */
+      reportAt?: Date;
+      /**
        * 报修人联系方式
        */
       reporterPhone?: string;
       /**
+       * 报修人职称
+       */
+      reporterPosition?: string;
+      /**
        * 问题描述
        */
       problem?: string;
+      /**
+       * 关联维修单id
+       */
+      maintain?: string;
       /**
        * 派工人员 id
        */
@@ -3018,25 +7888,82 @@ declare global {
        * 维修单维修记录
        */
       record?: {
-        signAddress: string;
-        arrivalAt: Date;
-        mileages: string;
-        routeMap?: string;
-        faultCell: string;
-        workHours: string;
-        failReason: string;
-        processMethod: string;
-        faultAttr: string;
-        faultMode: string;
+        /**
+         * 车辆里程数
+         */
+        mileages?: number;
+        /**
+         * 容量数据
+         */
+        soc?: string;
+        /**
+         * 签到地址
+         */
+        signAddress?: string;
+        /**
+         * 到场时间
+         */
+        arrivalAt?: Date;
+        /**
+         * 提交时间
+         */
+        submitAt?: Date;
+        /**
+         * 提交人
+         */
+        submitBy?: string;
+        /**
+         * 故障元件
+         */
+        faultCells?: string[];
+        /**
+         * 工时
+         */
+        workHours?: number;
+        /**
+         * 失效原因
+         */
+        failReason?: string;
+        /**
+         * 处理方式
+         */
+        processMethod?: string;
+        /**
+         * 故障属性
+         */
+        faultAttr?: string;
+        /**
+         * 故障模式分类
+         */
+        faultMode?: string;
+        /**
+         * 备件
+         */
         backups?: {
+          /**
+           * id
+           */
+          _id?: string;
           /**
            * 物料号
            */
           itemNo?: string;
           /**
+           * 物料名称
+           */
+          name?: string;
+          /**
+           * 物流编号
+           */
+          flowNo?: string;
+          /**
+           * 物流费
+           */
+          flowPrice?: number;
+          /**
            * 单价
            */
-          unitPrice?: string;
+          unitPrice?: number;
           /**
            * 数量
            */
@@ -3045,19 +7972,452 @@ declare global {
            * 是否收费
            */
           free?: boolean;
+          /**
+           * 新件barcode
+           */
+          newBarcode?: string;
+          /**
+           * 旧件barcode
+           */
+          oldBarcode?: string;
         }[];
-        livePic: string[];
-        resultDesc: string;
-        softwarePic: string[];
-        frontPic: string[];
-        nameplatePic: string[];
-        meterPic: string[];
-        batteryPic: string[];
-        otherPic?: string[];
-        dataFile?: string;
-        otherCost?: string;
+        /**
+         * 客户的故障描述
+         */
+        clientDesc?: string;
+        /**
+         * 客户反馈
+         */
+        clientOrigin?: string;
+        /**
+         * 己方的故障描述, 检查过程
+         */
+        ownDesc?: string;
+        /**
+         * 现场图片
+         */
+        livePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 处理结果描述
+         */
+        resultDesc?: string;
+        /**
+         * 上位机图片
+         */
+        softwarePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 车头正面图片
+         */
+        frontPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 整车铭牌图片
+         */
+        nameplatePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 仪表图片
+         */
+        meterPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 电池号图片
+         */
+        batteryPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 其他图片
+         */
+        otherPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 故障部位图片
+         */
+        faultPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-开始图片
+         */
+        softwareStartPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机故障显示图片
+         */
+        softwareFaultPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-结束图片
+         */
+        softwareEndPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 采集数据文件
+         */
+        dataFile?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 其他花费
+         */
+        otherCost?: number;
+        /**
+         * 备注
+         */
         remark?: string;
-        workers: {
+        /**
+         * bmu软件版本
+         */
+        bmuSoftware?: string;
+        /**
+         * csc软件版本
+         */
+        cscSoftware?: string;
+        /**
+         * 审核通过后是否同步软件信息到车辆
+         */
+        syncSoftware?: boolean;
+        workers?: {
+          /**
+           * id
+           */
+          _id?: string;
           /**
            * 关联 user id
            */
@@ -3065,24 +8425,79 @@ declare global {
           /**
            * 出工里程
            */
-          mileages?: string;
+          mileages?: number;
           /**
            * 工作量
            */
-          Workload?: number;
+          workload?: number;
+          /**
+           * 线路图
+           */
+          linePic?: {
+            /**
+             * 原始文件名
+             */
+            name?: string;
+            /**
+             * oss上的文件名
+             */
+            ossName?: string;
+            /**
+             * 备注
+             */
+            remark?: string;
+            /**
+             * 文件大小
+             */
+            size?: number;
+            /**
+             * 上传状态
+             */
+            status?: string;
+            /**
+             * uid
+             */
+            uid?: string;
+            /**
+             * url
+             */
+            url?: string;
+          };
         }[];
-        pauseReason?: string;
-        status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
       };
+      /**
+       * 共同出工人id数组
+       */
+      collaborators?: string[];
       /**
        * 暂停原因
        */
       pauseReason?: string;
       /**
-       * 关联维修单id
+       * 提交时间
        */
-      maintain?: string;
-      createBy?: string;
+      submitAt?: Date;
+      /**
+       * 提交人
+       */
+      submitBy?: string;
+      /**
+       * 工时计算公式
+       */
+      workHoursCalc?: string;
+      /**
+       * 工时
+       */
+      workHours?: number;
+    } & {
+      /**
+       * 关联的工单 id
+       */
+      ticket?: string;
+      /**
+       * 维修单工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
+       */
+      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
     } & {
       id: string;
       updateAt?: Date;
@@ -3095,17 +8510,37 @@ declare global {
     repairId: string;
     body: {
       /**
-       * 关联的工单 id
+       * 创建者
        */
-      ticket?: string;
+      createBy?: string;
       /**
-       * 维修单工单状态
+       * 维修单所属部门
        */
-      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
+      ticketNs?: string;
       /**
        * 工单曾经被驳回
        */
       rejected?: boolean;
+      /**
+       * 驳回时间
+       */
+      rejectAt?: Date;
+      /**
+       * 驳回时间
+       */
+      rejectReason?: string;
+      /**
+       * 驳回人
+       */
+      rejectBy?: string;
+      /**
+       * 曾经是否超时
+       */
+      resubmitTimedOut?: boolean;
+      /**
+       * 驳回后再次提交审核的截止日期
+       */
+      resubmitDeadline?: Date;
       /**
        * CRM 订单号
        */
@@ -3117,11 +8552,31 @@ declare global {
       /**
        * 关联车辆车牌
        */
-      plate?: string;
+      vehiclePlate?: string;
       /**
        * 关联车辆vin码
        */
-      vin?: string;
+      vehicleVin?: string;
+      /**
+       * 关联车辆自编号
+       */
+      vehicleNo?: string;
+      /**
+       * 关联车辆品牌
+       */
+      vehicleBrands?: string;
+      /**
+       * 关联车辆终端用户
+       */
+      vehicleTerminal?: string;
+      /**
+       * 关联车辆停保场
+       */
+      vehiclePark?: string;
+      /**
+       * 关联车辆是否退役
+       */
+      vehicleScrapped?: boolean;
       /**
        * 故障地点
        */
@@ -3131,13 +8586,25 @@ declare global {
        */
       reporter?: string;
       /**
+       * 报修时间
+       */
+      reportAt?: Date;
+      /**
        * 报修人联系方式
        */
       reporterPhone?: string;
       /**
+       * 报修人职称
+       */
+      reporterPosition?: string;
+      /**
        * 问题描述
        */
       problem?: string;
+      /**
+       * 关联维修单id
+       */
+      maintain?: string;
       /**
        * 派工人员 id
        */
@@ -3154,25 +8621,82 @@ declare global {
        * 维修单维修记录
        */
       record?: {
-        signAddress: string;
-        arrivalAt: Date;
-        mileages: string;
-        routeMap?: string;
-        faultCell: string;
-        workHours: string;
-        failReason: string;
-        processMethod: string;
-        faultAttr: string;
-        faultMode: string;
+        /**
+         * 车辆里程数
+         */
+        mileages?: number;
+        /**
+         * 容量数据
+         */
+        soc?: string;
+        /**
+         * 签到地址
+         */
+        signAddress?: string;
+        /**
+         * 到场时间
+         */
+        arrivalAt?: Date;
+        /**
+         * 提交时间
+         */
+        submitAt?: Date;
+        /**
+         * 提交人
+         */
+        submitBy?: string;
+        /**
+         * 故障元件
+         */
+        faultCells?: string[];
+        /**
+         * 工时
+         */
+        workHours?: number;
+        /**
+         * 失效原因
+         */
+        failReason?: string;
+        /**
+         * 处理方式
+         */
+        processMethod?: string;
+        /**
+         * 故障属性
+         */
+        faultAttr?: string;
+        /**
+         * 故障模式分类
+         */
+        faultMode?: string;
+        /**
+         * 备件
+         */
         backups?: {
+          /**
+           * id
+           */
+          _id?: string;
           /**
            * 物料号
            */
           itemNo?: string;
           /**
+           * 物料名称
+           */
+          name?: string;
+          /**
+           * 物流编号
+           */
+          flowNo?: string;
+          /**
+           * 物流费
+           */
+          flowPrice?: number;
+          /**
            * 单价
            */
-          unitPrice?: string;
+          unitPrice?: number;
           /**
            * 数量
            */
@@ -3181,19 +8705,452 @@ declare global {
            * 是否收费
            */
           free?: boolean;
+          /**
+           * 新件barcode
+           */
+          newBarcode?: string;
+          /**
+           * 旧件barcode
+           */
+          oldBarcode?: string;
         }[];
-        livePic: string[];
-        resultDesc: string;
-        softwarePic: string[];
-        frontPic: string[];
-        nameplatePic: string[];
-        meterPic: string[];
-        batteryPic: string[];
-        otherPic?: string[];
-        dataFile?: string;
-        otherCost?: string;
+        /**
+         * 客户的故障描述
+         */
+        clientDesc?: string;
+        /**
+         * 客户反馈
+         */
+        clientOrigin?: string;
+        /**
+         * 己方的故障描述, 检查过程
+         */
+        ownDesc?: string;
+        /**
+         * 现场图片
+         */
+        livePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 处理结果描述
+         */
+        resultDesc?: string;
+        /**
+         * 上位机图片
+         */
+        softwarePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 车头正面图片
+         */
+        frontPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 整车铭牌图片
+         */
+        nameplatePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 仪表图片
+         */
+        meterPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 电池号图片
+         */
+        batteryPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 其他图片
+         */
+        otherPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 故障部位图片
+         */
+        faultPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-开始图片
+         */
+        softwareStartPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机故障显示图片
+         */
+        softwareFaultPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-结束图片
+         */
+        softwareEndPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 采集数据文件
+         */
+        dataFile?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 其他花费
+         */
+        otherCost?: number;
+        /**
+         * 备注
+         */
         remark?: string;
-        workers: {
+        /**
+         * bmu软件版本
+         */
+        bmuSoftware?: string;
+        /**
+         * csc软件版本
+         */
+        cscSoftware?: string;
+        /**
+         * 审核通过后是否同步软件信息到车辆
+         */
+        syncSoftware?: boolean;
+        workers?: {
+          /**
+           * id
+           */
+          _id?: string;
           /**
            * 关联 user id
            */
@@ -3201,40 +9158,115 @@ declare global {
           /**
            * 出工里程
            */
-          mileages?: string;
+          mileages?: number;
           /**
            * 工作量
            */
-          Workload?: number;
+          workload?: number;
+          /**
+           * 线路图
+           */
+          linePic?: {
+            /**
+             * 原始文件名
+             */
+            name?: string;
+            /**
+             * oss上的文件名
+             */
+            ossName?: string;
+            /**
+             * 备注
+             */
+            remark?: string;
+            /**
+             * 文件大小
+             */
+            size?: number;
+            /**
+             * 上传状态
+             */
+            status?: string;
+            /**
+             * uid
+             */
+            uid?: string;
+            /**
+             * url
+             */
+            url?: string;
+          };
         }[];
-        pauseReason?: string;
-        status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
       };
+      /**
+       * 共同出工人id数组
+       */
+      collaborators?: string[];
       /**
        * 暂停原因
        */
       pauseReason?: string;
       /**
-       * 关联维修单id
+       * 提交时间
        */
-      maintain?: string;
-      createBy?: string;
+      submitAt?: Date;
+      /**
+       * 提交人
+       */
+      submitBy?: string;
+      /**
+       * 工时计算公式
+       */
+      workHoursCalc?: string;
+      /**
+       * 工时
+       */
+      workHours?: number;
+    } & {
+      /**
+       * 关联的工单 id
+       */
+      ticket?: string;
+      /**
+       * 维修单工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
+       */
+      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
     };
   }
   export interface UpdateRepairResponse {
     content?: {
       /**
-       * 关联的工单 id
+       * 创建者
        */
-      ticket?: string;
+      createBy?: string;
       /**
-       * 维修单工单状态
+       * 维修单所属部门
        */
-      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
+      ticketNs?: string;
       /**
        * 工单曾经被驳回
        */
       rejected?: boolean;
+      /**
+       * 驳回时间
+       */
+      rejectAt?: Date;
+      /**
+       * 驳回时间
+       */
+      rejectReason?: string;
+      /**
+       * 驳回人
+       */
+      rejectBy?: string;
+      /**
+       * 曾经是否超时
+       */
+      resubmitTimedOut?: boolean;
+      /**
+       * 驳回后再次提交审核的截止日期
+       */
+      resubmitDeadline?: Date;
       /**
        * CRM 订单号
        */
@@ -3246,11 +9278,31 @@ declare global {
       /**
        * 关联车辆车牌
        */
-      plate?: string;
+      vehiclePlate?: string;
       /**
        * 关联车辆vin码
        */
-      vin?: string;
+      vehicleVin?: string;
+      /**
+       * 关联车辆自编号
+       */
+      vehicleNo?: string;
+      /**
+       * 关联车辆品牌
+       */
+      vehicleBrands?: string;
+      /**
+       * 关联车辆终端用户
+       */
+      vehicleTerminal?: string;
+      /**
+       * 关联车辆停保场
+       */
+      vehiclePark?: string;
+      /**
+       * 关联车辆是否退役
+       */
+      vehicleScrapped?: boolean;
       /**
        * 故障地点
        */
@@ -3260,13 +9312,25 @@ declare global {
        */
       reporter?: string;
       /**
+       * 报修时间
+       */
+      reportAt?: Date;
+      /**
        * 报修人联系方式
        */
       reporterPhone?: string;
       /**
+       * 报修人职称
+       */
+      reporterPosition?: string;
+      /**
        * 问题描述
        */
       problem?: string;
+      /**
+       * 关联维修单id
+       */
+      maintain?: string;
       /**
        * 派工人员 id
        */
@@ -3283,25 +9347,82 @@ declare global {
        * 维修单维修记录
        */
       record?: {
-        signAddress: string;
-        arrivalAt: Date;
-        mileages: string;
-        routeMap?: string;
-        faultCell: string;
-        workHours: string;
-        failReason: string;
-        processMethod: string;
-        faultAttr: string;
-        faultMode: string;
+        /**
+         * 车辆里程数
+         */
+        mileages?: number;
+        /**
+         * 容量数据
+         */
+        soc?: string;
+        /**
+         * 签到地址
+         */
+        signAddress?: string;
+        /**
+         * 到场时间
+         */
+        arrivalAt?: Date;
+        /**
+         * 提交时间
+         */
+        submitAt?: Date;
+        /**
+         * 提交人
+         */
+        submitBy?: string;
+        /**
+         * 故障元件
+         */
+        faultCells?: string[];
+        /**
+         * 工时
+         */
+        workHours?: number;
+        /**
+         * 失效原因
+         */
+        failReason?: string;
+        /**
+         * 处理方式
+         */
+        processMethod?: string;
+        /**
+         * 故障属性
+         */
+        faultAttr?: string;
+        /**
+         * 故障模式分类
+         */
+        faultMode?: string;
+        /**
+         * 备件
+         */
         backups?: {
+          /**
+           * id
+           */
+          _id?: string;
           /**
            * 物料号
            */
           itemNo?: string;
           /**
+           * 物料名称
+           */
+          name?: string;
+          /**
+           * 物流编号
+           */
+          flowNo?: string;
+          /**
+           * 物流费
+           */
+          flowPrice?: number;
+          /**
            * 单价
            */
-          unitPrice?: string;
+          unitPrice?: number;
           /**
            * 数量
            */
@@ -3310,19 +9431,452 @@ declare global {
            * 是否收费
            */
           free?: boolean;
+          /**
+           * 新件barcode
+           */
+          newBarcode?: string;
+          /**
+           * 旧件barcode
+           */
+          oldBarcode?: string;
         }[];
-        livePic: string[];
-        resultDesc: string;
-        softwarePic: string[];
-        frontPic: string[];
-        nameplatePic: string[];
-        meterPic: string[];
-        batteryPic: string[];
-        otherPic?: string[];
-        dataFile?: string;
-        otherCost?: string;
+        /**
+         * 客户的故障描述
+         */
+        clientDesc?: string;
+        /**
+         * 客户反馈
+         */
+        clientOrigin?: string;
+        /**
+         * 己方的故障描述, 检查过程
+         */
+        ownDesc?: string;
+        /**
+         * 现场图片
+         */
+        livePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 处理结果描述
+         */
+        resultDesc?: string;
+        /**
+         * 上位机图片
+         */
+        softwarePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 车头正面图片
+         */
+        frontPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 整车铭牌图片
+         */
+        nameplatePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 仪表图片
+         */
+        meterPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 电池号图片
+         */
+        batteryPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 其他图片
+         */
+        otherPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 故障部位图片
+         */
+        faultPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-开始图片
+         */
+        softwareStartPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机故障显示图片
+         */
+        softwareFaultPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-结束图片
+         */
+        softwareEndPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 采集数据文件
+         */
+        dataFile?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 其他花费
+         */
+        otherCost?: number;
+        /**
+         * 备注
+         */
         remark?: string;
-        workers: {
+        /**
+         * bmu软件版本
+         */
+        bmuSoftware?: string;
+        /**
+         * csc软件版本
+         */
+        cscSoftware?: string;
+        /**
+         * 审核通过后是否同步软件信息到车辆
+         */
+        syncSoftware?: boolean;
+        workers?: {
+          /**
+           * id
+           */
+          _id?: string;
           /**
            * 关联 user id
            */
@@ -3330,24 +9884,79 @@ declare global {
           /**
            * 出工里程
            */
-          mileages?: string;
+          mileages?: number;
           /**
            * 工作量
            */
-          Workload?: number;
+          workload?: number;
+          /**
+           * 线路图
+           */
+          linePic?: {
+            /**
+             * 原始文件名
+             */
+            name?: string;
+            /**
+             * oss上的文件名
+             */
+            ossName?: string;
+            /**
+             * 备注
+             */
+            remark?: string;
+            /**
+             * 文件大小
+             */
+            size?: number;
+            /**
+             * 上传状态
+             */
+            status?: string;
+            /**
+             * uid
+             */
+            uid?: string;
+            /**
+             * url
+             */
+            url?: string;
+          };
         }[];
-        pauseReason?: string;
-        status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
       };
+      /**
+       * 共同出工人id数组
+       */
+      collaborators?: string[];
       /**
        * 暂停原因
        */
       pauseReason?: string;
       /**
-       * 关联维修单id
+       * 提交时间
        */
-      maintain?: string;
-      createBy?: string;
+      submitAt?: Date;
+      /**
+       * 提交人
+       */
+      submitBy?: string;
+      /**
+       * 工时计算公式
+       */
+      workHoursCalc?: string;
+      /**
+       * 工时
+       */
+      workHours?: number;
+    } & {
+      /**
+       * 关联的工单 id
+       */
+      ticket?: string;
+      /**
+       * 维修单工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
+       */
+      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
     } & {
       id: string;
       updateAt?: Date;
@@ -3359,31 +9968,85 @@ declare global {
   export interface DeleteRepairRequest {
     repairId: string;
   }
-  export interface UpdateRecordRequest {
+  export interface UpdateRepairRecordRequest {
     repairId: string;
-    /**
-     * 维修单维修记录
-     */
     body: {
-      signAddress: string;
-      arrivalAt: Date;
-      mileages: string;
-      routeMap?: string;
-      faultCell: string;
-      workHours: string;
-      failReason: string;
-      processMethod: string;
-      faultAttr: string;
-      faultMode: string;
+      /**
+       * 车辆里程数
+       */
+      mileages?: number;
+      /**
+       * 容量数据
+       */
+      soc?: string;
+      /**
+       * 签到地址
+       */
+      signAddress?: string;
+      /**
+       * 到场时间
+       */
+      arrivalAt?: Date;
+      /**
+       * 提交时间
+       */
+      submitAt?: Date;
+      /**
+       * 提交人
+       */
+      submitBy?: string;
+      /**
+       * 故障元件
+       */
+      faultCells?: string[];
+      /**
+       * 工时
+       */
+      workHours?: number;
+      /**
+       * 失效原因
+       */
+      failReason?: string;
+      /**
+       * 处理方式
+       */
+      processMethod?: string;
+      /**
+       * 故障属性
+       */
+      faultAttr?: string;
+      /**
+       * 故障模式分类
+       */
+      faultMode?: string;
+      /**
+       * 备件
+       */
       backups?: {
+        /**
+         * id
+         */
+        _id?: string;
         /**
          * 物料号
          */
         itemNo?: string;
         /**
+         * 物料名称
+         */
+        name?: string;
+        /**
+         * 物流编号
+         */
+        flowNo?: string;
+        /**
+         * 物流费
+         */
+        flowPrice?: number;
+        /**
          * 单价
          */
-        unitPrice?: string;
+        unitPrice?: number;
         /**
          * 数量
          */
@@ -3392,19 +10055,452 @@ declare global {
          * 是否收费
          */
         free?: boolean;
+        /**
+         * 新件barcode
+         */
+        newBarcode?: string;
+        /**
+         * 旧件barcode
+         */
+        oldBarcode?: string;
       }[];
-      livePic: string[];
-      resultDesc: string;
-      softwarePic: string[];
-      frontPic: string[];
-      nameplatePic: string[];
-      meterPic: string[];
-      batteryPic: string[];
-      otherPic?: string[];
-      dataFile?: string;
-      otherCost?: string;
+      /**
+       * 客户的故障描述
+       */
+      clientDesc?: string;
+      /**
+       * 客户反馈
+       */
+      clientOrigin?: string;
+      /**
+       * 己方的故障描述, 检查过程
+       */
+      ownDesc?: string;
+      /**
+       * 现场图片
+       */
+      livePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 处理结果描述
+       */
+      resultDesc?: string;
+      /**
+       * 上位机图片
+       */
+      softwarePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 车头正面图片
+       */
+      frontPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 整车铭牌图片
+       */
+      nameplatePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 仪表图片
+       */
+      meterPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 电池号图片
+       */
+      batteryPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 其他图片
+       */
+      otherPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 故障部位图片
+       */
+      faultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-开始图片
+       */
+      softwareStartPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机故障显示图片
+       */
+      softwareFaultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-结束图片
+       */
+      softwareEndPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 采集数据文件
+       */
+      dataFile?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 其他花费
+       */
+      otherCost?: number;
+      /**
+       * 备注
+       */
       remark?: string;
-      workers: {
+      /**
+       * bmu软件版本
+       */
+      bmuSoftware?: string;
+      /**
+       * csc软件版本
+       */
+      cscSoftware?: string;
+      /**
+       * 审核通过后是否同步软件信息到车辆
+       */
+      syncSoftware?: boolean;
+      workers?: {
+        /**
+         * id
+         */
+        _id?: string;
         /**
          * 关联 user id
          */
@@ -3412,40 +10508,130 @@ declare global {
         /**
          * 出工里程
          */
-        mileages?: string;
+        mileages?: number;
         /**
          * 工作量
          */
-        Workload?: number;
+        workload?: number;
+        /**
+         * 线路图
+         */
+        linePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        };
       }[];
-      pauseReason?: string;
-      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
+    } & {
+      collaborators?: string[];
     };
   }
-  export interface UpdateRecordResponse {
+  export interface UpdateRepairRecordResponse {
     /**
      * 维修单维修记录
      */
     content?: {
-      signAddress: string;
-      arrivalAt: Date;
-      mileages: string;
-      routeMap?: string;
-      faultCell: string;
-      workHours: string;
-      failReason: string;
-      processMethod: string;
-      faultAttr: string;
-      faultMode: string;
+      /**
+       * 车辆里程数
+       */
+      mileages?: number;
+      /**
+       * 容量数据
+       */
+      soc?: string;
+      /**
+       * 签到地址
+       */
+      signAddress?: string;
+      /**
+       * 到场时间
+       */
+      arrivalAt?: Date;
+      /**
+       * 提交时间
+       */
+      submitAt?: Date;
+      /**
+       * 提交人
+       */
+      submitBy?: string;
+      /**
+       * 故障元件
+       */
+      faultCells?: string[];
+      /**
+       * 工时
+       */
+      workHours?: number;
+      /**
+       * 失效原因
+       */
+      failReason?: string;
+      /**
+       * 处理方式
+       */
+      processMethod?: string;
+      /**
+       * 故障属性
+       */
+      faultAttr?: string;
+      /**
+       * 故障模式分类
+       */
+      faultMode?: string;
+      /**
+       * 备件
+       */
       backups?: {
+        /**
+         * id
+         */
+        _id?: string;
         /**
          * 物料号
          */
         itemNo?: string;
         /**
+         * 物料名称
+         */
+        name?: string;
+        /**
+         * 物流编号
+         */
+        flowNo?: string;
+        /**
+         * 物流费
+         */
+        flowPrice?: number;
+        /**
          * 单价
          */
-        unitPrice?: string;
+        unitPrice?: number;
         /**
          * 数量
          */
@@ -3454,19 +10640,452 @@ declare global {
          * 是否收费
          */
         free?: boolean;
+        /**
+         * 新件barcode
+         */
+        newBarcode?: string;
+        /**
+         * 旧件barcode
+         */
+        oldBarcode?: string;
       }[];
-      livePic: string[];
-      resultDesc: string;
-      softwarePic: string[];
-      frontPic: string[];
-      nameplatePic: string[];
-      meterPic: string[];
-      batteryPic: string[];
-      otherPic?: string[];
-      dataFile?: string;
-      otherCost?: string;
+      /**
+       * 客户的故障描述
+       */
+      clientDesc?: string;
+      /**
+       * 客户反馈
+       */
+      clientOrigin?: string;
+      /**
+       * 己方的故障描述, 检查过程
+       */
+      ownDesc?: string;
+      /**
+       * 现场图片
+       */
+      livePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 处理结果描述
+       */
+      resultDesc?: string;
+      /**
+       * 上位机图片
+       */
+      softwarePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 车头正面图片
+       */
+      frontPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 整车铭牌图片
+       */
+      nameplatePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 仪表图片
+       */
+      meterPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 电池号图片
+       */
+      batteryPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 其他图片
+       */
+      otherPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 故障部位图片
+       */
+      faultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-开始图片
+       */
+      softwareStartPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机故障显示图片
+       */
+      softwareFaultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-结束图片
+       */
+      softwareEndPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 采集数据文件
+       */
+      dataFile?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 其他花费
+       */
+      otherCost?: number;
+      /**
+       * 备注
+       */
       remark?: string;
-      workers: {
+      /**
+       * bmu软件版本
+       */
+      bmuSoftware?: string;
+      /**
+       * csc软件版本
+       */
+      cscSoftware?: string;
+      /**
+       * 审核通过后是否同步软件信息到车辆
+       */
+      syncSoftware?: boolean;
+      workers?: {
+        /**
+         * id
+         */
+        _id?: string;
         /**
          * 关联 user id
          */
@@ -3474,14 +11093,45 @@ declare global {
         /**
          * 出工里程
          */
-        mileages?: string;
+        mileages?: number;
         /**
          * 工作量
          */
-        Workload?: number;
+        workload?: number;
+        /**
+         * 线路图
+         */
+        linePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        };
       }[];
-      pauseReason?: string;
-      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
     };
   }
   export interface CreateMaintainRequest {
@@ -3493,11 +11143,31 @@ declare global {
       /**
        * 维保单工单状态
        */
-      status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
+      status?: "CREATING" | "MAINTAINING" | "REPARING" | "PENDING" | "REJECTED" | "PASSED";
+      /**
+       * 外观检查组ns
+       */
+      appearance?: string;
+      /**
+       * 软件诊断组ns
+       */
+      software?: string;
       /**
        * 工单曾经被驳回
        */
       rejected?: boolean;
+      /**
+       * 驳回时间
+       */
+      rejectAt?: Date;
+      /**
+       * 驳回时间
+       */
+      rejectReason?: string;
+      /**
+       * 驳回人
+       */
+      rejectBy?: string;
       /**
        * CRM 订单号
        */
@@ -3509,142 +11179,827 @@ declare global {
       /**
        * 关联车辆 终端用户
        */
-      terminal?: string;
+      vehicleTerminal?: string;
+      /**
+       * 关联车辆 自编号
+       */
+      vehicleNo?: string;
       /**
        * 关联车辆 车牌号
        */
-      plate?: string;
+      vehiclePlate?: string;
       /**
        * 关联车辆 vin
        */
-      vin?: string;
+      vehicleVin?: string;
       /**
        * 关联车辆 整车品牌
        */
-      brands?: string;
+      vehicleBrands?: string;
       /**
-       * 外观检查组
+       * 关联车辆 停保场地址
        */
-      appearance?: string;
+      vehiclePark?: string;
       /**
-       * 软件诊断组
+       * 关联车辆 CATL项目名称
        */
-      software?: string;
+      vehicleCatl?: string;
       /**
-       * 完工时间
+       * 关联车辆 电池pn
        */
-      closeAt?: Date;
+      vehicleBatteryPn?: string;
+      /**
+       * 关联车辆 电池号
+       */
+      vehicleBatteryNo?: string;
+      /**
+       * 关联车辆 运营日期
+       */
+      vehicleOperateAt?: Date;
+      /**
+       * 关联车辆是否退役
+       */
+      vehicleScrapped?: boolean;
       /**
        * 维保单外观诊断记录
        */
       appearanceRecord?: {
-        appearanceSignAddress: string;
-        appearanceArrivalAt: Date;
-        appearanceRouteMap?: string;
-        appearanceWorkers: string[];
-        meterAlarm: boolean;
+        /**
+         * 车辆里程
+         */
+        mileages?: number;
+        signAddress?: string;
+        arrivalAt?: Date;
+        /**
+         * 路线图
+         */
+        routeMap?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 外观检查组实际出工人
+         */
+        workers?: string[];
+        /**
+         * 仪表电池报警信息
+         */
+        meterAlarm?: boolean;
+        /**
+         * 仪表电池报警信息现场是否解决
+         */
         meterAlarmResult?: boolean;
+        /**
+         * 仪表电池报警信息异常描述及现场处理
+         */
         meterAlarmDesc?: string;
-        boxDamage: boolean;
+        /**
+         * 箱体外壳损毁、变形
+         */
+        boxDamage?: boolean;
+        /**
+         * 箱体外壳损毁、变形现场是否解决
+         */
         boxDamageResult?: boolean;
+        /**
+         * 箱体外壳损毁、变形异常描述及现场处理
+         */
         boxDamageDesc?: string;
-        electricLeakage: boolean;
+        /**
+         * 电箱漏液
+         */
+        electricLeakage?: boolean;
+        /**
+         * 电箱漏液现场是否解决
+         */
         electricLeakageResult?: boolean;
+        /**
+         * 电箱漏液异常描述及现场处理
+         */
         electricLeakageDesc?: string;
-        valveLoose: boolean;
+        /**
+         * 气压平衡阀或防暴阀松动
+         */
+        valveLoose?: boolean;
+        /**
+         * 气压平衡阀或防暴阀松动现场是否解决
+         */
         valveLooseResult?: boolean;
+        /**
+         * 气压平衡阀或防暴阀松动异常描述及现场处理
+         */
         valveLooseDesc?: string;
-        coverAbnormal: boolean;
+        /**
+         * 高压端子外盖检查异常
+         */
+        coverAbnormal?: boolean;
+        /**
+         * 高压端子外盖检查异常现场是否解决
+         */
         coverAbnormalResult?: boolean;
+        /**
+         * 高压端子外盖检查异常异常描述及现场处理
+         */
         coverAbnormalDesc?: string;
-        headLoose: boolean;
+        /**
+         * 格兰头松动
+         */
+        headLoose?: boolean;
+        /**
+         * 格兰头松动现场是否解决
+         */
         headLooseResult?: boolean;
+        /**
+         * 格兰头松动异常描述及现场处理
+         */
         headLooseDesc?: string;
-        boltLoose: boolean;
+        /**
+         * 快断器螺栓松动
+         */
+        boltLoose?: boolean;
+        /**
+         * 快断器螺栓松动现场是否解决
+         */
         boltLooseResult?: boolean;
+        /**
+         * 快断器螺栓松动异常描述及现场处理
+         */
         boltLooseDesc?: string;
-        msdAbnormal: boolean;
+        /**
+         * 高压盒MSD（扭力抽检时电箱MSD）异常
+         */
+        msdAbnormal?: boolean;
+        /**
+         * 高压盒MSD（扭力抽检时电箱MSD）异常现场是否解决
+         */
         msdAbnormalResult?: boolean;
+        /**
+         * 高压盒MSD（扭力抽检时电箱MSD）异常异常描述及现场处理
+         */
         msdAbnormalDesc?: string;
-        hvWireWear: boolean;
+        /**
+         * 高压线束磨损或磨损风险
+         */
+        hvWireWear?: boolean;
+        /**
+         * 高压线束磨损或磨损风险现场是否解决
+         */
         hvWireWearResult?: boolean;
+        /**
+         * 高压线束磨损或磨损风险异常描述及现场处理
+         */
         hvWireWearDesc?: string;
-        lvWireWear: boolean;
+        /**
+         * 低压线束磨损或磨损风险
+         */
+        lvWireWear?: boolean;
+        /**
+         * 低压线束磨损或磨损风险现场是否解决
+         */
         lvWireWearResult?: boolean;
+        /**
+         * 低压线束磨损或磨损风险异常描述及现场处理
+         */
         lvWireWearDesc?: string;
-        hvConnectorFasten: boolean;
+        /**
+         * 高压接插件不紧固
+         */
+        hvConnectorFasten?: boolean;
+        /**
+         * 高压接插件不紧固现场是否解决
+         */
         hvConnectorFastenResult?: boolean;
+        /**
+         * 高压接插件不紧固异常描述及现场处理
+         */
         hvConnectorFastenDesc?: string;
-        lvConnectorFasten: boolean;
+        /**
+         * 低压接插件不紧固
+         */
+        lvConnectorFasten?: boolean;
+        /**
+         * 低压接插件不紧固现场是否解决
+         */
         lvConnectorFastenResult?: boolean;
+        /**
+         * 低压接插件不紧固异常描述及现场处理
+         */
         lvConnectorFastenDesc?: string;
-        frontPic: string[];
-        nameplatePic: string[];
-        meterPic: string[];
-        batteryPic: string[];
-        status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
+        /**
+         * 车牌（车头照）
+         */
+        frontPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 整车铭牌图片
+         */
+        nameplatePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 车辆仪表图片
+         */
+        meterPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 电池号图片
+         */
+        batteryPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 故障部位图片
+         */
+        faultPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-开始图片
+         */
+        softwareStartPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机故障显示图片
+         */
+        softwareFaultPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-结束图片
+         */
+        softwareEndPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 提交时间
+         */
+        submitAt?: Date;
+        /**
+         * 提交人
+         */
+        submitBy?: string;
       };
       /**
        * 维保单软件诊断记录
        */
       softwareRecord?: {
-        softwareSignAddress: string;
-        softwareArrivalAt: Date;
-        softwareRouteMap?: string;
-        softwareWorkers: string[];
-        softwareStartPic: string[];
-        softwareEndPic: string[];
-        soh: string;
-        sohResult?: string;
+        /**
+         * 软件诊断组签到地址
+         */
+        signAddress?: string;
+        /**
+         * 路线图
+         */
+        routeMap?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 软件诊断组到场时间
+         */
+        arrivalAt?: Date;
+        /**
+         * 软件诊断组实际出工人
+         */
+        workers?: string[];
+        /**
+         * 上位机软件截图-开始图片
+         */
+        startPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-最后图片
+         */
+        endPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * SOH测量值
+         */
+        soh?: number;
+        /**
+         * SOH测量值现场修复后
+         */
+        sohResult?: number;
+        /**
+         * SOH测量值异常描述及现场处理
+         */
         sohDesc?: string;
-        current: string;
-        currentResult?: string;
+        /**
+         * 静态上位机电流
+         */
+        current?: number;
+        /**
+         * 静态上位机电流现场修复后
+         */
+        currentResult?: number;
+        /**
+         * 静态上位机电流异常描述及现场处理
+         */
         currentDesc?: string;
-        soc: string;
-        socResult?: string;
-        roc: string;
-        rocResult?: string;
+        /**
+         * soc
+         */
+        soc?: number;
+        /**
+         * soc现场修复后
+         */
+        socResult?: number;
+        /**
+         * roc
+         */
+        roc?: number;
+        /**
+         * roc现场修复后
+         */
+        rocResult?: number;
+        /**
+         * soc异常描述及现场处理
+         */
         socDesc?: string;
-        addVoltage: string;
-        addVoltageResult?: string;
-        totalVoltage: string;
-        totalVoltageResult?: string;
+        /**
+         * 累加电压
+         */
+        addVoltage?: number;
+        /**
+         * 累加电压现场修复后
+         */
+        addVoltageResult?: number;
+        /**
+         * 内侧总电压
+         */
+        totalVoltage?: number;
+        /**
+         * 内侧总电压现场修复后
+         */
+        totalVoltageResult?: number;
+        /**
+         * 累加电压异常描述及现场处理
+         */
         addVoltageDesc?: string;
-        maxVoltage: string;
-        maxVoltageResult?: string;
+        /**
+         * 最大单体电压Vmax
+         */
+        maxVoltage?: number;
+        /**
+         * 最大单体电压Vmax现场修复后
+         */
+        maxVoltageResult?: number;
+        /**
+         * 最大单体电压Vmax异常描述及现场处理
+         */
         maxVoltageDesc?: string;
-        minVoltage: string;
-        minVoltageResult?: string;
+        /**
+         * 最小单体电压Vmin
+         */
+        minVoltage?: number;
+        /**
+         * 最小单体电压Vmin现场修复后
+         */
+        minVoltageResult?: number;
+        /**
+         * 最小单体电压Vmin异常描述及现场处理
+         */
         minVoltageDesc?: string;
-        maxTemperature: string;
-        maxTemperatureResult?: string;
+        /**
+         * 最大单体温度Tmax
+         */
+        maxTemperature?: number;
+        /**
+         * 最大单体温度Tmax现场修复后
+         */
+        maxTemperatureResult?: number;
+        /**
+         * 最大单体温度Tmax异常描述及现场处理
+         */
         maxTemperatureDesc?: string;
-        minTemperature: string;
-        minTemperatureResult?: string;
+        /**
+         * 最小单体温度Tmin
+         */
+        minTemperature?: number;
+        /**
+         * 最小单体温度Tmin现场修复后
+         */
+        minTemperatureResult?: number;
+        /**
+         * 最小单体温度Tmin异常描述及现场处理
+         */
         minTemperatureDesc?: string;
-        diffTemperature: string;
-        diffTemperatureResult?: string;
+        /**
+         * 静态模组温差ΔT
+         */
+        diffTemperature?: number;
+        /**
+         * 静态模组温差ΔT现场修复后
+         */
+        diffTemperatureResult?: number;
+        /**
+         * 静态模组温差ΔT异常描述及现场处理
+         */
         diffTemperatureDesc?: string;
-        batteryBalance: "LOW" | "MIDDLE" | "HIGH";
-        diffVoltage: string;
-        diffVoltageResult?: string;
+        /**
+         * 单体压差ΔU
+         */
+        diffVoltage?: number;
+        /**
+         * 单体压差ΔU现场修复后
+         */
+        diffVoltageResult?: number;
+        /**
+         * 单体压差ΔU异常描述及现场处理
+         */
         diffVoltageDesc?: string;
-        chargePositive: string;
-        chargePositiveResult?: string;
-        chargeNegative: string;
-        chargeNegativeResult?: string;
+        /**
+         * 绝缘阻值（充电）正极
+         */
+        chargePositive?: number;
+        /**
+         * 绝缘阻值（充电）正极现场修复后
+         */
+        chargePositiveResult?: number;
+        /**
+         * 绝缘阻值（充电）异常及现场处理
+         */
         chargePositiveDesc?: string;
-        nochargePositive: string;
-        nochargePositiveResult?: string;
-        nochargeNegative: string;
-        nochargeNegativeResult?: string;
+        /**
+         * 绝缘阻值（充电）负极
+         */
+        chargeNegative?: number;
+        /**
+         * 绝缘阻值（充电）负极现场修复后
+         */
+        chargeNegativeResult?: number;
+        /**
+         * 绝缘阻值（充电）异常描述及现场处理
+         */
+        chargeNegativeDesc?: string;
+        /**
+         * 绝缘阻值（非充电）正极
+         */
+        nochargePositive?: number;
+        /**
+         * 绝缘阻值（非充电）正极现场修复后
+         */
+        nochargePositiveResult?: number;
+        /**
+         * 绝缘阻值（非充电）正极异常及现场处理
+         */
         nochargePositiveDesc?: string;
-        status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
+        /**
+         * 绝缘阻值（非充电）负极
+         */
+        nochargeNegative?: number;
+        /**
+         * 绝缘阻值（非充电）负极现场修复后
+         */
+        nochargeNegativeResult?: number;
+        /**
+         * 绝缘阻值（非充电）负极异常及现场处理
+         */
+        nochargeNegativeDesc?: string;
+        /**
+         * 提交时间
+         */
+        submitAt?: Date;
+        /**
+         * 提交人
+         */
+        submitBy?: Date;
       };
       /**
        * 关联维修单 id
        */
       repair?: string;
+      /**
+       * 完工时间
+       */
+      closeAt?: Date;
     };
   }
   export interface CreateMaintainResponse {
@@ -3656,11 +12011,31 @@ declare global {
       /**
        * 维保单工单状态
        */
-      status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
+      status?: "CREATING" | "MAINTAINING" | "REPARING" | "PENDING" | "REJECTED" | "PASSED";
+      /**
+       * 外观检查组ns
+       */
+      appearance?: string;
+      /**
+       * 软件诊断组ns
+       */
+      software?: string;
       /**
        * 工单曾经被驳回
        */
       rejected?: boolean;
+      /**
+       * 驳回时间
+       */
+      rejectAt?: Date;
+      /**
+       * 驳回时间
+       */
+      rejectReason?: string;
+      /**
+       * 驳回人
+       */
+      rejectBy?: string;
       /**
        * CRM 订单号
        */
@@ -3672,142 +12047,827 @@ declare global {
       /**
        * 关联车辆 终端用户
        */
-      terminal?: string;
+      vehicleTerminal?: string;
+      /**
+       * 关联车辆 自编号
+       */
+      vehicleNo?: string;
       /**
        * 关联车辆 车牌号
        */
-      plate?: string;
+      vehiclePlate?: string;
       /**
        * 关联车辆 vin
        */
-      vin?: string;
+      vehicleVin?: string;
       /**
        * 关联车辆 整车品牌
        */
-      brands?: string;
+      vehicleBrands?: string;
       /**
-       * 外观检查组
+       * 关联车辆 停保场地址
        */
-      appearance?: string;
+      vehiclePark?: string;
       /**
-       * 软件诊断组
+       * 关联车辆 CATL项目名称
        */
-      software?: string;
+      vehicleCatl?: string;
       /**
-       * 完工时间
+       * 关联车辆 电池pn
        */
-      closeAt?: Date;
+      vehicleBatteryPn?: string;
+      /**
+       * 关联车辆 电池号
+       */
+      vehicleBatteryNo?: string;
+      /**
+       * 关联车辆 运营日期
+       */
+      vehicleOperateAt?: Date;
+      /**
+       * 关联车辆是否退役
+       */
+      vehicleScrapped?: boolean;
       /**
        * 维保单外观诊断记录
        */
       appearanceRecord?: {
-        appearanceSignAddress: string;
-        appearanceArrivalAt: Date;
-        appearanceRouteMap?: string;
-        appearanceWorkers: string[];
-        meterAlarm: boolean;
+        /**
+         * 车辆里程
+         */
+        mileages?: number;
+        signAddress?: string;
+        arrivalAt?: Date;
+        /**
+         * 路线图
+         */
+        routeMap?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 外观检查组实际出工人
+         */
+        workers?: string[];
+        /**
+         * 仪表电池报警信息
+         */
+        meterAlarm?: boolean;
+        /**
+         * 仪表电池报警信息现场是否解决
+         */
         meterAlarmResult?: boolean;
+        /**
+         * 仪表电池报警信息异常描述及现场处理
+         */
         meterAlarmDesc?: string;
-        boxDamage: boolean;
+        /**
+         * 箱体外壳损毁、变形
+         */
+        boxDamage?: boolean;
+        /**
+         * 箱体外壳损毁、变形现场是否解决
+         */
         boxDamageResult?: boolean;
+        /**
+         * 箱体外壳损毁、变形异常描述及现场处理
+         */
         boxDamageDesc?: string;
-        electricLeakage: boolean;
+        /**
+         * 电箱漏液
+         */
+        electricLeakage?: boolean;
+        /**
+         * 电箱漏液现场是否解决
+         */
         electricLeakageResult?: boolean;
+        /**
+         * 电箱漏液异常描述及现场处理
+         */
         electricLeakageDesc?: string;
-        valveLoose: boolean;
+        /**
+         * 气压平衡阀或防暴阀松动
+         */
+        valveLoose?: boolean;
+        /**
+         * 气压平衡阀或防暴阀松动现场是否解决
+         */
         valveLooseResult?: boolean;
+        /**
+         * 气压平衡阀或防暴阀松动异常描述及现场处理
+         */
         valveLooseDesc?: string;
-        coverAbnormal: boolean;
+        /**
+         * 高压端子外盖检查异常
+         */
+        coverAbnormal?: boolean;
+        /**
+         * 高压端子外盖检查异常现场是否解决
+         */
         coverAbnormalResult?: boolean;
+        /**
+         * 高压端子外盖检查异常异常描述及现场处理
+         */
         coverAbnormalDesc?: string;
-        headLoose: boolean;
+        /**
+         * 格兰头松动
+         */
+        headLoose?: boolean;
+        /**
+         * 格兰头松动现场是否解决
+         */
         headLooseResult?: boolean;
+        /**
+         * 格兰头松动异常描述及现场处理
+         */
         headLooseDesc?: string;
-        boltLoose: boolean;
+        /**
+         * 快断器螺栓松动
+         */
+        boltLoose?: boolean;
+        /**
+         * 快断器螺栓松动现场是否解决
+         */
         boltLooseResult?: boolean;
+        /**
+         * 快断器螺栓松动异常描述及现场处理
+         */
         boltLooseDesc?: string;
-        msdAbnormal: boolean;
+        /**
+         * 高压盒MSD（扭力抽检时电箱MSD）异常
+         */
+        msdAbnormal?: boolean;
+        /**
+         * 高压盒MSD（扭力抽检时电箱MSD）异常现场是否解决
+         */
         msdAbnormalResult?: boolean;
+        /**
+         * 高压盒MSD（扭力抽检时电箱MSD）异常异常描述及现场处理
+         */
         msdAbnormalDesc?: string;
-        hvWireWear: boolean;
+        /**
+         * 高压线束磨损或磨损风险
+         */
+        hvWireWear?: boolean;
+        /**
+         * 高压线束磨损或磨损风险现场是否解决
+         */
         hvWireWearResult?: boolean;
+        /**
+         * 高压线束磨损或磨损风险异常描述及现场处理
+         */
         hvWireWearDesc?: string;
-        lvWireWear: boolean;
+        /**
+         * 低压线束磨损或磨损风险
+         */
+        lvWireWear?: boolean;
+        /**
+         * 低压线束磨损或磨损风险现场是否解决
+         */
         lvWireWearResult?: boolean;
+        /**
+         * 低压线束磨损或磨损风险异常描述及现场处理
+         */
         lvWireWearDesc?: string;
-        hvConnectorFasten: boolean;
+        /**
+         * 高压接插件不紧固
+         */
+        hvConnectorFasten?: boolean;
+        /**
+         * 高压接插件不紧固现场是否解决
+         */
         hvConnectorFastenResult?: boolean;
+        /**
+         * 高压接插件不紧固异常描述及现场处理
+         */
         hvConnectorFastenDesc?: string;
-        lvConnectorFasten: boolean;
+        /**
+         * 低压接插件不紧固
+         */
+        lvConnectorFasten?: boolean;
+        /**
+         * 低压接插件不紧固现场是否解决
+         */
         lvConnectorFastenResult?: boolean;
+        /**
+         * 低压接插件不紧固异常描述及现场处理
+         */
         lvConnectorFastenDesc?: string;
-        frontPic: string[];
-        nameplatePic: string[];
-        meterPic: string[];
-        batteryPic: string[];
-        status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
+        /**
+         * 车牌（车头照）
+         */
+        frontPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 整车铭牌图片
+         */
+        nameplatePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 车辆仪表图片
+         */
+        meterPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 电池号图片
+         */
+        batteryPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 故障部位图片
+         */
+        faultPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-开始图片
+         */
+        softwareStartPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机故障显示图片
+         */
+        softwareFaultPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-结束图片
+         */
+        softwareEndPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 提交时间
+         */
+        submitAt?: Date;
+        /**
+         * 提交人
+         */
+        submitBy?: string;
       };
       /**
        * 维保单软件诊断记录
        */
       softwareRecord?: {
-        softwareSignAddress: string;
-        softwareArrivalAt: Date;
-        softwareRouteMap?: string;
-        softwareWorkers: string[];
-        softwareStartPic: string[];
-        softwareEndPic: string[];
-        soh: string;
-        sohResult?: string;
+        /**
+         * 软件诊断组签到地址
+         */
+        signAddress?: string;
+        /**
+         * 路线图
+         */
+        routeMap?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 软件诊断组到场时间
+         */
+        arrivalAt?: Date;
+        /**
+         * 软件诊断组实际出工人
+         */
+        workers?: string[];
+        /**
+         * 上位机软件截图-开始图片
+         */
+        startPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-最后图片
+         */
+        endPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * SOH测量值
+         */
+        soh?: number;
+        /**
+         * SOH测量值现场修复后
+         */
+        sohResult?: number;
+        /**
+         * SOH测量值异常描述及现场处理
+         */
         sohDesc?: string;
-        current: string;
-        currentResult?: string;
+        /**
+         * 静态上位机电流
+         */
+        current?: number;
+        /**
+         * 静态上位机电流现场修复后
+         */
+        currentResult?: number;
+        /**
+         * 静态上位机电流异常描述及现场处理
+         */
         currentDesc?: string;
-        soc: string;
-        socResult?: string;
-        roc: string;
-        rocResult?: string;
+        /**
+         * soc
+         */
+        soc?: number;
+        /**
+         * soc现场修复后
+         */
+        socResult?: number;
+        /**
+         * roc
+         */
+        roc?: number;
+        /**
+         * roc现场修复后
+         */
+        rocResult?: number;
+        /**
+         * soc异常描述及现场处理
+         */
         socDesc?: string;
-        addVoltage: string;
-        addVoltageResult?: string;
-        totalVoltage: string;
-        totalVoltageResult?: string;
+        /**
+         * 累加电压
+         */
+        addVoltage?: number;
+        /**
+         * 累加电压现场修复后
+         */
+        addVoltageResult?: number;
+        /**
+         * 内侧总电压
+         */
+        totalVoltage?: number;
+        /**
+         * 内侧总电压现场修复后
+         */
+        totalVoltageResult?: number;
+        /**
+         * 累加电压异常描述及现场处理
+         */
         addVoltageDesc?: string;
-        maxVoltage: string;
-        maxVoltageResult?: string;
+        /**
+         * 最大单体电压Vmax
+         */
+        maxVoltage?: number;
+        /**
+         * 最大单体电压Vmax现场修复后
+         */
+        maxVoltageResult?: number;
+        /**
+         * 最大单体电压Vmax异常描述及现场处理
+         */
         maxVoltageDesc?: string;
-        minVoltage: string;
-        minVoltageResult?: string;
+        /**
+         * 最小单体电压Vmin
+         */
+        minVoltage?: number;
+        /**
+         * 最小单体电压Vmin现场修复后
+         */
+        minVoltageResult?: number;
+        /**
+         * 最小单体电压Vmin异常描述及现场处理
+         */
         minVoltageDesc?: string;
-        maxTemperature: string;
-        maxTemperatureResult?: string;
+        /**
+         * 最大单体温度Tmax
+         */
+        maxTemperature?: number;
+        /**
+         * 最大单体温度Tmax现场修复后
+         */
+        maxTemperatureResult?: number;
+        /**
+         * 最大单体温度Tmax异常描述及现场处理
+         */
         maxTemperatureDesc?: string;
-        minTemperature: string;
-        minTemperatureResult?: string;
+        /**
+         * 最小单体温度Tmin
+         */
+        minTemperature?: number;
+        /**
+         * 最小单体温度Tmin现场修复后
+         */
+        minTemperatureResult?: number;
+        /**
+         * 最小单体温度Tmin异常描述及现场处理
+         */
         minTemperatureDesc?: string;
-        diffTemperature: string;
-        diffTemperatureResult?: string;
+        /**
+         * 静态模组温差ΔT
+         */
+        diffTemperature?: number;
+        /**
+         * 静态模组温差ΔT现场修复后
+         */
+        diffTemperatureResult?: number;
+        /**
+         * 静态模组温差ΔT异常描述及现场处理
+         */
         diffTemperatureDesc?: string;
-        batteryBalance: "LOW" | "MIDDLE" | "HIGH";
-        diffVoltage: string;
-        diffVoltageResult?: string;
+        /**
+         * 单体压差ΔU
+         */
+        diffVoltage?: number;
+        /**
+         * 单体压差ΔU现场修复后
+         */
+        diffVoltageResult?: number;
+        /**
+         * 单体压差ΔU异常描述及现场处理
+         */
         diffVoltageDesc?: string;
-        chargePositive: string;
-        chargePositiveResult?: string;
-        chargeNegative: string;
-        chargeNegativeResult?: string;
+        /**
+         * 绝缘阻值（充电）正极
+         */
+        chargePositive?: number;
+        /**
+         * 绝缘阻值（充电）正极现场修复后
+         */
+        chargePositiveResult?: number;
+        /**
+         * 绝缘阻值（充电）异常及现场处理
+         */
         chargePositiveDesc?: string;
-        nochargePositive: string;
-        nochargePositiveResult?: string;
-        nochargeNegative: string;
-        nochargeNegativeResult?: string;
+        /**
+         * 绝缘阻值（充电）负极
+         */
+        chargeNegative?: number;
+        /**
+         * 绝缘阻值（充电）负极现场修复后
+         */
+        chargeNegativeResult?: number;
+        /**
+         * 绝缘阻值（充电）异常描述及现场处理
+         */
+        chargeNegativeDesc?: string;
+        /**
+         * 绝缘阻值（非充电）正极
+         */
+        nochargePositive?: number;
+        /**
+         * 绝缘阻值（非充电）正极现场修复后
+         */
+        nochargePositiveResult?: number;
+        /**
+         * 绝缘阻值（非充电）正极异常及现场处理
+         */
         nochargePositiveDesc?: string;
-        status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
+        /**
+         * 绝缘阻值（非充电）负极
+         */
+        nochargeNegative?: number;
+        /**
+         * 绝缘阻值（非充电）负极现场修复后
+         */
+        nochargeNegativeResult?: number;
+        /**
+         * 绝缘阻值（非充电）负极异常及现场处理
+         */
+        nochargeNegativeDesc?: string;
+        /**
+         * 提交时间
+         */
+        submitAt?: Date;
+        /**
+         * 提交人
+         */
+        submitBy?: Date;
       };
       /**
        * 关联维修单 id
        */
       repair?: string;
+      /**
+       * 完工时间
+       */
+      closeAt?: Date;
     } & {
       id: string;
       updateAt?: Date;
@@ -3822,21 +12882,23 @@ declare global {
       _offset?: number;
       _sort?: string;
       _select?: string[];
-      id_like?: string;
+      id?: string;
       status?:
-        | "CREATING"
-        | "WAITING"
-        | "MAINTAINING"
-        | "REPARING"
-        | "MAINTAINED"
-        | "PENDING"
-        | "PASSED";
-      createAt_gt?: Date;
-      createAt_lt?: Date;
-      terminal_like?: string;
-      plate_like?: string;
+        | ("CREATING" | "MAINTAINING" | "REPARING" | "PENDING" | "REJECTED" | "PASSED")
+        | ("CREATING" | "MAINTAINING" | "REPARING" | "PENDING" | "REJECTED" | "PASSED")[];
+      createAt_gte?: Date;
+      createAt_lte?: Date;
+      vehiclePlate_like?: string;
       crm_like?: string;
-      vin_like?: string;
+      vehicleVin_like?: string;
+      vehicleVin?: string;
+      appearance?: string;
+      software?: string;
+      participant?: string;
+      vehicleBrands?: string | string[];
+      vehicleTerminal?: string | string[];
+      vehiclePark?: string | string[];
+      vehicleScrapped?: boolean | boolean[];
     };
   }
   export interface ListMaintainsResponse {
@@ -3848,11 +12910,31 @@ declare global {
       /**
        * 维保单工单状态
        */
-      status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
+      status?: "CREATING" | "MAINTAINING" | "REPARING" | "PENDING" | "REJECTED" | "PASSED";
+      /**
+       * 外观检查组ns
+       */
+      appearance?: string;
+      /**
+       * 软件诊断组ns
+       */
+      software?: string;
       /**
        * 工单曾经被驳回
        */
       rejected?: boolean;
+      /**
+       * 驳回时间
+       */
+      rejectAt?: Date;
+      /**
+       * 驳回时间
+       */
+      rejectReason?: string;
+      /**
+       * 驳回人
+       */
+      rejectBy?: string;
       /**
        * CRM 订单号
        */
@@ -3864,142 +12946,827 @@ declare global {
       /**
        * 关联车辆 终端用户
        */
-      terminal?: string;
+      vehicleTerminal?: string;
+      /**
+       * 关联车辆 自编号
+       */
+      vehicleNo?: string;
       /**
        * 关联车辆 车牌号
        */
-      plate?: string;
+      vehiclePlate?: string;
       /**
        * 关联车辆 vin
        */
-      vin?: string;
+      vehicleVin?: string;
       /**
        * 关联车辆 整车品牌
        */
-      brands?: string;
+      vehicleBrands?: string;
       /**
-       * 外观检查组
+       * 关联车辆 停保场地址
        */
-      appearance?: string;
+      vehiclePark?: string;
       /**
-       * 软件诊断组
+       * 关联车辆 CATL项目名称
        */
-      software?: string;
+      vehicleCatl?: string;
       /**
-       * 完工时间
+       * 关联车辆 电池pn
        */
-      closeAt?: Date;
+      vehicleBatteryPn?: string;
+      /**
+       * 关联车辆 电池号
+       */
+      vehicleBatteryNo?: string;
+      /**
+       * 关联车辆 运营日期
+       */
+      vehicleOperateAt?: Date;
+      /**
+       * 关联车辆是否退役
+       */
+      vehicleScrapped?: boolean;
       /**
        * 维保单外观诊断记录
        */
       appearanceRecord?: {
-        appearanceSignAddress: string;
-        appearanceArrivalAt: Date;
-        appearanceRouteMap?: string;
-        appearanceWorkers: string[];
-        meterAlarm: boolean;
+        /**
+         * 车辆里程
+         */
+        mileages?: number;
+        signAddress?: string;
+        arrivalAt?: Date;
+        /**
+         * 路线图
+         */
+        routeMap?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 外观检查组实际出工人
+         */
+        workers?: string[];
+        /**
+         * 仪表电池报警信息
+         */
+        meterAlarm?: boolean;
+        /**
+         * 仪表电池报警信息现场是否解决
+         */
         meterAlarmResult?: boolean;
+        /**
+         * 仪表电池报警信息异常描述及现场处理
+         */
         meterAlarmDesc?: string;
-        boxDamage: boolean;
+        /**
+         * 箱体外壳损毁、变形
+         */
+        boxDamage?: boolean;
+        /**
+         * 箱体外壳损毁、变形现场是否解决
+         */
         boxDamageResult?: boolean;
+        /**
+         * 箱体外壳损毁、变形异常描述及现场处理
+         */
         boxDamageDesc?: string;
-        electricLeakage: boolean;
+        /**
+         * 电箱漏液
+         */
+        electricLeakage?: boolean;
+        /**
+         * 电箱漏液现场是否解决
+         */
         electricLeakageResult?: boolean;
+        /**
+         * 电箱漏液异常描述及现场处理
+         */
         electricLeakageDesc?: string;
-        valveLoose: boolean;
+        /**
+         * 气压平衡阀或防暴阀松动
+         */
+        valveLoose?: boolean;
+        /**
+         * 气压平衡阀或防暴阀松动现场是否解决
+         */
         valveLooseResult?: boolean;
+        /**
+         * 气压平衡阀或防暴阀松动异常描述及现场处理
+         */
         valveLooseDesc?: string;
-        coverAbnormal: boolean;
+        /**
+         * 高压端子外盖检查异常
+         */
+        coverAbnormal?: boolean;
+        /**
+         * 高压端子外盖检查异常现场是否解决
+         */
         coverAbnormalResult?: boolean;
+        /**
+         * 高压端子外盖检查异常异常描述及现场处理
+         */
         coverAbnormalDesc?: string;
-        headLoose: boolean;
+        /**
+         * 格兰头松动
+         */
+        headLoose?: boolean;
+        /**
+         * 格兰头松动现场是否解决
+         */
         headLooseResult?: boolean;
+        /**
+         * 格兰头松动异常描述及现场处理
+         */
         headLooseDesc?: string;
-        boltLoose: boolean;
+        /**
+         * 快断器螺栓松动
+         */
+        boltLoose?: boolean;
+        /**
+         * 快断器螺栓松动现场是否解决
+         */
         boltLooseResult?: boolean;
+        /**
+         * 快断器螺栓松动异常描述及现场处理
+         */
         boltLooseDesc?: string;
-        msdAbnormal: boolean;
+        /**
+         * 高压盒MSD（扭力抽检时电箱MSD）异常
+         */
+        msdAbnormal?: boolean;
+        /**
+         * 高压盒MSD（扭力抽检时电箱MSD）异常现场是否解决
+         */
         msdAbnormalResult?: boolean;
+        /**
+         * 高压盒MSD（扭力抽检时电箱MSD）异常异常描述及现场处理
+         */
         msdAbnormalDesc?: string;
-        hvWireWear: boolean;
+        /**
+         * 高压线束磨损或磨损风险
+         */
+        hvWireWear?: boolean;
+        /**
+         * 高压线束磨损或磨损风险现场是否解决
+         */
         hvWireWearResult?: boolean;
+        /**
+         * 高压线束磨损或磨损风险异常描述及现场处理
+         */
         hvWireWearDesc?: string;
-        lvWireWear: boolean;
+        /**
+         * 低压线束磨损或磨损风险
+         */
+        lvWireWear?: boolean;
+        /**
+         * 低压线束磨损或磨损风险现场是否解决
+         */
         lvWireWearResult?: boolean;
+        /**
+         * 低压线束磨损或磨损风险异常描述及现场处理
+         */
         lvWireWearDesc?: string;
-        hvConnectorFasten: boolean;
+        /**
+         * 高压接插件不紧固
+         */
+        hvConnectorFasten?: boolean;
+        /**
+         * 高压接插件不紧固现场是否解决
+         */
         hvConnectorFastenResult?: boolean;
+        /**
+         * 高压接插件不紧固异常描述及现场处理
+         */
         hvConnectorFastenDesc?: string;
-        lvConnectorFasten: boolean;
+        /**
+         * 低压接插件不紧固
+         */
+        lvConnectorFasten?: boolean;
+        /**
+         * 低压接插件不紧固现场是否解决
+         */
         lvConnectorFastenResult?: boolean;
+        /**
+         * 低压接插件不紧固异常描述及现场处理
+         */
         lvConnectorFastenDesc?: string;
-        frontPic: string[];
-        nameplatePic: string[];
-        meterPic: string[];
-        batteryPic: string[];
-        status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
+        /**
+         * 车牌（车头照）
+         */
+        frontPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 整车铭牌图片
+         */
+        nameplatePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 车辆仪表图片
+         */
+        meterPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 电池号图片
+         */
+        batteryPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 故障部位图片
+         */
+        faultPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-开始图片
+         */
+        softwareStartPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机故障显示图片
+         */
+        softwareFaultPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-结束图片
+         */
+        softwareEndPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 提交时间
+         */
+        submitAt?: Date;
+        /**
+         * 提交人
+         */
+        submitBy?: string;
       };
       /**
        * 维保单软件诊断记录
        */
       softwareRecord?: {
-        softwareSignAddress: string;
-        softwareArrivalAt: Date;
-        softwareRouteMap?: string;
-        softwareWorkers: string[];
-        softwareStartPic: string[];
-        softwareEndPic: string[];
-        soh: string;
-        sohResult?: string;
+        /**
+         * 软件诊断组签到地址
+         */
+        signAddress?: string;
+        /**
+         * 路线图
+         */
+        routeMap?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 软件诊断组到场时间
+         */
+        arrivalAt?: Date;
+        /**
+         * 软件诊断组实际出工人
+         */
+        workers?: string[];
+        /**
+         * 上位机软件截图-开始图片
+         */
+        startPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-最后图片
+         */
+        endPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * SOH测量值
+         */
+        soh?: number;
+        /**
+         * SOH测量值现场修复后
+         */
+        sohResult?: number;
+        /**
+         * SOH测量值异常描述及现场处理
+         */
         sohDesc?: string;
-        current: string;
-        currentResult?: string;
+        /**
+         * 静态上位机电流
+         */
+        current?: number;
+        /**
+         * 静态上位机电流现场修复后
+         */
+        currentResult?: number;
+        /**
+         * 静态上位机电流异常描述及现场处理
+         */
         currentDesc?: string;
-        soc: string;
-        socResult?: string;
-        roc: string;
-        rocResult?: string;
+        /**
+         * soc
+         */
+        soc?: number;
+        /**
+         * soc现场修复后
+         */
+        socResult?: number;
+        /**
+         * roc
+         */
+        roc?: number;
+        /**
+         * roc现场修复后
+         */
+        rocResult?: number;
+        /**
+         * soc异常描述及现场处理
+         */
         socDesc?: string;
-        addVoltage: string;
-        addVoltageResult?: string;
-        totalVoltage: string;
-        totalVoltageResult?: string;
+        /**
+         * 累加电压
+         */
+        addVoltage?: number;
+        /**
+         * 累加电压现场修复后
+         */
+        addVoltageResult?: number;
+        /**
+         * 内侧总电压
+         */
+        totalVoltage?: number;
+        /**
+         * 内侧总电压现场修复后
+         */
+        totalVoltageResult?: number;
+        /**
+         * 累加电压异常描述及现场处理
+         */
         addVoltageDesc?: string;
-        maxVoltage: string;
-        maxVoltageResult?: string;
+        /**
+         * 最大单体电压Vmax
+         */
+        maxVoltage?: number;
+        /**
+         * 最大单体电压Vmax现场修复后
+         */
+        maxVoltageResult?: number;
+        /**
+         * 最大单体电压Vmax异常描述及现场处理
+         */
         maxVoltageDesc?: string;
-        minVoltage: string;
-        minVoltageResult?: string;
+        /**
+         * 最小单体电压Vmin
+         */
+        minVoltage?: number;
+        /**
+         * 最小单体电压Vmin现场修复后
+         */
+        minVoltageResult?: number;
+        /**
+         * 最小单体电压Vmin异常描述及现场处理
+         */
         minVoltageDesc?: string;
-        maxTemperature: string;
-        maxTemperatureResult?: string;
+        /**
+         * 最大单体温度Tmax
+         */
+        maxTemperature?: number;
+        /**
+         * 最大单体温度Tmax现场修复后
+         */
+        maxTemperatureResult?: number;
+        /**
+         * 最大单体温度Tmax异常描述及现场处理
+         */
         maxTemperatureDesc?: string;
-        minTemperature: string;
-        minTemperatureResult?: string;
+        /**
+         * 最小单体温度Tmin
+         */
+        minTemperature?: number;
+        /**
+         * 最小单体温度Tmin现场修复后
+         */
+        minTemperatureResult?: number;
+        /**
+         * 最小单体温度Tmin异常描述及现场处理
+         */
         minTemperatureDesc?: string;
-        diffTemperature: string;
-        diffTemperatureResult?: string;
+        /**
+         * 静态模组温差ΔT
+         */
+        diffTemperature?: number;
+        /**
+         * 静态模组温差ΔT现场修复后
+         */
+        diffTemperatureResult?: number;
+        /**
+         * 静态模组温差ΔT异常描述及现场处理
+         */
         diffTemperatureDesc?: string;
-        batteryBalance: "LOW" | "MIDDLE" | "HIGH";
-        diffVoltage: string;
-        diffVoltageResult?: string;
+        /**
+         * 单体压差ΔU
+         */
+        diffVoltage?: number;
+        /**
+         * 单体压差ΔU现场修复后
+         */
+        diffVoltageResult?: number;
+        /**
+         * 单体压差ΔU异常描述及现场处理
+         */
         diffVoltageDesc?: string;
-        chargePositive: string;
-        chargePositiveResult?: string;
-        chargeNegative: string;
-        chargeNegativeResult?: string;
+        /**
+         * 绝缘阻值（充电）正极
+         */
+        chargePositive?: number;
+        /**
+         * 绝缘阻值（充电）正极现场修复后
+         */
+        chargePositiveResult?: number;
+        /**
+         * 绝缘阻值（充电）异常及现场处理
+         */
         chargePositiveDesc?: string;
-        nochargePositive: string;
-        nochargePositiveResult?: string;
-        nochargeNegative: string;
-        nochargeNegativeResult?: string;
+        /**
+         * 绝缘阻值（充电）负极
+         */
+        chargeNegative?: number;
+        /**
+         * 绝缘阻值（充电）负极现场修复后
+         */
+        chargeNegativeResult?: number;
+        /**
+         * 绝缘阻值（充电）异常描述及现场处理
+         */
+        chargeNegativeDesc?: string;
+        /**
+         * 绝缘阻值（非充电）正极
+         */
+        nochargePositive?: number;
+        /**
+         * 绝缘阻值（非充电）正极现场修复后
+         */
+        nochargePositiveResult?: number;
+        /**
+         * 绝缘阻值（非充电）正极异常及现场处理
+         */
         nochargePositiveDesc?: string;
-        status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
+        /**
+         * 绝缘阻值（非充电）负极
+         */
+        nochargeNegative?: number;
+        /**
+         * 绝缘阻值（非充电）负极现场修复后
+         */
+        nochargeNegativeResult?: number;
+        /**
+         * 绝缘阻值（非充电）负极异常及现场处理
+         */
+        nochargeNegativeDesc?: string;
+        /**
+         * 提交时间
+         */
+        submitAt?: Date;
+        /**
+         * 提交人
+         */
+        submitBy?: Date;
       };
       /**
        * 关联维修单 id
        */
       repair?: string;
+      /**
+       * 完工时间
+       */
+      closeAt?: Date;
     } & {
       id: string;
       updateAt?: Date;
@@ -4023,11 +13790,31 @@ declare global {
       /**
        * 维保单工单状态
        */
-      status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
+      status?: "CREATING" | "MAINTAINING" | "REPARING" | "PENDING" | "REJECTED" | "PASSED";
+      /**
+       * 外观检查组ns
+       */
+      appearance?: string;
+      /**
+       * 软件诊断组ns
+       */
+      software?: string;
       /**
        * 工单曾经被驳回
        */
       rejected?: boolean;
+      /**
+       * 驳回时间
+       */
+      rejectAt?: Date;
+      /**
+       * 驳回时间
+       */
+      rejectReason?: string;
+      /**
+       * 驳回人
+       */
+      rejectBy?: string;
       /**
        * CRM 订单号
        */
@@ -4039,142 +13826,827 @@ declare global {
       /**
        * 关联车辆 终端用户
        */
-      terminal?: string;
+      vehicleTerminal?: string;
+      /**
+       * 关联车辆 自编号
+       */
+      vehicleNo?: string;
       /**
        * 关联车辆 车牌号
        */
-      plate?: string;
+      vehiclePlate?: string;
       /**
        * 关联车辆 vin
        */
-      vin?: string;
+      vehicleVin?: string;
       /**
        * 关联车辆 整车品牌
        */
-      brands?: string;
+      vehicleBrands?: string;
       /**
-       * 外观检查组
+       * 关联车辆 停保场地址
        */
-      appearance?: string;
+      vehiclePark?: string;
       /**
-       * 软件诊断组
+       * 关联车辆 CATL项目名称
        */
-      software?: string;
+      vehicleCatl?: string;
       /**
-       * 完工时间
+       * 关联车辆 电池pn
        */
-      closeAt?: Date;
+      vehicleBatteryPn?: string;
+      /**
+       * 关联车辆 电池号
+       */
+      vehicleBatteryNo?: string;
+      /**
+       * 关联车辆 运营日期
+       */
+      vehicleOperateAt?: Date;
+      /**
+       * 关联车辆是否退役
+       */
+      vehicleScrapped?: boolean;
       /**
        * 维保单外观诊断记录
        */
       appearanceRecord?: {
-        appearanceSignAddress: string;
-        appearanceArrivalAt: Date;
-        appearanceRouteMap?: string;
-        appearanceWorkers: string[];
-        meterAlarm: boolean;
+        /**
+         * 车辆里程
+         */
+        mileages?: number;
+        signAddress?: string;
+        arrivalAt?: Date;
+        /**
+         * 路线图
+         */
+        routeMap?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 外观检查组实际出工人
+         */
+        workers?: string[];
+        /**
+         * 仪表电池报警信息
+         */
+        meterAlarm?: boolean;
+        /**
+         * 仪表电池报警信息现场是否解决
+         */
         meterAlarmResult?: boolean;
+        /**
+         * 仪表电池报警信息异常描述及现场处理
+         */
         meterAlarmDesc?: string;
-        boxDamage: boolean;
+        /**
+         * 箱体外壳损毁、变形
+         */
+        boxDamage?: boolean;
+        /**
+         * 箱体外壳损毁、变形现场是否解决
+         */
         boxDamageResult?: boolean;
+        /**
+         * 箱体外壳损毁、变形异常描述及现场处理
+         */
         boxDamageDesc?: string;
-        electricLeakage: boolean;
+        /**
+         * 电箱漏液
+         */
+        electricLeakage?: boolean;
+        /**
+         * 电箱漏液现场是否解决
+         */
         electricLeakageResult?: boolean;
+        /**
+         * 电箱漏液异常描述及现场处理
+         */
         electricLeakageDesc?: string;
-        valveLoose: boolean;
+        /**
+         * 气压平衡阀或防暴阀松动
+         */
+        valveLoose?: boolean;
+        /**
+         * 气压平衡阀或防暴阀松动现场是否解决
+         */
         valveLooseResult?: boolean;
+        /**
+         * 气压平衡阀或防暴阀松动异常描述及现场处理
+         */
         valveLooseDesc?: string;
-        coverAbnormal: boolean;
+        /**
+         * 高压端子外盖检查异常
+         */
+        coverAbnormal?: boolean;
+        /**
+         * 高压端子外盖检查异常现场是否解决
+         */
         coverAbnormalResult?: boolean;
+        /**
+         * 高压端子外盖检查异常异常描述及现场处理
+         */
         coverAbnormalDesc?: string;
-        headLoose: boolean;
+        /**
+         * 格兰头松动
+         */
+        headLoose?: boolean;
+        /**
+         * 格兰头松动现场是否解决
+         */
         headLooseResult?: boolean;
+        /**
+         * 格兰头松动异常描述及现场处理
+         */
         headLooseDesc?: string;
-        boltLoose: boolean;
+        /**
+         * 快断器螺栓松动
+         */
+        boltLoose?: boolean;
+        /**
+         * 快断器螺栓松动现场是否解决
+         */
         boltLooseResult?: boolean;
+        /**
+         * 快断器螺栓松动异常描述及现场处理
+         */
         boltLooseDesc?: string;
-        msdAbnormal: boolean;
+        /**
+         * 高压盒MSD（扭力抽检时电箱MSD）异常
+         */
+        msdAbnormal?: boolean;
+        /**
+         * 高压盒MSD（扭力抽检时电箱MSD）异常现场是否解决
+         */
         msdAbnormalResult?: boolean;
+        /**
+         * 高压盒MSD（扭力抽检时电箱MSD）异常异常描述及现场处理
+         */
         msdAbnormalDesc?: string;
-        hvWireWear: boolean;
+        /**
+         * 高压线束磨损或磨损风险
+         */
+        hvWireWear?: boolean;
+        /**
+         * 高压线束磨损或磨损风险现场是否解决
+         */
         hvWireWearResult?: boolean;
+        /**
+         * 高压线束磨损或磨损风险异常描述及现场处理
+         */
         hvWireWearDesc?: string;
-        lvWireWear: boolean;
+        /**
+         * 低压线束磨损或磨损风险
+         */
+        lvWireWear?: boolean;
+        /**
+         * 低压线束磨损或磨损风险现场是否解决
+         */
         lvWireWearResult?: boolean;
+        /**
+         * 低压线束磨损或磨损风险异常描述及现场处理
+         */
         lvWireWearDesc?: string;
-        hvConnectorFasten: boolean;
+        /**
+         * 高压接插件不紧固
+         */
+        hvConnectorFasten?: boolean;
+        /**
+         * 高压接插件不紧固现场是否解决
+         */
         hvConnectorFastenResult?: boolean;
+        /**
+         * 高压接插件不紧固异常描述及现场处理
+         */
         hvConnectorFastenDesc?: string;
-        lvConnectorFasten: boolean;
+        /**
+         * 低压接插件不紧固
+         */
+        lvConnectorFasten?: boolean;
+        /**
+         * 低压接插件不紧固现场是否解决
+         */
         lvConnectorFastenResult?: boolean;
+        /**
+         * 低压接插件不紧固异常描述及现场处理
+         */
         lvConnectorFastenDesc?: string;
-        frontPic: string[];
-        nameplatePic: string[];
-        meterPic: string[];
-        batteryPic: string[];
-        status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
+        /**
+         * 车牌（车头照）
+         */
+        frontPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 整车铭牌图片
+         */
+        nameplatePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 车辆仪表图片
+         */
+        meterPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 电池号图片
+         */
+        batteryPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 故障部位图片
+         */
+        faultPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-开始图片
+         */
+        softwareStartPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机故障显示图片
+         */
+        softwareFaultPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-结束图片
+         */
+        softwareEndPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 提交时间
+         */
+        submitAt?: Date;
+        /**
+         * 提交人
+         */
+        submitBy?: string;
       };
       /**
        * 维保单软件诊断记录
        */
       softwareRecord?: {
-        softwareSignAddress: string;
-        softwareArrivalAt: Date;
-        softwareRouteMap?: string;
-        softwareWorkers: string[];
-        softwareStartPic: string[];
-        softwareEndPic: string[];
-        soh: string;
-        sohResult?: string;
+        /**
+         * 软件诊断组签到地址
+         */
+        signAddress?: string;
+        /**
+         * 路线图
+         */
+        routeMap?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 软件诊断组到场时间
+         */
+        arrivalAt?: Date;
+        /**
+         * 软件诊断组实际出工人
+         */
+        workers?: string[];
+        /**
+         * 上位机软件截图-开始图片
+         */
+        startPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-最后图片
+         */
+        endPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * SOH测量值
+         */
+        soh?: number;
+        /**
+         * SOH测量值现场修复后
+         */
+        sohResult?: number;
+        /**
+         * SOH测量值异常描述及现场处理
+         */
         sohDesc?: string;
-        current: string;
-        currentResult?: string;
+        /**
+         * 静态上位机电流
+         */
+        current?: number;
+        /**
+         * 静态上位机电流现场修复后
+         */
+        currentResult?: number;
+        /**
+         * 静态上位机电流异常描述及现场处理
+         */
         currentDesc?: string;
-        soc: string;
-        socResult?: string;
-        roc: string;
-        rocResult?: string;
+        /**
+         * soc
+         */
+        soc?: number;
+        /**
+         * soc现场修复后
+         */
+        socResult?: number;
+        /**
+         * roc
+         */
+        roc?: number;
+        /**
+         * roc现场修复后
+         */
+        rocResult?: number;
+        /**
+         * soc异常描述及现场处理
+         */
         socDesc?: string;
-        addVoltage: string;
-        addVoltageResult?: string;
-        totalVoltage: string;
-        totalVoltageResult?: string;
+        /**
+         * 累加电压
+         */
+        addVoltage?: number;
+        /**
+         * 累加电压现场修复后
+         */
+        addVoltageResult?: number;
+        /**
+         * 内侧总电压
+         */
+        totalVoltage?: number;
+        /**
+         * 内侧总电压现场修复后
+         */
+        totalVoltageResult?: number;
+        /**
+         * 累加电压异常描述及现场处理
+         */
         addVoltageDesc?: string;
-        maxVoltage: string;
-        maxVoltageResult?: string;
+        /**
+         * 最大单体电压Vmax
+         */
+        maxVoltage?: number;
+        /**
+         * 最大单体电压Vmax现场修复后
+         */
+        maxVoltageResult?: number;
+        /**
+         * 最大单体电压Vmax异常描述及现场处理
+         */
         maxVoltageDesc?: string;
-        minVoltage: string;
-        minVoltageResult?: string;
+        /**
+         * 最小单体电压Vmin
+         */
+        minVoltage?: number;
+        /**
+         * 最小单体电压Vmin现场修复后
+         */
+        minVoltageResult?: number;
+        /**
+         * 最小单体电压Vmin异常描述及现场处理
+         */
         minVoltageDesc?: string;
-        maxTemperature: string;
-        maxTemperatureResult?: string;
+        /**
+         * 最大单体温度Tmax
+         */
+        maxTemperature?: number;
+        /**
+         * 最大单体温度Tmax现场修复后
+         */
+        maxTemperatureResult?: number;
+        /**
+         * 最大单体温度Tmax异常描述及现场处理
+         */
         maxTemperatureDesc?: string;
-        minTemperature: string;
-        minTemperatureResult?: string;
+        /**
+         * 最小单体温度Tmin
+         */
+        minTemperature?: number;
+        /**
+         * 最小单体温度Tmin现场修复后
+         */
+        minTemperatureResult?: number;
+        /**
+         * 最小单体温度Tmin异常描述及现场处理
+         */
         minTemperatureDesc?: string;
-        diffTemperature: string;
-        diffTemperatureResult?: string;
+        /**
+         * 静态模组温差ΔT
+         */
+        diffTemperature?: number;
+        /**
+         * 静态模组温差ΔT现场修复后
+         */
+        diffTemperatureResult?: number;
+        /**
+         * 静态模组温差ΔT异常描述及现场处理
+         */
         diffTemperatureDesc?: string;
-        batteryBalance: "LOW" | "MIDDLE" | "HIGH";
-        diffVoltage: string;
-        diffVoltageResult?: string;
+        /**
+         * 单体压差ΔU
+         */
+        diffVoltage?: number;
+        /**
+         * 单体压差ΔU现场修复后
+         */
+        diffVoltageResult?: number;
+        /**
+         * 单体压差ΔU异常描述及现场处理
+         */
         diffVoltageDesc?: string;
-        chargePositive: string;
-        chargePositiveResult?: string;
-        chargeNegative: string;
-        chargeNegativeResult?: string;
+        /**
+         * 绝缘阻值（充电）正极
+         */
+        chargePositive?: number;
+        /**
+         * 绝缘阻值（充电）正极现场修复后
+         */
+        chargePositiveResult?: number;
+        /**
+         * 绝缘阻值（充电）异常及现场处理
+         */
         chargePositiveDesc?: string;
-        nochargePositive: string;
-        nochargePositiveResult?: string;
-        nochargeNegative: string;
-        nochargeNegativeResult?: string;
+        /**
+         * 绝缘阻值（充电）负极
+         */
+        chargeNegative?: number;
+        /**
+         * 绝缘阻值（充电）负极现场修复后
+         */
+        chargeNegativeResult?: number;
+        /**
+         * 绝缘阻值（充电）异常描述及现场处理
+         */
+        chargeNegativeDesc?: string;
+        /**
+         * 绝缘阻值（非充电）正极
+         */
+        nochargePositive?: number;
+        /**
+         * 绝缘阻值（非充电）正极现场修复后
+         */
+        nochargePositiveResult?: number;
+        /**
+         * 绝缘阻值（非充电）正极异常及现场处理
+         */
         nochargePositiveDesc?: string;
-        status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
+        /**
+         * 绝缘阻值（非充电）负极
+         */
+        nochargeNegative?: number;
+        /**
+         * 绝缘阻值（非充电）负极现场修复后
+         */
+        nochargeNegativeResult?: number;
+        /**
+         * 绝缘阻值（非充电）负极异常及现场处理
+         */
+        nochargeNegativeDesc?: string;
+        /**
+         * 提交时间
+         */
+        submitAt?: Date;
+        /**
+         * 提交人
+         */
+        submitBy?: Date;
       };
       /**
        * 关联维修单 id
        */
       repair?: string;
+      /**
+       * 完工时间
+       */
+      closeAt?: Date;
     } & {
       id: string;
       updateAt?: Date;
@@ -4193,11 +14665,31 @@ declare global {
       /**
        * 维保单工单状态
        */
-      status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
+      status?: "CREATING" | "MAINTAINING" | "REPARING" | "PENDING" | "REJECTED" | "PASSED";
+      /**
+       * 外观检查组ns
+       */
+      appearance?: string;
+      /**
+       * 软件诊断组ns
+       */
+      software?: string;
       /**
        * 工单曾经被驳回
        */
       rejected?: boolean;
+      /**
+       * 驳回时间
+       */
+      rejectAt?: Date;
+      /**
+       * 驳回时间
+       */
+      rejectReason?: string;
+      /**
+       * 驳回人
+       */
+      rejectBy?: string;
       /**
        * CRM 订单号
        */
@@ -4209,142 +14701,827 @@ declare global {
       /**
        * 关联车辆 终端用户
        */
-      terminal?: string;
+      vehicleTerminal?: string;
+      /**
+       * 关联车辆 自编号
+       */
+      vehicleNo?: string;
       /**
        * 关联车辆 车牌号
        */
-      plate?: string;
+      vehiclePlate?: string;
       /**
        * 关联车辆 vin
        */
-      vin?: string;
+      vehicleVin?: string;
       /**
        * 关联车辆 整车品牌
        */
-      brands?: string;
+      vehicleBrands?: string;
       /**
-       * 外观检查组
+       * 关联车辆 停保场地址
        */
-      appearance?: string;
+      vehiclePark?: string;
       /**
-       * 软件诊断组
+       * 关联车辆 CATL项目名称
        */
-      software?: string;
+      vehicleCatl?: string;
       /**
-       * 完工时间
+       * 关联车辆 电池pn
        */
-      closeAt?: Date;
+      vehicleBatteryPn?: string;
+      /**
+       * 关联车辆 电池号
+       */
+      vehicleBatteryNo?: string;
+      /**
+       * 关联车辆 运营日期
+       */
+      vehicleOperateAt?: Date;
+      /**
+       * 关联车辆是否退役
+       */
+      vehicleScrapped?: boolean;
       /**
        * 维保单外观诊断记录
        */
       appearanceRecord?: {
-        appearanceSignAddress: string;
-        appearanceArrivalAt: Date;
-        appearanceRouteMap?: string;
-        appearanceWorkers: string[];
-        meterAlarm: boolean;
+        /**
+         * 车辆里程
+         */
+        mileages?: number;
+        signAddress?: string;
+        arrivalAt?: Date;
+        /**
+         * 路线图
+         */
+        routeMap?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 外观检查组实际出工人
+         */
+        workers?: string[];
+        /**
+         * 仪表电池报警信息
+         */
+        meterAlarm?: boolean;
+        /**
+         * 仪表电池报警信息现场是否解决
+         */
         meterAlarmResult?: boolean;
+        /**
+         * 仪表电池报警信息异常描述及现场处理
+         */
         meterAlarmDesc?: string;
-        boxDamage: boolean;
+        /**
+         * 箱体外壳损毁、变形
+         */
+        boxDamage?: boolean;
+        /**
+         * 箱体外壳损毁、变形现场是否解决
+         */
         boxDamageResult?: boolean;
+        /**
+         * 箱体外壳损毁、变形异常描述及现场处理
+         */
         boxDamageDesc?: string;
-        electricLeakage: boolean;
+        /**
+         * 电箱漏液
+         */
+        electricLeakage?: boolean;
+        /**
+         * 电箱漏液现场是否解决
+         */
         electricLeakageResult?: boolean;
+        /**
+         * 电箱漏液异常描述及现场处理
+         */
         electricLeakageDesc?: string;
-        valveLoose: boolean;
+        /**
+         * 气压平衡阀或防暴阀松动
+         */
+        valveLoose?: boolean;
+        /**
+         * 气压平衡阀或防暴阀松动现场是否解决
+         */
         valveLooseResult?: boolean;
+        /**
+         * 气压平衡阀或防暴阀松动异常描述及现场处理
+         */
         valveLooseDesc?: string;
-        coverAbnormal: boolean;
+        /**
+         * 高压端子外盖检查异常
+         */
+        coverAbnormal?: boolean;
+        /**
+         * 高压端子外盖检查异常现场是否解决
+         */
         coverAbnormalResult?: boolean;
+        /**
+         * 高压端子外盖检查异常异常描述及现场处理
+         */
         coverAbnormalDesc?: string;
-        headLoose: boolean;
+        /**
+         * 格兰头松动
+         */
+        headLoose?: boolean;
+        /**
+         * 格兰头松动现场是否解决
+         */
         headLooseResult?: boolean;
+        /**
+         * 格兰头松动异常描述及现场处理
+         */
         headLooseDesc?: string;
-        boltLoose: boolean;
+        /**
+         * 快断器螺栓松动
+         */
+        boltLoose?: boolean;
+        /**
+         * 快断器螺栓松动现场是否解决
+         */
         boltLooseResult?: boolean;
+        /**
+         * 快断器螺栓松动异常描述及现场处理
+         */
         boltLooseDesc?: string;
-        msdAbnormal: boolean;
+        /**
+         * 高压盒MSD（扭力抽检时电箱MSD）异常
+         */
+        msdAbnormal?: boolean;
+        /**
+         * 高压盒MSD（扭力抽检时电箱MSD）异常现场是否解决
+         */
         msdAbnormalResult?: boolean;
+        /**
+         * 高压盒MSD（扭力抽检时电箱MSD）异常异常描述及现场处理
+         */
         msdAbnormalDesc?: string;
-        hvWireWear: boolean;
+        /**
+         * 高压线束磨损或磨损风险
+         */
+        hvWireWear?: boolean;
+        /**
+         * 高压线束磨损或磨损风险现场是否解决
+         */
         hvWireWearResult?: boolean;
+        /**
+         * 高压线束磨损或磨损风险异常描述及现场处理
+         */
         hvWireWearDesc?: string;
-        lvWireWear: boolean;
+        /**
+         * 低压线束磨损或磨损风险
+         */
+        lvWireWear?: boolean;
+        /**
+         * 低压线束磨损或磨损风险现场是否解决
+         */
         lvWireWearResult?: boolean;
+        /**
+         * 低压线束磨损或磨损风险异常描述及现场处理
+         */
         lvWireWearDesc?: string;
-        hvConnectorFasten: boolean;
+        /**
+         * 高压接插件不紧固
+         */
+        hvConnectorFasten?: boolean;
+        /**
+         * 高压接插件不紧固现场是否解决
+         */
         hvConnectorFastenResult?: boolean;
+        /**
+         * 高压接插件不紧固异常描述及现场处理
+         */
         hvConnectorFastenDesc?: string;
-        lvConnectorFasten: boolean;
+        /**
+         * 低压接插件不紧固
+         */
+        lvConnectorFasten?: boolean;
+        /**
+         * 低压接插件不紧固现场是否解决
+         */
         lvConnectorFastenResult?: boolean;
+        /**
+         * 低压接插件不紧固异常描述及现场处理
+         */
         lvConnectorFastenDesc?: string;
-        frontPic: string[];
-        nameplatePic: string[];
-        meterPic: string[];
-        batteryPic: string[];
-        status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
+        /**
+         * 车牌（车头照）
+         */
+        frontPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 整车铭牌图片
+         */
+        nameplatePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 车辆仪表图片
+         */
+        meterPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 电池号图片
+         */
+        batteryPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 故障部位图片
+         */
+        faultPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-开始图片
+         */
+        softwareStartPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机故障显示图片
+         */
+        softwareFaultPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-结束图片
+         */
+        softwareEndPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 提交时间
+         */
+        submitAt?: Date;
+        /**
+         * 提交人
+         */
+        submitBy?: string;
       };
       /**
        * 维保单软件诊断记录
        */
       softwareRecord?: {
-        softwareSignAddress: string;
-        softwareArrivalAt: Date;
-        softwareRouteMap?: string;
-        softwareWorkers: string[];
-        softwareStartPic: string[];
-        softwareEndPic: string[];
-        soh: string;
-        sohResult?: string;
+        /**
+         * 软件诊断组签到地址
+         */
+        signAddress?: string;
+        /**
+         * 路线图
+         */
+        routeMap?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 软件诊断组到场时间
+         */
+        arrivalAt?: Date;
+        /**
+         * 软件诊断组实际出工人
+         */
+        workers?: string[];
+        /**
+         * 上位机软件截图-开始图片
+         */
+        startPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-最后图片
+         */
+        endPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * SOH测量值
+         */
+        soh?: number;
+        /**
+         * SOH测量值现场修复后
+         */
+        sohResult?: number;
+        /**
+         * SOH测量值异常描述及现场处理
+         */
         sohDesc?: string;
-        current: string;
-        currentResult?: string;
+        /**
+         * 静态上位机电流
+         */
+        current?: number;
+        /**
+         * 静态上位机电流现场修复后
+         */
+        currentResult?: number;
+        /**
+         * 静态上位机电流异常描述及现场处理
+         */
         currentDesc?: string;
-        soc: string;
-        socResult?: string;
-        roc: string;
-        rocResult?: string;
+        /**
+         * soc
+         */
+        soc?: number;
+        /**
+         * soc现场修复后
+         */
+        socResult?: number;
+        /**
+         * roc
+         */
+        roc?: number;
+        /**
+         * roc现场修复后
+         */
+        rocResult?: number;
+        /**
+         * soc异常描述及现场处理
+         */
         socDesc?: string;
-        addVoltage: string;
-        addVoltageResult?: string;
-        totalVoltage: string;
-        totalVoltageResult?: string;
+        /**
+         * 累加电压
+         */
+        addVoltage?: number;
+        /**
+         * 累加电压现场修复后
+         */
+        addVoltageResult?: number;
+        /**
+         * 内侧总电压
+         */
+        totalVoltage?: number;
+        /**
+         * 内侧总电压现场修复后
+         */
+        totalVoltageResult?: number;
+        /**
+         * 累加电压异常描述及现场处理
+         */
         addVoltageDesc?: string;
-        maxVoltage: string;
-        maxVoltageResult?: string;
+        /**
+         * 最大单体电压Vmax
+         */
+        maxVoltage?: number;
+        /**
+         * 最大单体电压Vmax现场修复后
+         */
+        maxVoltageResult?: number;
+        /**
+         * 最大单体电压Vmax异常描述及现场处理
+         */
         maxVoltageDesc?: string;
-        minVoltage: string;
-        minVoltageResult?: string;
+        /**
+         * 最小单体电压Vmin
+         */
+        minVoltage?: number;
+        /**
+         * 最小单体电压Vmin现场修复后
+         */
+        minVoltageResult?: number;
+        /**
+         * 最小单体电压Vmin异常描述及现场处理
+         */
         minVoltageDesc?: string;
-        maxTemperature: string;
-        maxTemperatureResult?: string;
+        /**
+         * 最大单体温度Tmax
+         */
+        maxTemperature?: number;
+        /**
+         * 最大单体温度Tmax现场修复后
+         */
+        maxTemperatureResult?: number;
+        /**
+         * 最大单体温度Tmax异常描述及现场处理
+         */
         maxTemperatureDesc?: string;
-        minTemperature: string;
-        minTemperatureResult?: string;
+        /**
+         * 最小单体温度Tmin
+         */
+        minTemperature?: number;
+        /**
+         * 最小单体温度Tmin现场修复后
+         */
+        minTemperatureResult?: number;
+        /**
+         * 最小单体温度Tmin异常描述及现场处理
+         */
         minTemperatureDesc?: string;
-        diffTemperature: string;
-        diffTemperatureResult?: string;
+        /**
+         * 静态模组温差ΔT
+         */
+        diffTemperature?: number;
+        /**
+         * 静态模组温差ΔT现场修复后
+         */
+        diffTemperatureResult?: number;
+        /**
+         * 静态模组温差ΔT异常描述及现场处理
+         */
         diffTemperatureDesc?: string;
-        batteryBalance: "LOW" | "MIDDLE" | "HIGH";
-        diffVoltage: string;
-        diffVoltageResult?: string;
+        /**
+         * 单体压差ΔU
+         */
+        diffVoltage?: number;
+        /**
+         * 单体压差ΔU现场修复后
+         */
+        diffVoltageResult?: number;
+        /**
+         * 单体压差ΔU异常描述及现场处理
+         */
         diffVoltageDesc?: string;
-        chargePositive: string;
-        chargePositiveResult?: string;
-        chargeNegative: string;
-        chargeNegativeResult?: string;
+        /**
+         * 绝缘阻值（充电）正极
+         */
+        chargePositive?: number;
+        /**
+         * 绝缘阻值（充电）正极现场修复后
+         */
+        chargePositiveResult?: number;
+        /**
+         * 绝缘阻值（充电）异常及现场处理
+         */
         chargePositiveDesc?: string;
-        nochargePositive: string;
-        nochargePositiveResult?: string;
-        nochargeNegative: string;
-        nochargeNegativeResult?: string;
+        /**
+         * 绝缘阻值（充电）负极
+         */
+        chargeNegative?: number;
+        /**
+         * 绝缘阻值（充电）负极现场修复后
+         */
+        chargeNegativeResult?: number;
+        /**
+         * 绝缘阻值（充电）异常描述及现场处理
+         */
+        chargeNegativeDesc?: string;
+        /**
+         * 绝缘阻值（非充电）正极
+         */
+        nochargePositive?: number;
+        /**
+         * 绝缘阻值（非充电）正极现场修复后
+         */
+        nochargePositiveResult?: number;
+        /**
+         * 绝缘阻值（非充电）正极异常及现场处理
+         */
         nochargePositiveDesc?: string;
-        status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
+        /**
+         * 绝缘阻值（非充电）负极
+         */
+        nochargeNegative?: number;
+        /**
+         * 绝缘阻值（非充电）负极现场修复后
+         */
+        nochargeNegativeResult?: number;
+        /**
+         * 绝缘阻值（非充电）负极异常及现场处理
+         */
+        nochargeNegativeDesc?: string;
+        /**
+         * 提交时间
+         */
+        submitAt?: Date;
+        /**
+         * 提交人
+         */
+        submitBy?: Date;
       };
       /**
        * 关联维修单 id
        */
       repair?: string;
+      /**
+       * 完工时间
+       */
+      closeAt?: Date;
     };
   }
   export interface UpdateMaintainResponse {
@@ -4356,11 +15533,31 @@ declare global {
       /**
        * 维保单工单状态
        */
-      status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
+      status?: "CREATING" | "MAINTAINING" | "REPARING" | "PENDING" | "REJECTED" | "PASSED";
+      /**
+       * 外观检查组ns
+       */
+      appearance?: string;
+      /**
+       * 软件诊断组ns
+       */
+      software?: string;
       /**
        * 工单曾经被驳回
        */
       rejected?: boolean;
+      /**
+       * 驳回时间
+       */
+      rejectAt?: Date;
+      /**
+       * 驳回时间
+       */
+      rejectReason?: string;
+      /**
+       * 驳回人
+       */
+      rejectBy?: string;
       /**
        * CRM 订单号
        */
@@ -4372,142 +15569,827 @@ declare global {
       /**
        * 关联车辆 终端用户
        */
-      terminal?: string;
+      vehicleTerminal?: string;
+      /**
+       * 关联车辆 自编号
+       */
+      vehicleNo?: string;
       /**
        * 关联车辆 车牌号
        */
-      plate?: string;
+      vehiclePlate?: string;
       /**
        * 关联车辆 vin
        */
-      vin?: string;
+      vehicleVin?: string;
       /**
        * 关联车辆 整车品牌
        */
-      brands?: string;
+      vehicleBrands?: string;
       /**
-       * 外观检查组
+       * 关联车辆 停保场地址
        */
-      appearance?: string;
+      vehiclePark?: string;
       /**
-       * 软件诊断组
+       * 关联车辆 CATL项目名称
        */
-      software?: string;
+      vehicleCatl?: string;
       /**
-       * 完工时间
+       * 关联车辆 电池pn
        */
-      closeAt?: Date;
+      vehicleBatteryPn?: string;
+      /**
+       * 关联车辆 电池号
+       */
+      vehicleBatteryNo?: string;
+      /**
+       * 关联车辆 运营日期
+       */
+      vehicleOperateAt?: Date;
+      /**
+       * 关联车辆是否退役
+       */
+      vehicleScrapped?: boolean;
       /**
        * 维保单外观诊断记录
        */
       appearanceRecord?: {
-        appearanceSignAddress: string;
-        appearanceArrivalAt: Date;
-        appearanceRouteMap?: string;
-        appearanceWorkers: string[];
-        meterAlarm: boolean;
+        /**
+         * 车辆里程
+         */
+        mileages?: number;
+        signAddress?: string;
+        arrivalAt?: Date;
+        /**
+         * 路线图
+         */
+        routeMap?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 外观检查组实际出工人
+         */
+        workers?: string[];
+        /**
+         * 仪表电池报警信息
+         */
+        meterAlarm?: boolean;
+        /**
+         * 仪表电池报警信息现场是否解决
+         */
         meterAlarmResult?: boolean;
+        /**
+         * 仪表电池报警信息异常描述及现场处理
+         */
         meterAlarmDesc?: string;
-        boxDamage: boolean;
+        /**
+         * 箱体外壳损毁、变形
+         */
+        boxDamage?: boolean;
+        /**
+         * 箱体外壳损毁、变形现场是否解决
+         */
         boxDamageResult?: boolean;
+        /**
+         * 箱体外壳损毁、变形异常描述及现场处理
+         */
         boxDamageDesc?: string;
-        electricLeakage: boolean;
+        /**
+         * 电箱漏液
+         */
+        electricLeakage?: boolean;
+        /**
+         * 电箱漏液现场是否解决
+         */
         electricLeakageResult?: boolean;
+        /**
+         * 电箱漏液异常描述及现场处理
+         */
         electricLeakageDesc?: string;
-        valveLoose: boolean;
+        /**
+         * 气压平衡阀或防暴阀松动
+         */
+        valveLoose?: boolean;
+        /**
+         * 气压平衡阀或防暴阀松动现场是否解决
+         */
         valveLooseResult?: boolean;
+        /**
+         * 气压平衡阀或防暴阀松动异常描述及现场处理
+         */
         valveLooseDesc?: string;
-        coverAbnormal: boolean;
+        /**
+         * 高压端子外盖检查异常
+         */
+        coverAbnormal?: boolean;
+        /**
+         * 高压端子外盖检查异常现场是否解决
+         */
         coverAbnormalResult?: boolean;
+        /**
+         * 高压端子外盖检查异常异常描述及现场处理
+         */
         coverAbnormalDesc?: string;
-        headLoose: boolean;
+        /**
+         * 格兰头松动
+         */
+        headLoose?: boolean;
+        /**
+         * 格兰头松动现场是否解决
+         */
         headLooseResult?: boolean;
+        /**
+         * 格兰头松动异常描述及现场处理
+         */
         headLooseDesc?: string;
-        boltLoose: boolean;
+        /**
+         * 快断器螺栓松动
+         */
+        boltLoose?: boolean;
+        /**
+         * 快断器螺栓松动现场是否解决
+         */
         boltLooseResult?: boolean;
+        /**
+         * 快断器螺栓松动异常描述及现场处理
+         */
         boltLooseDesc?: string;
-        msdAbnormal: boolean;
+        /**
+         * 高压盒MSD（扭力抽检时电箱MSD）异常
+         */
+        msdAbnormal?: boolean;
+        /**
+         * 高压盒MSD（扭力抽检时电箱MSD）异常现场是否解决
+         */
         msdAbnormalResult?: boolean;
+        /**
+         * 高压盒MSD（扭力抽检时电箱MSD）异常异常描述及现场处理
+         */
         msdAbnormalDesc?: string;
-        hvWireWear: boolean;
+        /**
+         * 高压线束磨损或磨损风险
+         */
+        hvWireWear?: boolean;
+        /**
+         * 高压线束磨损或磨损风险现场是否解决
+         */
         hvWireWearResult?: boolean;
+        /**
+         * 高压线束磨损或磨损风险异常描述及现场处理
+         */
         hvWireWearDesc?: string;
-        lvWireWear: boolean;
+        /**
+         * 低压线束磨损或磨损风险
+         */
+        lvWireWear?: boolean;
+        /**
+         * 低压线束磨损或磨损风险现场是否解决
+         */
         lvWireWearResult?: boolean;
+        /**
+         * 低压线束磨损或磨损风险异常描述及现场处理
+         */
         lvWireWearDesc?: string;
-        hvConnectorFasten: boolean;
+        /**
+         * 高压接插件不紧固
+         */
+        hvConnectorFasten?: boolean;
+        /**
+         * 高压接插件不紧固现场是否解决
+         */
         hvConnectorFastenResult?: boolean;
+        /**
+         * 高压接插件不紧固异常描述及现场处理
+         */
         hvConnectorFastenDesc?: string;
-        lvConnectorFasten: boolean;
+        /**
+         * 低压接插件不紧固
+         */
+        lvConnectorFasten?: boolean;
+        /**
+         * 低压接插件不紧固现场是否解决
+         */
         lvConnectorFastenResult?: boolean;
+        /**
+         * 低压接插件不紧固异常描述及现场处理
+         */
         lvConnectorFastenDesc?: string;
-        frontPic: string[];
-        nameplatePic: string[];
-        meterPic: string[];
-        batteryPic: string[];
-        status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
+        /**
+         * 车牌（车头照）
+         */
+        frontPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 整车铭牌图片
+         */
+        nameplatePic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 车辆仪表图片
+         */
+        meterPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 电池号图片
+         */
+        batteryPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 故障部位图片
+         */
+        faultPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-开始图片
+         */
+        softwareStartPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机故障显示图片
+         */
+        softwareFaultPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-结束图片
+         */
+        softwareEndPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 提交时间
+         */
+        submitAt?: Date;
+        /**
+         * 提交人
+         */
+        submitBy?: string;
       };
       /**
        * 维保单软件诊断记录
        */
       softwareRecord?: {
-        softwareSignAddress: string;
-        softwareArrivalAt: Date;
-        softwareRouteMap?: string;
-        softwareWorkers: string[];
-        softwareStartPic: string[];
-        softwareEndPic: string[];
-        soh: string;
-        sohResult?: string;
+        /**
+         * 软件诊断组签到地址
+         */
+        signAddress?: string;
+        /**
+         * 路线图
+         */
+        routeMap?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 软件诊断组到场时间
+         */
+        arrivalAt?: Date;
+        /**
+         * 软件诊断组实际出工人
+         */
+        workers?: string[];
+        /**
+         * 上位机软件截图-开始图片
+         */
+        startPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * 上位机软件截图-最后图片
+         */
+        endPic?: {
+          /**
+           * 原始文件名
+           */
+          name?: string;
+          /**
+           * oss上的文件名
+           */
+          ossName?: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid?: string;
+          /**
+           * url
+           */
+          url?: string;
+        }[];
+        /**
+         * SOH测量值
+         */
+        soh?: number;
+        /**
+         * SOH测量值现场修复后
+         */
+        sohResult?: number;
+        /**
+         * SOH测量值异常描述及现场处理
+         */
         sohDesc?: string;
-        current: string;
-        currentResult?: string;
+        /**
+         * 静态上位机电流
+         */
+        current?: number;
+        /**
+         * 静态上位机电流现场修复后
+         */
+        currentResult?: number;
+        /**
+         * 静态上位机电流异常描述及现场处理
+         */
         currentDesc?: string;
-        soc: string;
-        socResult?: string;
-        roc: string;
-        rocResult?: string;
+        /**
+         * soc
+         */
+        soc?: number;
+        /**
+         * soc现场修复后
+         */
+        socResult?: number;
+        /**
+         * roc
+         */
+        roc?: number;
+        /**
+         * roc现场修复后
+         */
+        rocResult?: number;
+        /**
+         * soc异常描述及现场处理
+         */
         socDesc?: string;
-        addVoltage: string;
-        addVoltageResult?: string;
-        totalVoltage: string;
-        totalVoltageResult?: string;
+        /**
+         * 累加电压
+         */
+        addVoltage?: number;
+        /**
+         * 累加电压现场修复后
+         */
+        addVoltageResult?: number;
+        /**
+         * 内侧总电压
+         */
+        totalVoltage?: number;
+        /**
+         * 内侧总电压现场修复后
+         */
+        totalVoltageResult?: number;
+        /**
+         * 累加电压异常描述及现场处理
+         */
         addVoltageDesc?: string;
-        maxVoltage: string;
-        maxVoltageResult?: string;
+        /**
+         * 最大单体电压Vmax
+         */
+        maxVoltage?: number;
+        /**
+         * 最大单体电压Vmax现场修复后
+         */
+        maxVoltageResult?: number;
+        /**
+         * 最大单体电压Vmax异常描述及现场处理
+         */
         maxVoltageDesc?: string;
-        minVoltage: string;
-        minVoltageResult?: string;
+        /**
+         * 最小单体电压Vmin
+         */
+        minVoltage?: number;
+        /**
+         * 最小单体电压Vmin现场修复后
+         */
+        minVoltageResult?: number;
+        /**
+         * 最小单体电压Vmin异常描述及现场处理
+         */
         minVoltageDesc?: string;
-        maxTemperature: string;
-        maxTemperatureResult?: string;
+        /**
+         * 最大单体温度Tmax
+         */
+        maxTemperature?: number;
+        /**
+         * 最大单体温度Tmax现场修复后
+         */
+        maxTemperatureResult?: number;
+        /**
+         * 最大单体温度Tmax异常描述及现场处理
+         */
         maxTemperatureDesc?: string;
-        minTemperature: string;
-        minTemperatureResult?: string;
+        /**
+         * 最小单体温度Tmin
+         */
+        minTemperature?: number;
+        /**
+         * 最小单体温度Tmin现场修复后
+         */
+        minTemperatureResult?: number;
+        /**
+         * 最小单体温度Tmin异常描述及现场处理
+         */
         minTemperatureDesc?: string;
-        diffTemperature: string;
-        diffTemperatureResult?: string;
+        /**
+         * 静态模组温差ΔT
+         */
+        diffTemperature?: number;
+        /**
+         * 静态模组温差ΔT现场修复后
+         */
+        diffTemperatureResult?: number;
+        /**
+         * 静态模组温差ΔT异常描述及现场处理
+         */
         diffTemperatureDesc?: string;
-        batteryBalance: "LOW" | "MIDDLE" | "HIGH";
-        diffVoltage: string;
-        diffVoltageResult?: string;
+        /**
+         * 单体压差ΔU
+         */
+        diffVoltage?: number;
+        /**
+         * 单体压差ΔU现场修复后
+         */
+        diffVoltageResult?: number;
+        /**
+         * 单体压差ΔU异常描述及现场处理
+         */
         diffVoltageDesc?: string;
-        chargePositive: string;
-        chargePositiveResult?: string;
-        chargeNegative: string;
-        chargeNegativeResult?: string;
+        /**
+         * 绝缘阻值（充电）正极
+         */
+        chargePositive?: number;
+        /**
+         * 绝缘阻值（充电）正极现场修复后
+         */
+        chargePositiveResult?: number;
+        /**
+         * 绝缘阻值（充电）异常及现场处理
+         */
         chargePositiveDesc?: string;
-        nochargePositive: string;
-        nochargePositiveResult?: string;
-        nochargeNegative: string;
-        nochargeNegativeResult?: string;
+        /**
+         * 绝缘阻值（充电）负极
+         */
+        chargeNegative?: number;
+        /**
+         * 绝缘阻值（充电）负极现场修复后
+         */
+        chargeNegativeResult?: number;
+        /**
+         * 绝缘阻值（充电）异常描述及现场处理
+         */
+        chargeNegativeDesc?: string;
+        /**
+         * 绝缘阻值（非充电）正极
+         */
+        nochargePositive?: number;
+        /**
+         * 绝缘阻值（非充电）正极现场修复后
+         */
+        nochargePositiveResult?: number;
+        /**
+         * 绝缘阻值（非充电）正极异常及现场处理
+         */
         nochargePositiveDesc?: string;
-        status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
+        /**
+         * 绝缘阻值（非充电）负极
+         */
+        nochargeNegative?: number;
+        /**
+         * 绝缘阻值（非充电）负极现场修复后
+         */
+        nochargeNegativeResult?: number;
+        /**
+         * 绝缘阻值（非充电）负极异常及现场处理
+         */
+        nochargeNegativeDesc?: string;
+        /**
+         * 提交时间
+         */
+        submitAt?: Date;
+        /**
+         * 提交人
+         */
+        submitBy?: Date;
       };
       /**
        * 关联维修单 id
        */
       repair?: string;
+      /**
+       * 完工时间
+       */
+      closeAt?: Date;
     } & {
       id: string;
       updateAt?: Date;
@@ -4525,51 +16407,465 @@ declare global {
      * 维保单外观诊断记录
      */
     body: {
-      appearanceSignAddress: string;
-      appearanceArrivalAt: Date;
-      appearanceRouteMap?: string;
-      appearanceWorkers: string[];
-      meterAlarm: boolean;
+      /**
+       * 车辆里程
+       */
+      mileages?: number;
+      signAddress?: string;
+      arrivalAt?: Date;
+      /**
+       * 路线图
+       */
+      routeMap?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 外观检查组实际出工人
+       */
+      workers?: string[];
+      /**
+       * 仪表电池报警信息
+       */
+      meterAlarm?: boolean;
+      /**
+       * 仪表电池报警信息现场是否解决
+       */
       meterAlarmResult?: boolean;
+      /**
+       * 仪表电池报警信息异常描述及现场处理
+       */
       meterAlarmDesc?: string;
-      boxDamage: boolean;
+      /**
+       * 箱体外壳损毁、变形
+       */
+      boxDamage?: boolean;
+      /**
+       * 箱体外壳损毁、变形现场是否解决
+       */
       boxDamageResult?: boolean;
+      /**
+       * 箱体外壳损毁、变形异常描述及现场处理
+       */
       boxDamageDesc?: string;
-      electricLeakage: boolean;
+      /**
+       * 电箱漏液
+       */
+      electricLeakage?: boolean;
+      /**
+       * 电箱漏液现场是否解决
+       */
       electricLeakageResult?: boolean;
+      /**
+       * 电箱漏液异常描述及现场处理
+       */
       electricLeakageDesc?: string;
-      valveLoose: boolean;
+      /**
+       * 气压平衡阀或防暴阀松动
+       */
+      valveLoose?: boolean;
+      /**
+       * 气压平衡阀或防暴阀松动现场是否解决
+       */
       valveLooseResult?: boolean;
+      /**
+       * 气压平衡阀或防暴阀松动异常描述及现场处理
+       */
       valveLooseDesc?: string;
-      coverAbnormal: boolean;
+      /**
+       * 高压端子外盖检查异常
+       */
+      coverAbnormal?: boolean;
+      /**
+       * 高压端子外盖检查异常现场是否解决
+       */
       coverAbnormalResult?: boolean;
+      /**
+       * 高压端子外盖检查异常异常描述及现场处理
+       */
       coverAbnormalDesc?: string;
-      headLoose: boolean;
+      /**
+       * 格兰头松动
+       */
+      headLoose?: boolean;
+      /**
+       * 格兰头松动现场是否解决
+       */
       headLooseResult?: boolean;
+      /**
+       * 格兰头松动异常描述及现场处理
+       */
       headLooseDesc?: string;
-      boltLoose: boolean;
+      /**
+       * 快断器螺栓松动
+       */
+      boltLoose?: boolean;
+      /**
+       * 快断器螺栓松动现场是否解决
+       */
       boltLooseResult?: boolean;
+      /**
+       * 快断器螺栓松动异常描述及现场处理
+       */
       boltLooseDesc?: string;
-      msdAbnormal: boolean;
+      /**
+       * 高压盒MSD（扭力抽检时电箱MSD）异常
+       */
+      msdAbnormal?: boolean;
+      /**
+       * 高压盒MSD（扭力抽检时电箱MSD）异常现场是否解决
+       */
       msdAbnormalResult?: boolean;
+      /**
+       * 高压盒MSD（扭力抽检时电箱MSD）异常异常描述及现场处理
+       */
       msdAbnormalDesc?: string;
-      hvWireWear: boolean;
+      /**
+       * 高压线束磨损或磨损风险
+       */
+      hvWireWear?: boolean;
+      /**
+       * 高压线束磨损或磨损风险现场是否解决
+       */
       hvWireWearResult?: boolean;
+      /**
+       * 高压线束磨损或磨损风险异常描述及现场处理
+       */
       hvWireWearDesc?: string;
-      lvWireWear: boolean;
+      /**
+       * 低压线束磨损或磨损风险
+       */
+      lvWireWear?: boolean;
+      /**
+       * 低压线束磨损或磨损风险现场是否解决
+       */
       lvWireWearResult?: boolean;
+      /**
+       * 低压线束磨损或磨损风险异常描述及现场处理
+       */
       lvWireWearDesc?: string;
-      hvConnectorFasten: boolean;
+      /**
+       * 高压接插件不紧固
+       */
+      hvConnectorFasten?: boolean;
+      /**
+       * 高压接插件不紧固现场是否解决
+       */
       hvConnectorFastenResult?: boolean;
+      /**
+       * 高压接插件不紧固异常描述及现场处理
+       */
       hvConnectorFastenDesc?: string;
-      lvConnectorFasten: boolean;
+      /**
+       * 低压接插件不紧固
+       */
+      lvConnectorFasten?: boolean;
+      /**
+       * 低压接插件不紧固现场是否解决
+       */
       lvConnectorFastenResult?: boolean;
+      /**
+       * 低压接插件不紧固异常描述及现场处理
+       */
       lvConnectorFastenDesc?: string;
-      frontPic: string[];
-      nameplatePic: string[];
-      meterPic: string[];
-      batteryPic: string[];
-      status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
+      /**
+       * 车牌（车头照）
+       */
+      frontPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 整车铭牌图片
+       */
+      nameplatePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 车辆仪表图片
+       */
+      meterPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 电池号图片
+       */
+      batteryPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 故障部位图片
+       */
+      faultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-开始图片
+       */
+      softwareStartPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机故障显示图片
+       */
+      softwareFaultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-结束图片
+       */
+      softwareEndPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 提交时间
+       */
+      submitAt?: Date;
+      /**
+       * 提交人
+       */
+      submitBy?: string;
     };
   }
   export interface UpdateAppearanceRecordResponse {
@@ -4577,51 +16873,465 @@ declare global {
      * 维保单外观诊断记录
      */
     content?: {
-      appearanceSignAddress: string;
-      appearanceArrivalAt: Date;
-      appearanceRouteMap?: string;
-      appearanceWorkers: string[];
-      meterAlarm: boolean;
+      /**
+       * 车辆里程
+       */
+      mileages?: number;
+      signAddress?: string;
+      arrivalAt?: Date;
+      /**
+       * 路线图
+       */
+      routeMap?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 外观检查组实际出工人
+       */
+      workers?: string[];
+      /**
+       * 仪表电池报警信息
+       */
+      meterAlarm?: boolean;
+      /**
+       * 仪表电池报警信息现场是否解决
+       */
       meterAlarmResult?: boolean;
+      /**
+       * 仪表电池报警信息异常描述及现场处理
+       */
       meterAlarmDesc?: string;
-      boxDamage: boolean;
+      /**
+       * 箱体外壳损毁、变形
+       */
+      boxDamage?: boolean;
+      /**
+       * 箱体外壳损毁、变形现场是否解决
+       */
       boxDamageResult?: boolean;
+      /**
+       * 箱体外壳损毁、变形异常描述及现场处理
+       */
       boxDamageDesc?: string;
-      electricLeakage: boolean;
+      /**
+       * 电箱漏液
+       */
+      electricLeakage?: boolean;
+      /**
+       * 电箱漏液现场是否解决
+       */
       electricLeakageResult?: boolean;
+      /**
+       * 电箱漏液异常描述及现场处理
+       */
       electricLeakageDesc?: string;
-      valveLoose: boolean;
+      /**
+       * 气压平衡阀或防暴阀松动
+       */
+      valveLoose?: boolean;
+      /**
+       * 气压平衡阀或防暴阀松动现场是否解决
+       */
       valveLooseResult?: boolean;
+      /**
+       * 气压平衡阀或防暴阀松动异常描述及现场处理
+       */
       valveLooseDesc?: string;
-      coverAbnormal: boolean;
+      /**
+       * 高压端子外盖检查异常
+       */
+      coverAbnormal?: boolean;
+      /**
+       * 高压端子外盖检查异常现场是否解决
+       */
       coverAbnormalResult?: boolean;
+      /**
+       * 高压端子外盖检查异常异常描述及现场处理
+       */
       coverAbnormalDesc?: string;
-      headLoose: boolean;
+      /**
+       * 格兰头松动
+       */
+      headLoose?: boolean;
+      /**
+       * 格兰头松动现场是否解决
+       */
       headLooseResult?: boolean;
+      /**
+       * 格兰头松动异常描述及现场处理
+       */
       headLooseDesc?: string;
-      boltLoose: boolean;
+      /**
+       * 快断器螺栓松动
+       */
+      boltLoose?: boolean;
+      /**
+       * 快断器螺栓松动现场是否解决
+       */
       boltLooseResult?: boolean;
+      /**
+       * 快断器螺栓松动异常描述及现场处理
+       */
       boltLooseDesc?: string;
-      msdAbnormal: boolean;
+      /**
+       * 高压盒MSD（扭力抽检时电箱MSD）异常
+       */
+      msdAbnormal?: boolean;
+      /**
+       * 高压盒MSD（扭力抽检时电箱MSD）异常现场是否解决
+       */
       msdAbnormalResult?: boolean;
+      /**
+       * 高压盒MSD（扭力抽检时电箱MSD）异常异常描述及现场处理
+       */
       msdAbnormalDesc?: string;
-      hvWireWear: boolean;
+      /**
+       * 高压线束磨损或磨损风险
+       */
+      hvWireWear?: boolean;
+      /**
+       * 高压线束磨损或磨损风险现场是否解决
+       */
       hvWireWearResult?: boolean;
+      /**
+       * 高压线束磨损或磨损风险异常描述及现场处理
+       */
       hvWireWearDesc?: string;
-      lvWireWear: boolean;
+      /**
+       * 低压线束磨损或磨损风险
+       */
+      lvWireWear?: boolean;
+      /**
+       * 低压线束磨损或磨损风险现场是否解决
+       */
       lvWireWearResult?: boolean;
+      /**
+       * 低压线束磨损或磨损风险异常描述及现场处理
+       */
       lvWireWearDesc?: string;
-      hvConnectorFasten: boolean;
+      /**
+       * 高压接插件不紧固
+       */
+      hvConnectorFasten?: boolean;
+      /**
+       * 高压接插件不紧固现场是否解决
+       */
       hvConnectorFastenResult?: boolean;
+      /**
+       * 高压接插件不紧固异常描述及现场处理
+       */
       hvConnectorFastenDesc?: string;
-      lvConnectorFasten: boolean;
+      /**
+       * 低压接插件不紧固
+       */
+      lvConnectorFasten?: boolean;
+      /**
+       * 低压接插件不紧固现场是否解决
+       */
       lvConnectorFastenResult?: boolean;
+      /**
+       * 低压接插件不紧固异常描述及现场处理
+       */
       lvConnectorFastenDesc?: string;
-      frontPic: string[];
-      nameplatePic: string[];
-      meterPic: string[];
-      batteryPic: string[];
-      status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
+      /**
+       * 车牌（车头照）
+       */
+      frontPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 整车铭牌图片
+       */
+      nameplatePic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 车辆仪表图片
+       */
+      meterPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 电池号图片
+       */
+      batteryPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 故障部位图片
+       */
+      faultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-开始图片
+       */
+      softwareStartPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机故障显示图片
+       */
+      softwareFaultPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-结束图片
+       */
+      softwareEndPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 提交时间
+       */
+      submitAt?: Date;
+      /**
+       * 提交人
+       */
+      submitBy?: string;
     };
   }
   export interface UpdateSoftwareRecordRequest {
@@ -4630,58 +17340,309 @@ declare global {
      * 维保单软件诊断记录
      */
     body: {
-      softwareSignAddress: string;
-      softwareArrivalAt: Date;
-      softwareRouteMap?: string;
-      softwareWorkers: string[];
-      softwareStartPic: string[];
-      softwareEndPic: string[];
-      soh: string;
-      sohResult?: string;
+      /**
+       * 软件诊断组签到地址
+       */
+      signAddress?: string;
+      /**
+       * 路线图
+       */
+      routeMap?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 软件诊断组到场时间
+       */
+      arrivalAt?: Date;
+      /**
+       * 软件诊断组实际出工人
+       */
+      workers?: string[];
+      /**
+       * 上位机软件截图-开始图片
+       */
+      startPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-最后图片
+       */
+      endPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * SOH测量值
+       */
+      soh?: number;
+      /**
+       * SOH测量值现场修复后
+       */
+      sohResult?: number;
+      /**
+       * SOH测量值异常描述及现场处理
+       */
       sohDesc?: string;
-      current: string;
-      currentResult?: string;
+      /**
+       * 静态上位机电流
+       */
+      current?: number;
+      /**
+       * 静态上位机电流现场修复后
+       */
+      currentResult?: number;
+      /**
+       * 静态上位机电流异常描述及现场处理
+       */
       currentDesc?: string;
-      soc: string;
-      socResult?: string;
-      roc: string;
-      rocResult?: string;
+      /**
+       * soc
+       */
+      soc?: number;
+      /**
+       * soc现场修复后
+       */
+      socResult?: number;
+      /**
+       * roc
+       */
+      roc?: number;
+      /**
+       * roc现场修复后
+       */
+      rocResult?: number;
+      /**
+       * soc异常描述及现场处理
+       */
       socDesc?: string;
-      addVoltage: string;
-      addVoltageResult?: string;
-      totalVoltage: string;
-      totalVoltageResult?: string;
+      /**
+       * 累加电压
+       */
+      addVoltage?: number;
+      /**
+       * 累加电压现场修复后
+       */
+      addVoltageResult?: number;
+      /**
+       * 内侧总电压
+       */
+      totalVoltage?: number;
+      /**
+       * 内侧总电压现场修复后
+       */
+      totalVoltageResult?: number;
+      /**
+       * 累加电压异常描述及现场处理
+       */
       addVoltageDesc?: string;
-      maxVoltage: string;
-      maxVoltageResult?: string;
+      /**
+       * 最大单体电压Vmax
+       */
+      maxVoltage?: number;
+      /**
+       * 最大单体电压Vmax现场修复后
+       */
+      maxVoltageResult?: number;
+      /**
+       * 最大单体电压Vmax异常描述及现场处理
+       */
       maxVoltageDesc?: string;
-      minVoltage: string;
-      minVoltageResult?: string;
+      /**
+       * 最小单体电压Vmin
+       */
+      minVoltage?: number;
+      /**
+       * 最小单体电压Vmin现场修复后
+       */
+      minVoltageResult?: number;
+      /**
+       * 最小单体电压Vmin异常描述及现场处理
+       */
       minVoltageDesc?: string;
-      maxTemperature: string;
-      maxTemperatureResult?: string;
+      /**
+       * 最大单体温度Tmax
+       */
+      maxTemperature?: number;
+      /**
+       * 最大单体温度Tmax现场修复后
+       */
+      maxTemperatureResult?: number;
+      /**
+       * 最大单体温度Tmax异常描述及现场处理
+       */
       maxTemperatureDesc?: string;
-      minTemperature: string;
-      minTemperatureResult?: string;
+      /**
+       * 最小单体温度Tmin
+       */
+      minTemperature?: number;
+      /**
+       * 最小单体温度Tmin现场修复后
+       */
+      minTemperatureResult?: number;
+      /**
+       * 最小单体温度Tmin异常描述及现场处理
+       */
       minTemperatureDesc?: string;
-      diffTemperature: string;
-      diffTemperatureResult?: string;
+      /**
+       * 静态模组温差ΔT
+       */
+      diffTemperature?: number;
+      /**
+       * 静态模组温差ΔT现场修复后
+       */
+      diffTemperatureResult?: number;
+      /**
+       * 静态模组温差ΔT异常描述及现场处理
+       */
       diffTemperatureDesc?: string;
-      batteryBalance: "LOW" | "MIDDLE" | "HIGH";
-      diffVoltage: string;
-      diffVoltageResult?: string;
+      /**
+       * 单体压差ΔU
+       */
+      diffVoltage?: number;
+      /**
+       * 单体压差ΔU现场修复后
+       */
+      diffVoltageResult?: number;
+      /**
+       * 单体压差ΔU异常描述及现场处理
+       */
       diffVoltageDesc?: string;
-      chargePositive: string;
-      chargePositiveResult?: string;
-      chargeNegative: string;
-      chargeNegativeResult?: string;
+      /**
+       * 绝缘阻值（充电）正极
+       */
+      chargePositive?: number;
+      /**
+       * 绝缘阻值（充电）正极现场修复后
+       */
+      chargePositiveResult?: number;
+      /**
+       * 绝缘阻值（充电）异常及现场处理
+       */
       chargePositiveDesc?: string;
-      nochargePositive: string;
-      nochargePositiveResult?: string;
-      nochargeNegative: string;
-      nochargeNegativeResult?: string;
+      /**
+       * 绝缘阻值（充电）负极
+       */
+      chargeNegative?: number;
+      /**
+       * 绝缘阻值（充电）负极现场修复后
+       */
+      chargeNegativeResult?: number;
+      /**
+       * 绝缘阻值（充电）异常描述及现场处理
+       */
+      chargeNegativeDesc?: string;
+      /**
+       * 绝缘阻值（非充电）正极
+       */
+      nochargePositive?: number;
+      /**
+       * 绝缘阻值（非充电）正极现场修复后
+       */
+      nochargePositiveResult?: number;
+      /**
+       * 绝缘阻值（非充电）正极异常及现场处理
+       */
       nochargePositiveDesc?: string;
-      status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
+      /**
+       * 绝缘阻值（非充电）负极
+       */
+      nochargeNegative?: number;
+      /**
+       * 绝缘阻值（非充电）负极现场修复后
+       */
+      nochargeNegativeResult?: number;
+      /**
+       * 绝缘阻值（非充电）负极异常及现场处理
+       */
+      nochargeNegativeDesc?: string;
+      /**
+       * 提交时间
+       */
+      submitAt?: Date;
+      /**
+       * 提交人
+       */
+      submitBy?: Date;
     };
   }
   export interface UpdateSoftwareRecordResponse {
@@ -4689,58 +17650,309 @@ declare global {
      * 维保单软件诊断记录
      */
     content?: {
-      softwareSignAddress: string;
-      softwareArrivalAt: Date;
-      softwareRouteMap?: string;
-      softwareWorkers: string[];
-      softwareStartPic: string[];
-      softwareEndPic: string[];
-      soh: string;
-      sohResult?: string;
+      /**
+       * 软件诊断组签到地址
+       */
+      signAddress?: string;
+      /**
+       * 路线图
+       */
+      routeMap?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 软件诊断组到场时间
+       */
+      arrivalAt?: Date;
+      /**
+       * 软件诊断组实际出工人
+       */
+      workers?: string[];
+      /**
+       * 上位机软件截图-开始图片
+       */
+      startPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * 上位机软件截图-最后图片
+       */
+      endPic?: {
+        /**
+         * 原始文件名
+         */
+        name?: string;
+        /**
+         * oss上的文件名
+         */
+        ossName?: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid?: string;
+        /**
+         * url
+         */
+        url?: string;
+      }[];
+      /**
+       * SOH测量值
+       */
+      soh?: number;
+      /**
+       * SOH测量值现场修复后
+       */
+      sohResult?: number;
+      /**
+       * SOH测量值异常描述及现场处理
+       */
       sohDesc?: string;
-      current: string;
-      currentResult?: string;
+      /**
+       * 静态上位机电流
+       */
+      current?: number;
+      /**
+       * 静态上位机电流现场修复后
+       */
+      currentResult?: number;
+      /**
+       * 静态上位机电流异常描述及现场处理
+       */
       currentDesc?: string;
-      soc: string;
-      socResult?: string;
-      roc: string;
-      rocResult?: string;
+      /**
+       * soc
+       */
+      soc?: number;
+      /**
+       * soc现场修复后
+       */
+      socResult?: number;
+      /**
+       * roc
+       */
+      roc?: number;
+      /**
+       * roc现场修复后
+       */
+      rocResult?: number;
+      /**
+       * soc异常描述及现场处理
+       */
       socDesc?: string;
-      addVoltage: string;
-      addVoltageResult?: string;
-      totalVoltage: string;
-      totalVoltageResult?: string;
+      /**
+       * 累加电压
+       */
+      addVoltage?: number;
+      /**
+       * 累加电压现场修复后
+       */
+      addVoltageResult?: number;
+      /**
+       * 内侧总电压
+       */
+      totalVoltage?: number;
+      /**
+       * 内侧总电压现场修复后
+       */
+      totalVoltageResult?: number;
+      /**
+       * 累加电压异常描述及现场处理
+       */
       addVoltageDesc?: string;
-      maxVoltage: string;
-      maxVoltageResult?: string;
+      /**
+       * 最大单体电压Vmax
+       */
+      maxVoltage?: number;
+      /**
+       * 最大单体电压Vmax现场修复后
+       */
+      maxVoltageResult?: number;
+      /**
+       * 最大单体电压Vmax异常描述及现场处理
+       */
       maxVoltageDesc?: string;
-      minVoltage: string;
-      minVoltageResult?: string;
+      /**
+       * 最小单体电压Vmin
+       */
+      minVoltage?: number;
+      /**
+       * 最小单体电压Vmin现场修复后
+       */
+      minVoltageResult?: number;
+      /**
+       * 最小单体电压Vmin异常描述及现场处理
+       */
       minVoltageDesc?: string;
-      maxTemperature: string;
-      maxTemperatureResult?: string;
+      /**
+       * 最大单体温度Tmax
+       */
+      maxTemperature?: number;
+      /**
+       * 最大单体温度Tmax现场修复后
+       */
+      maxTemperatureResult?: number;
+      /**
+       * 最大单体温度Tmax异常描述及现场处理
+       */
       maxTemperatureDesc?: string;
-      minTemperature: string;
-      minTemperatureResult?: string;
+      /**
+       * 最小单体温度Tmin
+       */
+      minTemperature?: number;
+      /**
+       * 最小单体温度Tmin现场修复后
+       */
+      minTemperatureResult?: number;
+      /**
+       * 最小单体温度Tmin异常描述及现场处理
+       */
       minTemperatureDesc?: string;
-      diffTemperature: string;
-      diffTemperatureResult?: string;
+      /**
+       * 静态模组温差ΔT
+       */
+      diffTemperature?: number;
+      /**
+       * 静态模组温差ΔT现场修复后
+       */
+      diffTemperatureResult?: number;
+      /**
+       * 静态模组温差ΔT异常描述及现场处理
+       */
       diffTemperatureDesc?: string;
-      batteryBalance: "LOW" | "MIDDLE" | "HIGH";
-      diffVoltage: string;
-      diffVoltageResult?: string;
+      /**
+       * 单体压差ΔU
+       */
+      diffVoltage?: number;
+      /**
+       * 单体压差ΔU现场修复后
+       */
+      diffVoltageResult?: number;
+      /**
+       * 单体压差ΔU异常描述及现场处理
+       */
       diffVoltageDesc?: string;
-      chargePositive: string;
-      chargePositiveResult?: string;
-      chargeNegative: string;
-      chargeNegativeResult?: string;
+      /**
+       * 绝缘阻值（充电）正极
+       */
+      chargePositive?: number;
+      /**
+       * 绝缘阻值（充电）正极现场修复后
+       */
+      chargePositiveResult?: number;
+      /**
+       * 绝缘阻值（充电）异常及现场处理
+       */
       chargePositiveDesc?: string;
-      nochargePositive: string;
-      nochargePositiveResult?: string;
-      nochargeNegative: string;
-      nochargeNegativeResult?: string;
+      /**
+       * 绝缘阻值（充电）负极
+       */
+      chargeNegative?: number;
+      /**
+       * 绝缘阻值（充电）负极现场修复后
+       */
+      chargeNegativeResult?: number;
+      /**
+       * 绝缘阻值（充电）异常描述及现场处理
+       */
+      chargeNegativeDesc?: string;
+      /**
+       * 绝缘阻值（非充电）正极
+       */
+      nochargePositive?: number;
+      /**
+       * 绝缘阻值（非充电）正极现场修复后
+       */
+      nochargePositiveResult?: number;
+      /**
+       * 绝缘阻值（非充电）正极异常及现场处理
+       */
       nochargePositiveDesc?: string;
-      status?: "CREATING" | "WAITING" | "MAINTAINING" | "REPARING" | "PENDING" | "PASSED";
+      /**
+       * 绝缘阻值（非充电）负极
+       */
+      nochargeNegative?: number;
+      /**
+       * 绝缘阻值（非充电）负极现场修复后
+       */
+      nochargeNegativeResult?: number;
+      /**
+       * 绝缘阻值（非充电）负极异常及现场处理
+       */
+      nochargeNegativeDesc?: string;
+      /**
+       * 提交时间
+       */
+      submitAt?: Date;
+      /**
+       * 提交人
+       */
+      submitBy?: Date;
     };
   }
   export interface CreateRecordRequest {
