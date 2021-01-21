@@ -85,6 +85,14 @@ declare global {
      */
     deleteVehicle(req: DeleteVehicleRequest): Promise<DeleteVehicleResponse>;
     /**
+     * 停止车辆维保
+     */
+    stopVehicleMaintain(req: StopVehicleMaintainRequest): Promise<StopVehicleMaintainResponse>;
+    /**
+     * 停止车辆维保
+     */
+    startVehicleMaintain(req: StartVehicleMaintainRequest): Promise<StartVehicleMaintainResponse>;
+    /**
      * Create a vehicle record
      */
     createVehicleRecord(req: CreateVehicleRecordRequest): Promise<CreateVehicleRecordResponse>;
@@ -363,6 +371,10 @@ declare global {
        * 创建用户id
        */
       createBy?: string;
+      /**
+       * 创建用户id
+       */
+      ticketNs?: string;
     } & {
       createBy: string;
     };
@@ -381,6 +393,10 @@ declare global {
        * 创建用户id
        */
       createBy?: string;
+      /**
+       * 创建用户id
+       */
+      ticketNs?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -396,7 +412,7 @@ declare global {
       _sort?: string;
       _select?: string[];
       resource?: string;
-      ns_like?: string;
+      ticketNs_like?: string;
       createBy?: string;
     };
   }
@@ -414,6 +430,10 @@ declare global {
        * 创建用户id
        */
       createBy?: string;
+      /**
+       * 创建用户id
+       */
+      ticketNs?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -442,6 +462,10 @@ declare global {
        * 创建用户id
        */
       createBy?: string;
+      /**
+       * 创建用户id
+       */
+      ticketNs?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -468,6 +492,10 @@ declare global {
        * 创建用户id
        */
       createBy?: string;
+      /**
+       * 创建用户id
+       */
+      ticketNs?: string;
     };
   }
   export interface UpdateDraftResponse {
@@ -484,6 +512,10 @@ declare global {
        * 创建用户id
        */
       createBy?: string;
+      /**
+       * 创建用户id
+       */
+      ticketNs?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -540,11 +572,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -560,11 +592,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 整车品牌
@@ -637,11 +669,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -657,11 +689,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 正面车头图片
@@ -670,11 +702,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -690,11 +722,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 车辆铭牌图片
@@ -703,11 +735,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -723,11 +755,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 车辆仪表图片
@@ -736,11 +768,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -756,11 +788,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 电池号图片
@@ -769,11 +801,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -789,11 +821,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 其他图片
@@ -802,11 +834,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -822,11 +854,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 故障部位图片
@@ -835,11 +867,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -855,11 +887,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-开始图片
@@ -868,11 +900,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -888,11 +920,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机故障显示图片
@@ -901,11 +933,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -921,11 +953,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-结束图片
@@ -934,11 +966,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -954,14 +986,18 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       [k: string]: any;
     } & {
+      /**
+       * 车辆的sequence编号
+       */
+      sequence?: string;
       /**
        * 关联的工单 id
        */
@@ -970,6 +1006,22 @@ declare global {
        * 车辆录入工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
        */
       status?: "CREATING" | "REJECTED" | "PENDING" | "PASSED";
+      /**
+       * 是否在维保中
+       */
+      maintaining?: string;
+      /**
+       * 当前的维保周期
+       */
+      maintainPeriod?: string;
+      /**
+       * 当前维保周期结束时间
+       */
+      maintainPeriodEndAt?: Date;
+      /**
+       * 新车录入通过的时间
+       */
+      passAt?: Date;
       /**
        * 工单曾经被驳回
        */
@@ -1041,11 +1093,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -1061,11 +1113,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 整车品牌
@@ -1138,11 +1190,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -1158,11 +1210,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 正面车头图片
@@ -1171,11 +1223,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -1191,11 +1243,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 车辆铭牌图片
@@ -1204,11 +1256,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -1224,11 +1276,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 车辆仪表图片
@@ -1237,11 +1289,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -1257,11 +1309,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 电池号图片
@@ -1270,11 +1322,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -1290,11 +1342,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 其他图片
@@ -1303,11 +1355,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -1323,11 +1375,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 故障部位图片
@@ -1336,11 +1388,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -1356,11 +1408,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-开始图片
@@ -1369,11 +1421,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -1389,11 +1441,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机故障显示图片
@@ -1402,11 +1454,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -1422,11 +1474,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-结束图片
@@ -1435,11 +1487,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -1455,14 +1507,18 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       [k: string]: any;
     } & {
+      /**
+       * 车辆的sequence编号
+       */
+      sequence?: string;
       /**
        * 关联的工单 id
        */
@@ -1471,6 +1527,22 @@ declare global {
        * 车辆录入工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
        */
       status?: "CREATING" | "REJECTED" | "PENDING" | "PASSED";
+      /**
+       * 是否在维保中
+       */
+      maintaining?: string;
+      /**
+       * 当前的维保周期
+       */
+      maintainPeriod?: string;
+      /**
+       * 当前维保周期结束时间
+       */
+      maintainPeriodEndAt?: Date;
+      /**
+       * 新车录入通过的时间
+       */
+      passAt?: Date;
       /**
        * 工单曾经被驳回
        */
@@ -1510,14 +1582,17 @@ declare global {
       _sort?: string;
       _select?: string[];
       id?: string;
+      id_like?: string;
+      sequence_like?: string;
       createAt_gte?: string;
       createAt_lte?: string;
       plate?: string;
       plate_like?: string;
       crm?: string;
       vin?: string;
+      vin_like?: string;
       createBy?: string;
-      ns_like?: string;
+      ticketNs_like?: string;
       num_like?: string;
       batteryNum_like?: string;
       scrapped?: boolean[];
@@ -1572,11 +1647,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -1592,11 +1667,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 整车品牌
@@ -1669,11 +1744,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -1689,11 +1764,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 正面车头图片
@@ -1702,11 +1777,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -1722,11 +1797,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 车辆铭牌图片
@@ -1735,11 +1810,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -1755,11 +1830,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 车辆仪表图片
@@ -1768,11 +1843,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -1788,11 +1863,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 电池号图片
@@ -1801,11 +1876,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -1821,11 +1896,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 其他图片
@@ -1834,11 +1909,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -1854,11 +1929,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 故障部位图片
@@ -1867,11 +1942,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -1887,11 +1962,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-开始图片
@@ -1900,11 +1975,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -1920,11 +1995,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机故障显示图片
@@ -1933,11 +2008,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -1953,11 +2028,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-结束图片
@@ -1966,11 +2041,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -1986,14 +2061,18 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       [k: string]: any;
     } & {
+      /**
+       * 车辆的sequence编号
+       */
+      sequence?: string;
       /**
        * 关联的工单 id
        */
@@ -2002,6 +2081,22 @@ declare global {
        * 车辆录入工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
        */
       status?: "CREATING" | "REJECTED" | "PENDING" | "PASSED";
+      /**
+       * 是否在维保中
+       */
+      maintaining?: string;
+      /**
+       * 当前的维保周期
+       */
+      maintainPeriod?: string;
+      /**
+       * 当前维保周期结束时间
+       */
+      maintainPeriodEndAt?: Date;
+      /**
+       * 新车录入通过的时间
+       */
+      passAt?: Date;
       /**
        * 工单曾经被驳回
        */
@@ -2085,11 +2180,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -2105,11 +2200,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 整车品牌
@@ -2182,11 +2277,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -2202,11 +2297,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 正面车头图片
@@ -2215,11 +2310,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -2235,11 +2330,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 车辆铭牌图片
@@ -2248,11 +2343,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -2268,11 +2363,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 车辆仪表图片
@@ -2281,11 +2376,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -2301,11 +2396,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 电池号图片
@@ -2314,11 +2409,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -2334,11 +2429,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 其他图片
@@ -2347,11 +2442,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -2367,11 +2462,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 故障部位图片
@@ -2380,11 +2475,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -2400,11 +2495,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-开始图片
@@ -2413,11 +2508,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -2433,11 +2528,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机故障显示图片
@@ -2446,11 +2541,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -2466,11 +2561,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-结束图片
@@ -2479,11 +2574,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -2499,14 +2594,18 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       [k: string]: any;
     } & {
+      /**
+       * 车辆的sequence编号
+       */
+      sequence?: string;
       /**
        * 关联的工单 id
        */
@@ -2515,6 +2614,22 @@ declare global {
        * 车辆录入工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
        */
       status?: "CREATING" | "REJECTED" | "PENDING" | "PASSED";
+      /**
+       * 是否在维保中
+       */
+      maintaining?: string;
+      /**
+       * 当前的维保周期
+       */
+      maintainPeriod?: string;
+      /**
+       * 当前维保周期结束时间
+       */
+      maintainPeriodEndAt?: Date;
+      /**
+       * 新车录入通过的时间
+       */
+      passAt?: Date;
       /**
        * 工单曾经被驳回
        */
@@ -2593,11 +2708,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -2613,11 +2728,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 整车品牌
@@ -2690,11 +2805,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -2710,11 +2825,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 正面车头图片
@@ -2723,11 +2838,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -2743,11 +2858,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 车辆铭牌图片
@@ -2756,11 +2871,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -2776,11 +2891,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 车辆仪表图片
@@ -2789,11 +2904,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -2809,11 +2924,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 电池号图片
@@ -2822,11 +2937,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -2842,11 +2957,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 其他图片
@@ -2855,11 +2970,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -2875,11 +2990,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 故障部位图片
@@ -2888,11 +3003,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -2908,11 +3023,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-开始图片
@@ -2921,11 +3036,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -2941,11 +3056,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机故障显示图片
@@ -2954,11 +3069,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -2974,11 +3089,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-结束图片
@@ -2987,11 +3102,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -3007,14 +3122,18 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       [k: string]: any;
     } & {
+      /**
+       * 车辆的sequence编号
+       */
+      sequence?: string;
       /**
        * 关联的工单 id
        */
@@ -3023,6 +3142,22 @@ declare global {
        * 车辆录入工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
        */
       status?: "CREATING" | "REJECTED" | "PENDING" | "PASSED";
+      /**
+       * 是否在维保中
+       */
+      maintaining?: string;
+      /**
+       * 当前的维保周期
+       */
+      maintainPeriod?: string;
+      /**
+       * 当前维保周期结束时间
+       */
+      maintainPeriodEndAt?: Date;
+      /**
+       * 新车录入通过的时间
+       */
+      passAt?: Date;
       /**
        * 工单曾经被驳回
        */
@@ -3094,11 +3229,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -3114,11 +3249,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 整车品牌
@@ -3191,11 +3326,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -3211,11 +3346,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 正面车头图片
@@ -3224,11 +3359,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -3244,11 +3379,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 车辆铭牌图片
@@ -3257,11 +3392,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -3277,11 +3412,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 车辆仪表图片
@@ -3290,11 +3425,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -3310,11 +3445,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 电池号图片
@@ -3323,11 +3458,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -3343,11 +3478,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 其他图片
@@ -3356,11 +3491,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -3376,11 +3511,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 故障部位图片
@@ -3389,11 +3524,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -3409,11 +3544,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-开始图片
@@ -3422,11 +3557,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -3442,11 +3577,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机故障显示图片
@@ -3455,11 +3590,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -3475,11 +3610,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-结束图片
@@ -3488,11 +3623,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -3508,14 +3643,18 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       [k: string]: any;
     } & {
+      /**
+       * 车辆的sequence编号
+       */
+      sequence?: string;
       /**
        * 关联的工单 id
        */
@@ -3524,6 +3663,22 @@ declare global {
        * 车辆录入工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
        */
       status?: "CREATING" | "REJECTED" | "PENDING" | "PASSED";
+      /**
+       * 是否在维保中
+       */
+      maintaining?: string;
+      /**
+       * 当前的维保周期
+       */
+      maintainPeriod?: string;
+      /**
+       * 当前维保周期结束时间
+       */
+      maintainPeriodEndAt?: Date;
+      /**
+       * 新车录入通过的时间
+       */
+      passAt?: Date;
       /**
        * 工单曾经被驳回
        */
@@ -3557,6 +3712,12 @@ declare global {
     };
   }
   export interface DeleteVehicleRequest {
+    vehicleId: string;
+  }
+  export interface StopVehicleMaintainRequest {
+    vehicleId: string;
+  }
+  export interface StartVehicleMaintainRequest {
     vehicleId: string;
   }
   export interface CreateVehicleRecordRequest {
@@ -3604,11 +3765,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -3624,11 +3785,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 整车品牌
@@ -3701,11 +3862,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -3721,11 +3882,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 正面车头图片
@@ -3734,11 +3895,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -3754,11 +3915,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 车辆铭牌图片
@@ -3767,11 +3928,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -3787,11 +3948,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 车辆仪表图片
@@ -3800,11 +3961,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -3820,11 +3981,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 电池号图片
@@ -3833,11 +3994,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -3853,11 +4014,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 其他图片
@@ -3866,11 +4027,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -3886,11 +4047,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 故障部位图片
@@ -3899,11 +4060,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -3919,11 +4080,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-开始图片
@@ -3932,11 +4093,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -3952,11 +4113,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机故障显示图片
@@ -3965,11 +4126,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -3985,11 +4146,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-结束图片
@@ -3998,11 +4159,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -4018,11 +4179,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       [k: string]: any;
     } & {
@@ -4075,11 +4236,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -4095,11 +4256,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 整车品牌
@@ -4172,11 +4333,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -4192,11 +4353,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 正面车头图片
@@ -4205,11 +4366,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -4225,11 +4386,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 车辆铭牌图片
@@ -4238,11 +4399,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -4258,11 +4419,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 车辆仪表图片
@@ -4271,11 +4432,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -4291,11 +4452,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 电池号图片
@@ -4304,11 +4465,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -4324,11 +4485,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 其他图片
@@ -4337,11 +4498,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -4357,11 +4518,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 故障部位图片
@@ -4370,11 +4531,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -4390,11 +4551,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-开始图片
@@ -4403,11 +4564,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -4423,11 +4584,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机故障显示图片
@@ -4436,11 +4597,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -4456,11 +4617,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-结束图片
@@ -4469,11 +4630,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -4489,14 +4650,18 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       [k: string]: any;
     } & {
+      /**
+       * 车辆的sequence编号
+       */
+      sequence?: string;
       /**
        * 关联的工单 id
        */
@@ -4505,6 +4670,22 @@ declare global {
        * 车辆录入工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
        */
       status?: "CREATING" | "REJECTED" | "PENDING" | "PASSED";
+      /**
+       * 是否在维保中
+       */
+      maintaining?: string;
+      /**
+       * 当前的维保周期
+       */
+      maintainPeriod?: string;
+      /**
+       * 当前维保周期结束时间
+       */
+      maintainPeriodEndAt?: Date;
+      /**
+       * 新车录入通过的时间
+       */
+      passAt?: Date;
       /**
        * 工单曾经被驳回
        */
@@ -4583,11 +4764,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -4603,11 +4784,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 整车品牌
@@ -4680,11 +4861,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -4700,11 +4881,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 正面车头图片
@@ -4713,11 +4894,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -4733,11 +4914,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 车辆铭牌图片
@@ -4746,11 +4927,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -4766,11 +4947,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 车辆仪表图片
@@ -4779,11 +4960,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -4799,11 +4980,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 电池号图片
@@ -4812,11 +4993,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -4832,11 +5013,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 其他图片
@@ -4845,11 +5026,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -4865,11 +5046,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 故障部位图片
@@ -4878,11 +5059,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -4898,11 +5079,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-开始图片
@@ -4911,11 +5092,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -4931,11 +5112,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机故障显示图片
@@ -4944,11 +5125,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -4964,11 +5145,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-结束图片
@@ -4977,11 +5158,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -4997,11 +5178,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       [k: string]: any;
     };
@@ -5051,11 +5232,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -5071,11 +5252,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 整车品牌
@@ -5148,11 +5329,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -5168,11 +5349,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 正面车头图片
@@ -5181,11 +5362,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -5201,11 +5382,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 车辆铭牌图片
@@ -5214,11 +5395,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -5234,11 +5415,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 车辆仪表图片
@@ -5247,11 +5428,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -5267,11 +5448,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 电池号图片
@@ -5280,11 +5461,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -5300,11 +5481,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 其他图片
@@ -5313,11 +5494,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -5333,11 +5514,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 故障部位图片
@@ -5346,11 +5527,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -5366,11 +5547,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-开始图片
@@ -5379,11 +5560,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -5399,11 +5580,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机故障显示图片
@@ -5412,11 +5593,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -5432,11 +5613,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-结束图片
@@ -5445,11 +5626,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -5465,14 +5646,18 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       [k: string]: any;
     } & {
+      /**
+       * 车辆的sequence编号
+       */
+      sequence?: string;
       /**
        * 关联的工单 id
        */
@@ -5481,6 +5666,22 @@ declare global {
        * 车辆录入工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
        */
       status?: "CREATING" | "REJECTED" | "PENDING" | "PASSED";
+      /**
+       * 是否在维保中
+       */
+      maintaining?: string;
+      /**
+       * 当前的维保周期
+       */
+      maintainPeriod?: string;
+      /**
+       * 当前维保周期结束时间
+       */
+      maintainPeriodEndAt?: Date;
+      /**
+       * 新车录入通过的时间
+       */
+      passAt?: Date;
       /**
        * 工单曾经被驳回
        */
@@ -5651,9 +5852,13 @@ declare global {
        */
       problem?: string;
       /**
-       * 关联维修单id
+       * 关联维保单id
        */
       maintain?: string;
+      /**
+       * 关联维保单序号
+       */
+      maintainSequence?: string;
       /**
        * 派工人员 id
        */
@@ -5687,17 +5892,25 @@ declare global {
          */
         arrivalAt?: Date;
         /**
-         * 提交时间
+         * 提交时间，需同步至repair中
          */
         submitAt?: Date;
         /**
-         * 提交人
+         * 提交人，需同步至repair中
          */
         submitBy?: string;
+        /**
+         * 暂停原因，需同步至repair中
+         */
+        pauseReason?: string;
         /**
          * 故障元件
          */
         faultCells?: string[];
+        /**
+         * 故障备注
+         */
+        faultCellsRemark?: string;
         /**
          * 工时
          */
@@ -5782,11 +5995,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -5802,11 +6015,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 处理结果描述
@@ -5819,11 +6032,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -5839,11 +6052,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 车头正面图片
@@ -5852,11 +6065,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -5872,11 +6085,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 整车铭牌图片
@@ -5885,11 +6098,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -5905,11 +6118,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 仪表图片
@@ -5918,11 +6131,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -5938,11 +6151,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 电池号图片
@@ -5951,11 +6164,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -5971,11 +6184,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 其他图片
@@ -5984,11 +6197,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -6004,11 +6217,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 故障部位图片
@@ -6017,11 +6230,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -6037,11 +6250,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-开始图片
@@ -6050,11 +6263,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -6070,11 +6283,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机故障显示图片
@@ -6083,11 +6296,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -6103,11 +6316,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-结束图片
@@ -6116,11 +6329,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -6136,11 +6349,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 采集数据文件
@@ -6149,11 +6362,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -6169,11 +6382,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 其他花费
@@ -6219,11 +6432,11 @@ declare global {
             /**
              * 原始文件名
              */
-            name?: string;
+            name: string;
             /**
              * oss上的文件名
              */
-            ossName?: string;
+            ossName: string;
             /**
              * 备注
              */
@@ -6239,13 +6452,17 @@ declare global {
             /**
              * uid
              */
-            uid?: string;
+            uid: string;
             /**
              * url
              */
-            url?: string;
+            url: string;
           };
         }[];
+        /**
+         * 车辆rdb信息
+         */
+        rdb?: string;
       };
       /**
        * 共同出工人id数组
@@ -6260,6 +6477,10 @@ declare global {
        */
       submitAt?: Date;
       /**
+       * 初次提交时间
+       */
+      firstSubmitAt?: Date;
+      /**
        * 提交人
        */
       submitBy?: string;
@@ -6271,12 +6492,16 @@ declare global {
        * 工时
        */
       workHours?: number;
+      /**
+       * 备件异常
+       */
+      backupAbnormal?: boolean;
     } & {
       createBy: string;
       ticketNs: string;
       vehicle: string;
-      assignee: string;
-      assignAt: Date;
+      assignee?: string;
+      assignAt?: Date;
     };
   }
   export interface CreateRepairResponse {
@@ -6374,9 +6599,13 @@ declare global {
        */
       problem?: string;
       /**
-       * 关联维修单id
+       * 关联维保单id
        */
       maintain?: string;
+      /**
+       * 关联维保单序号
+       */
+      maintainSequence?: string;
       /**
        * 派工人员 id
        */
@@ -6410,17 +6639,25 @@ declare global {
          */
         arrivalAt?: Date;
         /**
-         * 提交时间
+         * 提交时间，需同步至repair中
          */
         submitAt?: Date;
         /**
-         * 提交人
+         * 提交人，需同步至repair中
          */
         submitBy?: string;
+        /**
+         * 暂停原因，需同步至repair中
+         */
+        pauseReason?: string;
         /**
          * 故障元件
          */
         faultCells?: string[];
+        /**
+         * 故障备注
+         */
+        faultCellsRemark?: string;
         /**
          * 工时
          */
@@ -6505,11 +6742,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -6525,11 +6762,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 处理结果描述
@@ -6542,11 +6779,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -6562,11 +6799,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 车头正面图片
@@ -6575,11 +6812,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -6595,11 +6832,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 整车铭牌图片
@@ -6608,11 +6845,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -6628,11 +6865,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 仪表图片
@@ -6641,11 +6878,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -6661,11 +6898,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 电池号图片
@@ -6674,11 +6911,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -6694,11 +6931,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 其他图片
@@ -6707,11 +6944,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -6727,11 +6964,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 故障部位图片
@@ -6740,11 +6977,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -6760,11 +6997,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-开始图片
@@ -6773,11 +7010,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -6793,11 +7030,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机故障显示图片
@@ -6806,11 +7043,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -6826,11 +7063,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-结束图片
@@ -6839,11 +7076,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -6859,11 +7096,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 采集数据文件
@@ -6872,11 +7109,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -6892,11 +7129,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 其他花费
@@ -6942,11 +7179,11 @@ declare global {
             /**
              * 原始文件名
              */
-            name?: string;
+            name: string;
             /**
              * oss上的文件名
              */
-            ossName?: string;
+            ossName: string;
             /**
              * 备注
              */
@@ -6962,13 +7199,17 @@ declare global {
             /**
              * uid
              */
-            uid?: string;
+            uid: string;
             /**
              * url
              */
-            url?: string;
+            url: string;
           };
         }[];
+        /**
+         * 车辆rdb信息
+         */
+        rdb?: string;
       };
       /**
        * 共同出工人id数组
@@ -6983,6 +7224,10 @@ declare global {
        */
       submitAt?: Date;
       /**
+       * 初次提交时间
+       */
+      firstSubmitAt?: Date;
+      /**
        * 提交人
        */
       submitBy?: string;
@@ -6994,15 +7239,23 @@ declare global {
        * 工时
        */
       workHours?: number;
+      /**
+       * 备件异常
+       */
+      backupAbnormal?: boolean;
     } & {
       /**
        * 关联的工单 id
        */
       ticket?: string;
       /**
+       * 维修单的sequence编号
+       */
+      sequence?: string;
+      /**
        * 维修单工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
        */
-      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
+      status?: "NOSEND" | "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
     } & {
       id: string;
       updateAt?: Date;
@@ -7018,9 +7271,11 @@ declare global {
       _sort?: string;
       _select?: string[];
       id?: string;
+      id_like?: string;
+      sequence_like?: string;
       status?:
-        | ("CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED")
-        | ("CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED")[];
+        | ("NOSEND" | "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED")
+        | ("NOSEND" | "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED")[];
       createAt_gte?: Date;
       createAt_lte?: Date;
       assignee?: string;
@@ -7029,11 +7284,15 @@ declare global {
       vehicleVin_like?: string;
       ticketNs?: string;
       ticketNs_like?: string;
+      vehicleNo_like?: string;
       collaborators?: string;
       participant?: string;
+      withNoSend?: boolean;
       vehicleBrands?: string | string[];
       vehicleTerminal?: string | string[];
       vehicleScrapped?: boolean | boolean[];
+      backupAbnormal?: boolean | boolean[];
+      vehicle?: string;
     };
   }
   export interface ListRepairsResponse {
@@ -7131,9 +7390,13 @@ declare global {
        */
       problem?: string;
       /**
-       * 关联维修单id
+       * 关联维保单id
        */
       maintain?: string;
+      /**
+       * 关联维保单序号
+       */
+      maintainSequence?: string;
       /**
        * 派工人员 id
        */
@@ -7167,17 +7430,25 @@ declare global {
          */
         arrivalAt?: Date;
         /**
-         * 提交时间
+         * 提交时间，需同步至repair中
          */
         submitAt?: Date;
         /**
-         * 提交人
+         * 提交人，需同步至repair中
          */
         submitBy?: string;
+        /**
+         * 暂停原因，需同步至repair中
+         */
+        pauseReason?: string;
         /**
          * 故障元件
          */
         faultCells?: string[];
+        /**
+         * 故障备注
+         */
+        faultCellsRemark?: string;
         /**
          * 工时
          */
@@ -7262,11 +7533,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -7282,11 +7553,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 处理结果描述
@@ -7299,11 +7570,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -7319,11 +7590,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 车头正面图片
@@ -7332,11 +7603,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -7352,11 +7623,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 整车铭牌图片
@@ -7365,11 +7636,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -7385,11 +7656,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 仪表图片
@@ -7398,11 +7669,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -7418,11 +7689,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 电池号图片
@@ -7431,11 +7702,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -7451,11 +7722,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 其他图片
@@ -7464,11 +7735,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -7484,11 +7755,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 故障部位图片
@@ -7497,11 +7768,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -7517,11 +7788,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-开始图片
@@ -7530,11 +7801,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -7550,11 +7821,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机故障显示图片
@@ -7563,11 +7834,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -7583,11 +7854,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-结束图片
@@ -7596,11 +7867,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -7616,11 +7887,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 采集数据文件
@@ -7629,11 +7900,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -7649,11 +7920,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 其他花费
@@ -7699,11 +7970,11 @@ declare global {
             /**
              * 原始文件名
              */
-            name?: string;
+            name: string;
             /**
              * oss上的文件名
              */
-            ossName?: string;
+            ossName: string;
             /**
              * 备注
              */
@@ -7719,13 +7990,17 @@ declare global {
             /**
              * uid
              */
-            uid?: string;
+            uid: string;
             /**
              * url
              */
-            url?: string;
+            url: string;
           };
         }[];
+        /**
+         * 车辆rdb信息
+         */
+        rdb?: string;
       };
       /**
        * 共同出工人id数组
@@ -7740,6 +8015,10 @@ declare global {
        */
       submitAt?: Date;
       /**
+       * 初次提交时间
+       */
+      firstSubmitAt?: Date;
+      /**
        * 提交人
        */
       submitBy?: string;
@@ -7751,15 +8030,23 @@ declare global {
        * 工时
        */
       workHours?: number;
+      /**
+       * 备件异常
+       */
+      backupAbnormal?: boolean;
     } & {
       /**
        * 关联的工单 id
        */
       ticket?: string;
       /**
+       * 维修单的sequence编号
+       */
+      sequence?: string;
+      /**
        * 维修单工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
        */
-      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
+      status?: "NOSEND" | "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
     } & {
       id: string;
       updateAt?: Date;
@@ -7869,9 +8156,13 @@ declare global {
        */
       problem?: string;
       /**
-       * 关联维修单id
+       * 关联维保单id
        */
       maintain?: string;
+      /**
+       * 关联维保单序号
+       */
+      maintainSequence?: string;
       /**
        * 派工人员 id
        */
@@ -7905,17 +8196,25 @@ declare global {
          */
         arrivalAt?: Date;
         /**
-         * 提交时间
+         * 提交时间，需同步至repair中
          */
         submitAt?: Date;
         /**
-         * 提交人
+         * 提交人，需同步至repair中
          */
         submitBy?: string;
+        /**
+         * 暂停原因，需同步至repair中
+         */
+        pauseReason?: string;
         /**
          * 故障元件
          */
         faultCells?: string[];
+        /**
+         * 故障备注
+         */
+        faultCellsRemark?: string;
         /**
          * 工时
          */
@@ -8000,11 +8299,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -8020,11 +8319,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 处理结果描述
@@ -8037,11 +8336,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -8057,11 +8356,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 车头正面图片
@@ -8070,11 +8369,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -8090,11 +8389,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 整车铭牌图片
@@ -8103,11 +8402,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -8123,11 +8422,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 仪表图片
@@ -8136,11 +8435,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -8156,11 +8455,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 电池号图片
@@ -8169,11 +8468,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -8189,11 +8488,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 其他图片
@@ -8202,11 +8501,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -8222,11 +8521,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 故障部位图片
@@ -8235,11 +8534,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -8255,11 +8554,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-开始图片
@@ -8268,11 +8567,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -8288,11 +8587,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机故障显示图片
@@ -8301,11 +8600,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -8321,11 +8620,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-结束图片
@@ -8334,11 +8633,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -8354,11 +8653,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 采集数据文件
@@ -8367,11 +8666,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -8387,11 +8686,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 其他花费
@@ -8437,11 +8736,11 @@ declare global {
             /**
              * 原始文件名
              */
-            name?: string;
+            name: string;
             /**
              * oss上的文件名
              */
-            ossName?: string;
+            ossName: string;
             /**
              * 备注
              */
@@ -8457,13 +8756,17 @@ declare global {
             /**
              * uid
              */
-            uid?: string;
+            uid: string;
             /**
              * url
              */
-            url?: string;
+            url: string;
           };
         }[];
+        /**
+         * 车辆rdb信息
+         */
+        rdb?: string;
       };
       /**
        * 共同出工人id数组
@@ -8478,6 +8781,10 @@ declare global {
        */
       submitAt?: Date;
       /**
+       * 初次提交时间
+       */
+      firstSubmitAt?: Date;
+      /**
        * 提交人
        */
       submitBy?: string;
@@ -8489,15 +8796,23 @@ declare global {
        * 工时
        */
       workHours?: number;
+      /**
+       * 备件异常
+       */
+      backupAbnormal?: boolean;
     } & {
       /**
        * 关联的工单 id
        */
       ticket?: string;
       /**
+       * 维修单的sequence编号
+       */
+      sequence?: string;
+      /**
        * 维修单工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
        */
-      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
+      status?: "NOSEND" | "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
     } & {
       id: string;
       updateAt?: Date;
@@ -8602,9 +8917,13 @@ declare global {
        */
       problem?: string;
       /**
-       * 关联维修单id
+       * 关联维保单id
        */
       maintain?: string;
+      /**
+       * 关联维保单序号
+       */
+      maintainSequence?: string;
       /**
        * 派工人员 id
        */
@@ -8638,17 +8957,25 @@ declare global {
          */
         arrivalAt?: Date;
         /**
-         * 提交时间
+         * 提交时间，需同步至repair中
          */
         submitAt?: Date;
         /**
-         * 提交人
+         * 提交人，需同步至repair中
          */
         submitBy?: string;
+        /**
+         * 暂停原因，需同步至repair中
+         */
+        pauseReason?: string;
         /**
          * 故障元件
          */
         faultCells?: string[];
+        /**
+         * 故障备注
+         */
+        faultCellsRemark?: string;
         /**
          * 工时
          */
@@ -8733,11 +9060,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -8753,11 +9080,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 处理结果描述
@@ -8770,11 +9097,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -8790,11 +9117,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 车头正面图片
@@ -8803,11 +9130,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -8823,11 +9150,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 整车铭牌图片
@@ -8836,11 +9163,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -8856,11 +9183,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 仪表图片
@@ -8869,11 +9196,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -8889,11 +9216,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 电池号图片
@@ -8902,11 +9229,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -8922,11 +9249,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 其他图片
@@ -8935,11 +9262,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -8955,11 +9282,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 故障部位图片
@@ -8968,11 +9295,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -8988,11 +9315,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-开始图片
@@ -9001,11 +9328,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -9021,11 +9348,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机故障显示图片
@@ -9034,11 +9361,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -9054,11 +9381,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-结束图片
@@ -9067,11 +9394,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -9087,11 +9414,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 采集数据文件
@@ -9100,11 +9427,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -9120,11 +9447,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 其他花费
@@ -9170,11 +9497,11 @@ declare global {
             /**
              * 原始文件名
              */
-            name?: string;
+            name: string;
             /**
              * oss上的文件名
              */
-            ossName?: string;
+            ossName: string;
             /**
              * 备注
              */
@@ -9190,13 +9517,17 @@ declare global {
             /**
              * uid
              */
-            uid?: string;
+            uid: string;
             /**
              * url
              */
-            url?: string;
+            url: string;
           };
         }[];
+        /**
+         * 车辆rdb信息
+         */
+        rdb?: string;
       };
       /**
        * 共同出工人id数组
@@ -9211,6 +9542,10 @@ declare global {
        */
       submitAt?: Date;
       /**
+       * 初次提交时间
+       */
+      firstSubmitAt?: Date;
+      /**
        * 提交人
        */
       submitBy?: string;
@@ -9222,15 +9557,23 @@ declare global {
        * 工时
        */
       workHours?: number;
+      /**
+       * 备件异常
+       */
+      backupAbnormal?: boolean;
     } & {
       /**
        * 关联的工单 id
        */
       ticket?: string;
       /**
+       * 维修单的sequence编号
+       */
+      sequence?: string;
+      /**
        * 维修单工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
        */
-      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
+      status?: "NOSEND" | "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
     };
   }
   export interface UpdateRepairResponse {
@@ -9328,9 +9671,13 @@ declare global {
        */
       problem?: string;
       /**
-       * 关联维修单id
+       * 关联维保单id
        */
       maintain?: string;
+      /**
+       * 关联维保单序号
+       */
+      maintainSequence?: string;
       /**
        * 派工人员 id
        */
@@ -9364,17 +9711,25 @@ declare global {
          */
         arrivalAt?: Date;
         /**
-         * 提交时间
+         * 提交时间，需同步至repair中
          */
         submitAt?: Date;
         /**
-         * 提交人
+         * 提交人，需同步至repair中
          */
         submitBy?: string;
+        /**
+         * 暂停原因，需同步至repair中
+         */
+        pauseReason?: string;
         /**
          * 故障元件
          */
         faultCells?: string[];
+        /**
+         * 故障备注
+         */
+        faultCellsRemark?: string;
         /**
          * 工时
          */
@@ -9459,11 +9814,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -9479,11 +9834,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 处理结果描述
@@ -9496,11 +9851,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -9516,11 +9871,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 车头正面图片
@@ -9529,11 +9884,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -9549,11 +9904,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 整车铭牌图片
@@ -9562,11 +9917,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -9582,11 +9937,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 仪表图片
@@ -9595,11 +9950,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -9615,11 +9970,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 电池号图片
@@ -9628,11 +9983,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -9648,11 +10003,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 其他图片
@@ -9661,11 +10016,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -9681,11 +10036,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 故障部位图片
@@ -9694,11 +10049,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -9714,11 +10069,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-开始图片
@@ -9727,11 +10082,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -9747,11 +10102,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机故障显示图片
@@ -9760,11 +10115,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -9780,11 +10135,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-结束图片
@@ -9793,11 +10148,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -9813,11 +10168,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 采集数据文件
@@ -9826,11 +10181,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -9846,11 +10201,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 其他花费
@@ -9896,11 +10251,11 @@ declare global {
             /**
              * 原始文件名
              */
-            name?: string;
+            name: string;
             /**
              * oss上的文件名
              */
-            ossName?: string;
+            ossName: string;
             /**
              * 备注
              */
@@ -9916,13 +10271,17 @@ declare global {
             /**
              * uid
              */
-            uid?: string;
+            uid: string;
             /**
              * url
              */
-            url?: string;
+            url: string;
           };
         }[];
+        /**
+         * 车辆rdb信息
+         */
+        rdb?: string;
       };
       /**
        * 共同出工人id数组
@@ -9937,6 +10296,10 @@ declare global {
        */
       submitAt?: Date;
       /**
+       * 初次提交时间
+       */
+      firstSubmitAt?: Date;
+      /**
        * 提交人
        */
       submitBy?: string;
@@ -9948,15 +10311,23 @@ declare global {
        * 工时
        */
       workHours?: number;
+      /**
+       * 备件异常
+       */
+      backupAbnormal?: boolean;
     } & {
       /**
        * 关联的工单 id
        */
       ticket?: string;
       /**
+       * 维修单的sequence编号
+       */
+      sequence?: string;
+      /**
        * 维修单工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
        */
-      status?: "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
+      status?: "NOSEND" | "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
     } & {
       id: string;
       updateAt?: Date;
@@ -9988,17 +10359,25 @@ declare global {
        */
       arrivalAt?: Date;
       /**
-       * 提交时间
+       * 提交时间，需同步至repair中
        */
       submitAt?: Date;
       /**
-       * 提交人
+       * 提交人，需同步至repair中
        */
       submitBy?: string;
+      /**
+       * 暂停原因，需同步至repair中
+       */
+      pauseReason?: string;
       /**
        * 故障元件
        */
       faultCells?: string[];
+      /**
+       * 故障备注
+       */
+      faultCellsRemark?: string;
       /**
        * 工时
        */
@@ -10083,11 +10462,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -10103,11 +10482,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 处理结果描述
@@ -10120,11 +10499,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -10140,11 +10519,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 车头正面图片
@@ -10153,11 +10532,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -10173,11 +10552,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 整车铭牌图片
@@ -10186,11 +10565,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -10206,11 +10585,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 仪表图片
@@ -10219,11 +10598,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -10239,11 +10618,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 电池号图片
@@ -10252,11 +10631,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -10272,11 +10651,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 其他图片
@@ -10285,11 +10664,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -10305,11 +10684,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 故障部位图片
@@ -10318,11 +10697,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -10338,11 +10717,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-开始图片
@@ -10351,11 +10730,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -10371,11 +10750,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机故障显示图片
@@ -10384,11 +10763,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -10404,11 +10783,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-结束图片
@@ -10417,11 +10796,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -10437,11 +10816,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 采集数据文件
@@ -10450,11 +10829,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -10470,11 +10849,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 其他花费
@@ -10520,11 +10899,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -10540,576 +10919,264 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         };
       }[];
+      /**
+       * 车辆rdb信息
+       */
+      rdb?: string;
     } & {
       collaborators?: string[];
     };
   }
   export interface UpdateRepairRecordResponse {
-    /**
-     * 维修单维修记录
-     */
     content?: {
       /**
-       * 车辆里程数
+       * 创建者
        */
-      mileages?: number;
+      createBy?: string;
       /**
-       * 容量数据
+       * 维修单所属部门
        */
-      soc?: string;
+      ticketNs?: string;
       /**
-       * 签到地址
+       * 工单曾经被驳回
        */
-      signAddress?: string;
+      rejected?: boolean;
       /**
-       * 到场时间
+       * 驳回时间
        */
-      arrivalAt?: Date;
+      rejectAt?: Date;
       /**
-       * 提交时间
+       * 驳回时间
        */
-      submitAt?: Date;
+      rejectReason?: string;
       /**
-       * 提交人
+       * 驳回人
        */
-      submitBy?: string;
+      rejectBy?: string;
       /**
-       * 故障元件
+       * 曾经是否超时
        */
-      faultCells?: string[];
+      resubmitTimedOut?: boolean;
       /**
-       * 工时
+       * 驳回后再次提交审核的截止日期
        */
-      workHours?: number;
+      resubmitDeadline?: Date;
       /**
-       * 失效原因
+       * CRM 订单号
        */
-      failReason?: string;
+      crm?: string;
       /**
-       * 处理方式
+       * 关联车辆 id
        */
-      processMethod?: string;
+      vehicle?: string;
       /**
-       * 故障属性
+       * 关联车辆车牌
        */
-      faultAttr?: string;
+      vehiclePlate?: string;
       /**
-       * 故障模式分类
+       * 关联车辆vin码
        */
-      faultMode?: string;
+      vehicleVin?: string;
       /**
-       * 备件
+       * 关联车辆自编号
        */
-      backups?: {
-        /**
-         * id
-         */
-        _id?: string;
-        /**
-         * 物料号
-         */
-        itemNo?: string;
-        /**
-         * 物料名称
-         */
-        name?: string;
-        /**
-         * 物流编号
-         */
-        flowNo?: string;
-        /**
-         * 物流费
-         */
-        flowPrice?: number;
-        /**
-         * 单价
-         */
-        unitPrice?: number;
-        /**
-         * 数量
-         */
-        quantity?: number;
-        /**
-         * 是否收费
-         */
-        free?: boolean;
-        /**
-         * 新件barcode
-         */
-        newBarcode?: string;
-        /**
-         * 旧件barcode
-         */
-        oldBarcode?: string;
-      }[];
+      vehicleNo?: string;
       /**
-       * 客户的故障描述
+       * 关联车辆品牌
        */
-      clientDesc?: string;
+      vehicleBrands?: string;
       /**
-       * 客户反馈
+       * 关联车辆终端用户
        */
-      clientOrigin?: string;
+      vehicleTerminal?: string;
       /**
-       * 己方的故障描述, 检查过程
+       * 关联车辆停保场
        */
-      ownDesc?: string;
+      vehiclePark?: string;
       /**
-       * 现场图片
+       * 关联车辆是否退役
        */
-      livePic?: {
-        /**
-         * 原始文件名
-         */
-        name?: string;
-        /**
-         * oss上的文件名
-         */
-        ossName?: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid?: string;
-        /**
-         * url
-         */
-        url?: string;
-      }[];
+      vehicleScrapped?: boolean;
       /**
-       * 处理结果描述
+       * 故障地点
        */
-      resultDesc?: string;
+      address?: string;
       /**
-       * 上位机图片
+       * 报修人姓名
        */
-      softwarePic?: {
-        /**
-         * 原始文件名
-         */
-        name?: string;
-        /**
-         * oss上的文件名
-         */
-        ossName?: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid?: string;
-        /**
-         * url
-         */
-        url?: string;
-      }[];
+      reporter?: string;
       /**
-       * 车头正面图片
+       * 报修时间
        */
-      frontPic?: {
-        /**
-         * 原始文件名
-         */
-        name?: string;
-        /**
-         * oss上的文件名
-         */
-        ossName?: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid?: string;
-        /**
-         * url
-         */
-        url?: string;
-      }[];
+      reportAt?: Date;
       /**
-       * 整车铭牌图片
+       * 报修人联系方式
        */
-      nameplatePic?: {
-        /**
-         * 原始文件名
-         */
-        name?: string;
-        /**
-         * oss上的文件名
-         */
-        ossName?: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid?: string;
-        /**
-         * url
-         */
-        url?: string;
-      }[];
+      reporterPhone?: string;
       /**
-       * 仪表图片
+       * 报修人职称
        */
-      meterPic?: {
-        /**
-         * 原始文件名
-         */
-        name?: string;
-        /**
-         * oss上的文件名
-         */
-        ossName?: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid?: string;
-        /**
-         * url
-         */
-        url?: string;
-      }[];
+      reporterPosition?: string;
       /**
-       * 电池号图片
+       * 问题描述
        */
-      batteryPic?: {
-        /**
-         * 原始文件名
-         */
-        name?: string;
-        /**
-         * oss上的文件名
-         */
-        ossName?: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid?: string;
-        /**
-         * url
-         */
-        url?: string;
-      }[];
+      problem?: string;
       /**
-       * 其他图片
+       * 关联维保单id
        */
-      otherPic?: {
-        /**
-         * 原始文件名
-         */
-        name?: string;
-        /**
-         * oss上的文件名
-         */
-        ossName?: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid?: string;
-        /**
-         * url
-         */
-        url?: string;
-      }[];
+      maintain?: string;
       /**
-       * 故障部位图片
+       * 关联维保单序号
        */
-      faultPic?: {
-        /**
-         * 原始文件名
-         */
-        name?: string;
-        /**
-         * oss上的文件名
-         */
-        ossName?: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid?: string;
-        /**
-         * url
-         */
-        url?: string;
-      }[];
+      maintainSequence?: string;
       /**
-       * 上位机软件截图-开始图片
+       * 派工人员 id
        */
-      softwareStartPic?: {
-        /**
-         * 原始文件名
-         */
-        name?: string;
-        /**
-         * oss上的文件名
-         */
-        ossName?: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid?: string;
-        /**
-         * url
-         */
-        url?: string;
-      }[];
+      assignee?: string;
       /**
-       * 上位机故障显示图片
+       * 派送时间
        */
-      softwareFaultPic?: {
-        /**
-         * 原始文件名
-         */
-        name?: string;
-        /**
-         * oss上的文件名
-         */
-        ossName?: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid?: string;
-        /**
-         * url
-         */
-        url?: string;
-      }[];
+      assignAt?: Date;
       /**
-       * 上位机软件截图-结束图片
+       * 完工时间
        */
-      softwareEndPic?: {
-        /**
-         * 原始文件名
-         */
-        name?: string;
-        /**
-         * oss上的文件名
-         */
-        ossName?: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid?: string;
-        /**
-         * url
-         */
-        url?: string;
-      }[];
+      closeAt?: Date;
       /**
-       * 采集数据文件
+       * 维修单维修记录
        */
-      dataFile?: {
+      record?: {
         /**
-         * 原始文件名
-         */
-        name?: string;
-        /**
-         * oss上的文件名
-         */
-        ossName?: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid?: string;
-        /**
-         * url
-         */
-        url?: string;
-      }[];
-      /**
-       * 其他花费
-       */
-      otherCost?: number;
-      /**
-       * 备注
-       */
-      remark?: string;
-      /**
-       * bmu软件版本
-       */
-      bmuSoftware?: string;
-      /**
-       * csc软件版本
-       */
-      cscSoftware?: string;
-      /**
-       * 审核通过后是否同步软件信息到车辆
-       */
-      syncSoftware?: boolean;
-      workers?: {
-        /**
-         * id
-         */
-        _id?: string;
-        /**
-         * 关联 user id
-         */
-        user?: string;
-        /**
-         * 出工里程
+         * 车辆里程数
          */
         mileages?: number;
         /**
-         * 工作量
+         * 容量数据
          */
-        workload?: number;
+        soc?: string;
         /**
-         * 线路图
+         * 签到地址
          */
-        linePic?: {
+        signAddress?: string;
+        /**
+         * 到场时间
+         */
+        arrivalAt?: Date;
+        /**
+         * 提交时间，需同步至repair中
+         */
+        submitAt?: Date;
+        /**
+         * 提交人，需同步至repair中
+         */
+        submitBy?: string;
+        /**
+         * 暂停原因，需同步至repair中
+         */
+        pauseReason?: string;
+        /**
+         * 故障元件
+         */
+        faultCells?: string[];
+        /**
+         * 故障备注
+         */
+        faultCellsRemark?: string;
+        /**
+         * 工时
+         */
+        workHours?: number;
+        /**
+         * 失效原因
+         */
+        failReason?: string;
+        /**
+         * 处理方式
+         */
+        processMethod?: string;
+        /**
+         * 故障属性
+         */
+        faultAttr?: string;
+        /**
+         * 故障模式分类
+         */
+        faultMode?: string;
+        /**
+         * 备件
+         */
+        backups?: {
           /**
-           * 原始文件名
+           * id
+           */
+          _id?: string;
+          /**
+           * 物料号
+           */
+          itemNo?: string;
+          /**
+           * 物料名称
            */
           name?: string;
           /**
+           * 物流编号
+           */
+          flowNo?: string;
+          /**
+           * 物流费
+           */
+          flowPrice?: number;
+          /**
+           * 单价
+           */
+          unitPrice?: number;
+          /**
+           * 数量
+           */
+          quantity?: number;
+          /**
+           * 是否收费
+           */
+          free?: boolean;
+          /**
+           * 新件barcode
+           */
+          newBarcode?: string;
+          /**
+           * 旧件barcode
+           */
+          oldBarcode?: string;
+        }[];
+        /**
+         * 客户的故障描述
+         */
+        clientDesc?: string;
+        /**
+         * 客户反馈
+         */
+        clientOrigin?: string;
+        /**
+         * 己方的故障描述, 检查过程
+         */
+        ownDesc?: string;
+        /**
+         * 现场图片
+         */
+        livePic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -11125,13 +11192,506 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
-        };
-      }[];
+          url: string;
+        }[];
+        /**
+         * 处理结果描述
+         */
+        resultDesc?: string;
+        /**
+         * 上位机图片
+         */
+        softwarePic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 车头正面图片
+         */
+        frontPic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 整车铭牌图片
+         */
+        nameplatePic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 仪表图片
+         */
+        meterPic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 电池号图片
+         */
+        batteryPic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 其他图片
+         */
+        otherPic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 故障部位图片
+         */
+        faultPic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 上位机软件截图-开始图片
+         */
+        softwareStartPic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 上位机故障显示图片
+         */
+        softwareFaultPic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 上位机软件截图-结束图片
+         */
+        softwareEndPic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 采集数据文件
+         */
+        dataFile?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 其他花费
+         */
+        otherCost?: number;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * bmu软件版本
+         */
+        bmuSoftware?: string;
+        /**
+         * csc软件版本
+         */
+        cscSoftware?: string;
+        /**
+         * 审核通过后是否同步软件信息到车辆
+         */
+        syncSoftware?: boolean;
+        workers?: {
+          /**
+           * id
+           */
+          _id?: string;
+          /**
+           * 关联 user id
+           */
+          user?: string;
+          /**
+           * 出工里程
+           */
+          mileages?: number;
+          /**
+           * 工作量
+           */
+          workload?: number;
+          /**
+           * 线路图
+           */
+          linePic?: {
+            /**
+             * 原始文件名
+             */
+            name: string;
+            /**
+             * oss上的文件名
+             */
+            ossName: string;
+            /**
+             * 备注
+             */
+            remark?: string;
+            /**
+             * 文件大小
+             */
+            size?: number;
+            /**
+             * 上传状态
+             */
+            status?: string;
+            /**
+             * uid
+             */
+            uid: string;
+            /**
+             * url
+             */
+            url: string;
+          };
+        }[];
+        /**
+         * 车辆rdb信息
+         */
+        rdb?: string;
+      };
+      /**
+       * 共同出工人id数组
+       */
+      collaborators?: string[];
+      /**
+       * 暂停原因
+       */
+      pauseReason?: string;
+      /**
+       * 提交时间
+       */
+      submitAt?: Date;
+      /**
+       * 初次提交时间
+       */
+      firstSubmitAt?: Date;
+      /**
+       * 提交人
+       */
+      submitBy?: string;
+      /**
+       * 工时计算公式
+       */
+      workHoursCalc?: string;
+      /**
+       * 工时
+       */
+      workHours?: number;
+      /**
+       * 备件异常
+       */
+      backupAbnormal?: boolean;
+    } & {
+      /**
+       * 关联的工单 id
+       */
+      ticket?: string;
+      /**
+       * 维修单的sequence编号
+       */
+      sequence?: string;
+      /**
+       * 维修单工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
+       */
+      status?: "NOSEND" | "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
+    } & {
+      id: string;
+      updateAt?: Date;
+      updateBy?: string;
+      createAt?: Date;
+      createBy?: string;
     };
   }
   export interface CreateMaintainRequest {
@@ -11141,6 +11701,10 @@ declare global {
        */
       ticket?: string;
       /**
+       * 维修单的sequence编号
+       */
+      sequence?: string;
+      /**
        * 维保单工单状态
        */
       status?: "CREATING" | "MAINTAINING" | "REPARING" | "PENDING" | "REJECTED" | "PASSED";
@@ -11152,6 +11716,10 @@ declare global {
        * 软件诊断组ns
        */
       software?: string;
+      /**
+       * 应维保时间
+       */
+      maintainAt?: Date;
       /**
        * 工单曾经被驳回
        */
@@ -11228,7 +11796,17 @@ declare global {
          * 车辆里程
          */
         mileages?: number;
+        /**
+         * 外观检查组签到地址
+         */
         signAddress?: string;
+        /**
+         * 签到人
+         */
+        signBy?: string;
+        /**
+         * 外观诊断组到场时间
+         */
         arrivalAt?: Date;
         /**
          * 路线图
@@ -11237,11 +11815,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -11257,11 +11835,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 外观检查组实际出工人
@@ -11412,17 +11990,29 @@ declare global {
          */
         lvConnectorFastenDesc?: string;
         /**
+         * 其他
+         */
+        other?: boolean;
+        /**
+         * 其他现场是否解决
+         */
+        otherResult?: boolean;
+        /**
+         * 其他异常描述及现场处理
+         */
+        otherDesc?: string;
+        /**
          * 车牌（车头照）
          */
         frontPic?: {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -11438,11 +12028,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 整车铭牌图片
@@ -11451,11 +12041,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -11471,11 +12061,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 车辆仪表图片
@@ -11484,11 +12074,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -11504,11 +12094,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 电池号图片
@@ -11517,11 +12107,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -11537,11 +12127,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 故障部位图片
@@ -11550,11 +12140,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -11570,11 +12160,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-开始图片
@@ -11583,11 +12173,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -11603,11 +12193,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机故障显示图片
@@ -11616,11 +12206,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -11636,11 +12226,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-结束图片
@@ -11649,11 +12239,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -11669,11 +12259,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 提交时间
@@ -11683,6 +12273,18 @@ declare global {
          * 提交人
          */
         submitBy?: string;
+        /**
+         * 是否通过检测
+         */
+        passed?: boolean;
+        /**
+         * 是否检测过
+         */
+        tested?: boolean;
+        /**
+         * 是否完整
+         */
+        complete?: boolean;
       };
       /**
        * 维保单软件诊断记录
@@ -11693,17 +12295,21 @@ declare global {
          */
         signAddress?: string;
         /**
+         * 签到人
+         */
+        signBy?: string;
+        /**
          * 路线图
          */
         routeMap?: {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -11719,11 +12325,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 软件诊断组到场时间
@@ -11740,11 +12346,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -11760,11 +12366,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-最后图片
@@ -11773,11 +12379,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -11793,11 +12399,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * SOH测量值
@@ -11936,6 +12542,10 @@ declare global {
          */
         diffVoltageDesc?: string;
         /**
+         * 充电状态
+         */
+        chargeStatus?: "CHARGING" | "UNCHARGED";
+        /**
          * 绝缘阻值（充电）正极
          */
         chargePositive?: number;
@@ -11984,22 +12594,82 @@ declare global {
          */
         nochargeNegativeDesc?: string;
         /**
+         * 电池PN
+         */
+        batteryPN?: string;
+        /**
+         * 电池号
+         */
+        batteryNum?: string;
+        /**
+         * BMU硬件版本
+         */
+        bmuHardware?: string;
+        /**
+         * BMU软件版本
+         */
+        bmuSoftware?: string;
+        /**
+         * CSC硬件版本
+         */
+        cscHardware?: string;
+        /**
+         * CSC软件版本
+         */
+        cscSoftware?: string;
+        /**
+         * RDB
+         */
+        rdb?: string;
+        /**
          * 提交时间
          */
         submitAt?: Date;
         /**
          * 提交人
          */
-        submitBy?: Date;
+        submitBy?: string;
+        /**
+         * 是否通过检测
+         */
+        passed?: boolean;
+        /**
+         * 是否检测过
+         */
+        tested?: boolean;
+        /**
+         * 是否完整
+         */
+        complete?: boolean;
       };
       /**
        * 关联维修单 id
        */
       repair?: string;
       /**
+       * 关联维修单 序号
+       */
+      repairSequence?: string;
+      /**
        * 完工时间
        */
       closeAt?: Date;
+      /**
+       * 维保周期
+       */
+      period?: string;
+      /**
+       * 上一个维保周期
+       */
+      prePeriod?: string;
+      /**
+       * 维保完成的截止日期
+       */
+      deadline?: string;
+      /**
+       * 上次维保完成日期
+       */
+      preCloseAt?: string;
     };
   }
   export interface CreateMaintainResponse {
@@ -12009,6 +12679,10 @@ declare global {
        */
       ticket?: string;
       /**
+       * 维修单的sequence编号
+       */
+      sequence?: string;
+      /**
        * 维保单工单状态
        */
       status?: "CREATING" | "MAINTAINING" | "REPARING" | "PENDING" | "REJECTED" | "PASSED";
@@ -12020,6 +12694,10 @@ declare global {
        * 软件诊断组ns
        */
       software?: string;
+      /**
+       * 应维保时间
+       */
+      maintainAt?: Date;
       /**
        * 工单曾经被驳回
        */
@@ -12096,7 +12774,17 @@ declare global {
          * 车辆里程
          */
         mileages?: number;
+        /**
+         * 外观检查组签到地址
+         */
         signAddress?: string;
+        /**
+         * 签到人
+         */
+        signBy?: string;
+        /**
+         * 外观诊断组到场时间
+         */
         arrivalAt?: Date;
         /**
          * 路线图
@@ -12105,11 +12793,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -12125,11 +12813,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 外观检查组实际出工人
@@ -12280,17 +12968,29 @@ declare global {
          */
         lvConnectorFastenDesc?: string;
         /**
+         * 其他
+         */
+        other?: boolean;
+        /**
+         * 其他现场是否解决
+         */
+        otherResult?: boolean;
+        /**
+         * 其他异常描述及现场处理
+         */
+        otherDesc?: string;
+        /**
          * 车牌（车头照）
          */
         frontPic?: {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -12306,11 +13006,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 整车铭牌图片
@@ -12319,11 +13019,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -12339,11 +13039,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 车辆仪表图片
@@ -12352,11 +13052,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -12372,11 +13072,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 电池号图片
@@ -12385,11 +13085,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -12405,11 +13105,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 故障部位图片
@@ -12418,11 +13118,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -12438,11 +13138,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-开始图片
@@ -12451,11 +13151,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -12471,11 +13171,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机故障显示图片
@@ -12484,11 +13184,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -12504,11 +13204,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-结束图片
@@ -12517,11 +13217,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -12537,11 +13237,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 提交时间
@@ -12551,6 +13251,18 @@ declare global {
          * 提交人
          */
         submitBy?: string;
+        /**
+         * 是否通过检测
+         */
+        passed?: boolean;
+        /**
+         * 是否检测过
+         */
+        tested?: boolean;
+        /**
+         * 是否完整
+         */
+        complete?: boolean;
       };
       /**
        * 维保单软件诊断记录
@@ -12561,17 +13273,21 @@ declare global {
          */
         signAddress?: string;
         /**
+         * 签到人
+         */
+        signBy?: string;
+        /**
          * 路线图
          */
         routeMap?: {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -12587,11 +13303,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 软件诊断组到场时间
@@ -12608,11 +13324,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -12628,11 +13344,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-最后图片
@@ -12641,11 +13357,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -12661,11 +13377,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * SOH测量值
@@ -12804,6 +13520,10 @@ declare global {
          */
         diffVoltageDesc?: string;
         /**
+         * 充电状态
+         */
+        chargeStatus?: "CHARGING" | "UNCHARGED";
+        /**
          * 绝缘阻值（充电）正极
          */
         chargePositive?: number;
@@ -12852,22 +13572,82 @@ declare global {
          */
         nochargeNegativeDesc?: string;
         /**
+         * 电池PN
+         */
+        batteryPN?: string;
+        /**
+         * 电池号
+         */
+        batteryNum?: string;
+        /**
+         * BMU硬件版本
+         */
+        bmuHardware?: string;
+        /**
+         * BMU软件版本
+         */
+        bmuSoftware?: string;
+        /**
+         * CSC硬件版本
+         */
+        cscHardware?: string;
+        /**
+         * CSC软件版本
+         */
+        cscSoftware?: string;
+        /**
+         * RDB
+         */
+        rdb?: string;
+        /**
          * 提交时间
          */
         submitAt?: Date;
         /**
          * 提交人
          */
-        submitBy?: Date;
+        submitBy?: string;
+        /**
+         * 是否通过检测
+         */
+        passed?: boolean;
+        /**
+         * 是否检测过
+         */
+        tested?: boolean;
+        /**
+         * 是否完整
+         */
+        complete?: boolean;
       };
       /**
        * 关联维修单 id
        */
       repair?: string;
       /**
+       * 关联维修单 序号
+       */
+      repairSequence?: string;
+      /**
        * 完工时间
        */
       closeAt?: Date;
+      /**
+       * 维保周期
+       */
+      period?: string;
+      /**
+       * 上一个维保周期
+       */
+      prePeriod?: string;
+      /**
+       * 维保完成的截止日期
+       */
+      deadline?: string;
+      /**
+       * 上次维保完成日期
+       */
+      preCloseAt?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -12883,6 +13663,8 @@ declare global {
       _sort?: string;
       _select?: string[];
       id?: string;
+      id_like?: string;
+      sequence_like?: string;
       status?:
         | ("CREATING" | "MAINTAINING" | "REPARING" | "PENDING" | "REJECTED" | "PASSED")
         | ("CREATING" | "MAINTAINING" | "REPARING" | "PENDING" | "REJECTED" | "PASSED")[];
@@ -12892,6 +13674,7 @@ declare global {
       crm_like?: string;
       vehicleVin_like?: string;
       vehicleVin?: string;
+      vehicleNo_like?: string;
       appearance?: string;
       software?: string;
       participant?: string;
@@ -12899,6 +13682,10 @@ declare global {
       vehicleTerminal?: string | string[];
       vehiclePark?: string | string[];
       vehicleScrapped?: boolean | boolean[];
+      vehicle?: string;
+      prePeriod?: string;
+      preCloseAt_gte?: string;
+      preCloseAt_lte?: string;
     };
   }
   export interface ListMaintainsResponse {
@@ -12907,6 +13694,10 @@ declare global {
        * 关联的工单 id
        */
       ticket?: string;
+      /**
+       * 维修单的sequence编号
+       */
+      sequence?: string;
       /**
        * 维保单工单状态
        */
@@ -12919,6 +13710,10 @@ declare global {
        * 软件诊断组ns
        */
       software?: string;
+      /**
+       * 应维保时间
+       */
+      maintainAt?: Date;
       /**
        * 工单曾经被驳回
        */
@@ -12995,7 +13790,17 @@ declare global {
          * 车辆里程
          */
         mileages?: number;
+        /**
+         * 外观检查组签到地址
+         */
         signAddress?: string;
+        /**
+         * 签到人
+         */
+        signBy?: string;
+        /**
+         * 外观诊断组到场时间
+         */
         arrivalAt?: Date;
         /**
          * 路线图
@@ -13004,11 +13809,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -13024,11 +13829,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 外观检查组实际出工人
@@ -13179,17 +13984,29 @@ declare global {
          */
         lvConnectorFastenDesc?: string;
         /**
+         * 其他
+         */
+        other?: boolean;
+        /**
+         * 其他现场是否解决
+         */
+        otherResult?: boolean;
+        /**
+         * 其他异常描述及现场处理
+         */
+        otherDesc?: string;
+        /**
          * 车牌（车头照）
          */
         frontPic?: {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -13205,11 +14022,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 整车铭牌图片
@@ -13218,11 +14035,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -13238,11 +14055,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 车辆仪表图片
@@ -13251,11 +14068,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -13271,11 +14088,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 电池号图片
@@ -13284,11 +14101,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -13304,11 +14121,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 故障部位图片
@@ -13317,11 +14134,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -13337,11 +14154,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-开始图片
@@ -13350,11 +14167,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -13370,11 +14187,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机故障显示图片
@@ -13383,11 +14200,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -13403,11 +14220,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-结束图片
@@ -13416,11 +14233,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -13436,11 +14253,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 提交时间
@@ -13450,6 +14267,18 @@ declare global {
          * 提交人
          */
         submitBy?: string;
+        /**
+         * 是否通过检测
+         */
+        passed?: boolean;
+        /**
+         * 是否检测过
+         */
+        tested?: boolean;
+        /**
+         * 是否完整
+         */
+        complete?: boolean;
       };
       /**
        * 维保单软件诊断记录
@@ -13460,17 +14289,21 @@ declare global {
          */
         signAddress?: string;
         /**
+         * 签到人
+         */
+        signBy?: string;
+        /**
          * 路线图
          */
         routeMap?: {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -13486,11 +14319,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 软件诊断组到场时间
@@ -13507,11 +14340,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -13527,11 +14360,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-最后图片
@@ -13540,11 +14373,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -13560,11 +14393,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * SOH测量值
@@ -13703,6 +14536,10 @@ declare global {
          */
         diffVoltageDesc?: string;
         /**
+         * 充电状态
+         */
+        chargeStatus?: "CHARGING" | "UNCHARGED";
+        /**
          * 绝缘阻值（充电）正极
          */
         chargePositive?: number;
@@ -13751,22 +14588,82 @@ declare global {
          */
         nochargeNegativeDesc?: string;
         /**
+         * 电池PN
+         */
+        batteryPN?: string;
+        /**
+         * 电池号
+         */
+        batteryNum?: string;
+        /**
+         * BMU硬件版本
+         */
+        bmuHardware?: string;
+        /**
+         * BMU软件版本
+         */
+        bmuSoftware?: string;
+        /**
+         * CSC硬件版本
+         */
+        cscHardware?: string;
+        /**
+         * CSC软件版本
+         */
+        cscSoftware?: string;
+        /**
+         * RDB
+         */
+        rdb?: string;
+        /**
          * 提交时间
          */
         submitAt?: Date;
         /**
          * 提交人
          */
-        submitBy?: Date;
+        submitBy?: string;
+        /**
+         * 是否通过检测
+         */
+        passed?: boolean;
+        /**
+         * 是否检测过
+         */
+        tested?: boolean;
+        /**
+         * 是否完整
+         */
+        complete?: boolean;
       };
       /**
        * 关联维修单 id
        */
       repair?: string;
       /**
+       * 关联维修单 序号
+       */
+      repairSequence?: string;
+      /**
        * 完工时间
        */
       closeAt?: Date;
+      /**
+       * 维保周期
+       */
+      period?: string;
+      /**
+       * 上一个维保周期
+       */
+      prePeriod?: string;
+      /**
+       * 维保完成的截止日期
+       */
+      deadline?: string;
+      /**
+       * 上次维保完成日期
+       */
+      preCloseAt?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -13788,6 +14685,10 @@ declare global {
        */
       ticket?: string;
       /**
+       * 维修单的sequence编号
+       */
+      sequence?: string;
+      /**
        * 维保单工单状态
        */
       status?: "CREATING" | "MAINTAINING" | "REPARING" | "PENDING" | "REJECTED" | "PASSED";
@@ -13799,6 +14700,10 @@ declare global {
        * 软件诊断组ns
        */
       software?: string;
+      /**
+       * 应维保时间
+       */
+      maintainAt?: Date;
       /**
        * 工单曾经被驳回
        */
@@ -13875,7 +14780,17 @@ declare global {
          * 车辆里程
          */
         mileages?: number;
+        /**
+         * 外观检查组签到地址
+         */
         signAddress?: string;
+        /**
+         * 签到人
+         */
+        signBy?: string;
+        /**
+         * 外观诊断组到场时间
+         */
         arrivalAt?: Date;
         /**
          * 路线图
@@ -13884,11 +14799,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -13904,11 +14819,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 外观检查组实际出工人
@@ -14059,17 +14974,29 @@ declare global {
          */
         lvConnectorFastenDesc?: string;
         /**
+         * 其他
+         */
+        other?: boolean;
+        /**
+         * 其他现场是否解决
+         */
+        otherResult?: boolean;
+        /**
+         * 其他异常描述及现场处理
+         */
+        otherDesc?: string;
+        /**
          * 车牌（车头照）
          */
         frontPic?: {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -14085,11 +15012,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 整车铭牌图片
@@ -14098,11 +15025,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -14118,11 +15045,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 车辆仪表图片
@@ -14131,11 +15058,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -14151,11 +15078,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 电池号图片
@@ -14164,11 +15091,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -14184,11 +15111,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 故障部位图片
@@ -14197,11 +15124,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -14217,11 +15144,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-开始图片
@@ -14230,11 +15157,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -14250,11 +15177,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机故障显示图片
@@ -14263,11 +15190,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -14283,11 +15210,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-结束图片
@@ -14296,11 +15223,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -14316,11 +15243,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 提交时间
@@ -14330,6 +15257,18 @@ declare global {
          * 提交人
          */
         submitBy?: string;
+        /**
+         * 是否通过检测
+         */
+        passed?: boolean;
+        /**
+         * 是否检测过
+         */
+        tested?: boolean;
+        /**
+         * 是否完整
+         */
+        complete?: boolean;
       };
       /**
        * 维保单软件诊断记录
@@ -14340,17 +15279,21 @@ declare global {
          */
         signAddress?: string;
         /**
+         * 签到人
+         */
+        signBy?: string;
+        /**
          * 路线图
          */
         routeMap?: {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -14366,11 +15309,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 软件诊断组到场时间
@@ -14387,11 +15330,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -14407,11 +15350,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-最后图片
@@ -14420,11 +15363,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -14440,11 +15383,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * SOH测量值
@@ -14583,6 +15526,10 @@ declare global {
          */
         diffVoltageDesc?: string;
         /**
+         * 充电状态
+         */
+        chargeStatus?: "CHARGING" | "UNCHARGED";
+        /**
          * 绝缘阻值（充电）正极
          */
         chargePositive?: number;
@@ -14631,22 +15578,82 @@ declare global {
          */
         nochargeNegativeDesc?: string;
         /**
+         * 电池PN
+         */
+        batteryPN?: string;
+        /**
+         * 电池号
+         */
+        batteryNum?: string;
+        /**
+         * BMU硬件版本
+         */
+        bmuHardware?: string;
+        /**
+         * BMU软件版本
+         */
+        bmuSoftware?: string;
+        /**
+         * CSC硬件版本
+         */
+        cscHardware?: string;
+        /**
+         * CSC软件版本
+         */
+        cscSoftware?: string;
+        /**
+         * RDB
+         */
+        rdb?: string;
+        /**
          * 提交时间
          */
         submitAt?: Date;
         /**
          * 提交人
          */
-        submitBy?: Date;
+        submitBy?: string;
+        /**
+         * 是否通过检测
+         */
+        passed?: boolean;
+        /**
+         * 是否检测过
+         */
+        tested?: boolean;
+        /**
+         * 是否完整
+         */
+        complete?: boolean;
       };
       /**
        * 关联维修单 id
        */
       repair?: string;
       /**
+       * 关联维修单 序号
+       */
+      repairSequence?: string;
+      /**
        * 完工时间
        */
       closeAt?: Date;
+      /**
+       * 维保周期
+       */
+      period?: string;
+      /**
+       * 上一个维保周期
+       */
+      prePeriod?: string;
+      /**
+       * 维保完成的截止日期
+       */
+      deadline?: string;
+      /**
+       * 上次维保完成日期
+       */
+      preCloseAt?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -14663,6 +15670,10 @@ declare global {
        */
       ticket?: string;
       /**
+       * 维修单的sequence编号
+       */
+      sequence?: string;
+      /**
        * 维保单工单状态
        */
       status?: "CREATING" | "MAINTAINING" | "REPARING" | "PENDING" | "REJECTED" | "PASSED";
@@ -14674,6 +15685,10 @@ declare global {
        * 软件诊断组ns
        */
       software?: string;
+      /**
+       * 应维保时间
+       */
+      maintainAt?: Date;
       /**
        * 工单曾经被驳回
        */
@@ -14750,7 +15765,17 @@ declare global {
          * 车辆里程
          */
         mileages?: number;
+        /**
+         * 外观检查组签到地址
+         */
         signAddress?: string;
+        /**
+         * 签到人
+         */
+        signBy?: string;
+        /**
+         * 外观诊断组到场时间
+         */
         arrivalAt?: Date;
         /**
          * 路线图
@@ -14759,11 +15784,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -14779,11 +15804,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 外观检查组实际出工人
@@ -14934,17 +15959,29 @@ declare global {
          */
         lvConnectorFastenDesc?: string;
         /**
+         * 其他
+         */
+        other?: boolean;
+        /**
+         * 其他现场是否解决
+         */
+        otherResult?: boolean;
+        /**
+         * 其他异常描述及现场处理
+         */
+        otherDesc?: string;
+        /**
          * 车牌（车头照）
          */
         frontPic?: {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -14960,11 +15997,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 整车铭牌图片
@@ -14973,11 +16010,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -14993,11 +16030,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 车辆仪表图片
@@ -15006,11 +16043,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -15026,11 +16063,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 电池号图片
@@ -15039,11 +16076,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -15059,11 +16096,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 故障部位图片
@@ -15072,11 +16109,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -15092,11 +16129,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-开始图片
@@ -15105,11 +16142,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -15125,11 +16162,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机故障显示图片
@@ -15138,11 +16175,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -15158,11 +16195,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-结束图片
@@ -15171,11 +16208,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -15191,11 +16228,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 提交时间
@@ -15205,6 +16242,18 @@ declare global {
          * 提交人
          */
         submitBy?: string;
+        /**
+         * 是否通过检测
+         */
+        passed?: boolean;
+        /**
+         * 是否检测过
+         */
+        tested?: boolean;
+        /**
+         * 是否完整
+         */
+        complete?: boolean;
       };
       /**
        * 维保单软件诊断记录
@@ -15215,17 +16264,21 @@ declare global {
          */
         signAddress?: string;
         /**
+         * 签到人
+         */
+        signBy?: string;
+        /**
          * 路线图
          */
         routeMap?: {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -15241,11 +16294,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 软件诊断组到场时间
@@ -15262,11 +16315,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -15282,11 +16335,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-最后图片
@@ -15295,11 +16348,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -15315,11 +16368,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * SOH测量值
@@ -15458,6 +16511,10 @@ declare global {
          */
         diffVoltageDesc?: string;
         /**
+         * 充电状态
+         */
+        chargeStatus?: "CHARGING" | "UNCHARGED";
+        /**
          * 绝缘阻值（充电）正极
          */
         chargePositive?: number;
@@ -15506,22 +16563,82 @@ declare global {
          */
         nochargeNegativeDesc?: string;
         /**
+         * 电池PN
+         */
+        batteryPN?: string;
+        /**
+         * 电池号
+         */
+        batteryNum?: string;
+        /**
+         * BMU硬件版本
+         */
+        bmuHardware?: string;
+        /**
+         * BMU软件版本
+         */
+        bmuSoftware?: string;
+        /**
+         * CSC硬件版本
+         */
+        cscHardware?: string;
+        /**
+         * CSC软件版本
+         */
+        cscSoftware?: string;
+        /**
+         * RDB
+         */
+        rdb?: string;
+        /**
          * 提交时间
          */
         submitAt?: Date;
         /**
          * 提交人
          */
-        submitBy?: Date;
+        submitBy?: string;
+        /**
+         * 是否通过检测
+         */
+        passed?: boolean;
+        /**
+         * 是否检测过
+         */
+        tested?: boolean;
+        /**
+         * 是否完整
+         */
+        complete?: boolean;
       };
       /**
        * 关联维修单 id
        */
       repair?: string;
       /**
+       * 关联维修单 序号
+       */
+      repairSequence?: string;
+      /**
        * 完工时间
        */
       closeAt?: Date;
+      /**
+       * 维保周期
+       */
+      period?: string;
+      /**
+       * 上一个维保周期
+       */
+      prePeriod?: string;
+      /**
+       * 维保完成的截止日期
+       */
+      deadline?: string;
+      /**
+       * 上次维保完成日期
+       */
+      preCloseAt?: string;
     };
   }
   export interface UpdateMaintainResponse {
@@ -15531,6 +16648,10 @@ declare global {
        */
       ticket?: string;
       /**
+       * 维修单的sequence编号
+       */
+      sequence?: string;
+      /**
        * 维保单工单状态
        */
       status?: "CREATING" | "MAINTAINING" | "REPARING" | "PENDING" | "REJECTED" | "PASSED";
@@ -15542,6 +16663,10 @@ declare global {
        * 软件诊断组ns
        */
       software?: string;
+      /**
+       * 应维保时间
+       */
+      maintainAt?: Date;
       /**
        * 工单曾经被驳回
        */
@@ -15618,7 +16743,17 @@ declare global {
          * 车辆里程
          */
         mileages?: number;
+        /**
+         * 外观检查组签到地址
+         */
         signAddress?: string;
+        /**
+         * 签到人
+         */
+        signBy?: string;
+        /**
+         * 外观诊断组到场时间
+         */
         arrivalAt?: Date;
         /**
          * 路线图
@@ -15627,11 +16762,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -15647,11 +16782,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 外观检查组实际出工人
@@ -15802,17 +16937,29 @@ declare global {
          */
         lvConnectorFastenDesc?: string;
         /**
+         * 其他
+         */
+        other?: boolean;
+        /**
+         * 其他现场是否解决
+         */
+        otherResult?: boolean;
+        /**
+         * 其他异常描述及现场处理
+         */
+        otherDesc?: string;
+        /**
          * 车牌（车头照）
          */
         frontPic?: {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -15828,11 +16975,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 整车铭牌图片
@@ -15841,11 +16988,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -15861,11 +17008,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 车辆仪表图片
@@ -15874,11 +17021,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -15894,11 +17041,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 电池号图片
@@ -15907,11 +17054,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -15927,11 +17074,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 故障部位图片
@@ -15940,11 +17087,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -15960,11 +17107,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-开始图片
@@ -15973,11 +17120,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -15993,11 +17140,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机故障显示图片
@@ -16006,11 +17153,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -16026,11 +17173,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-结束图片
@@ -16039,11 +17186,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -16059,11 +17206,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 提交时间
@@ -16073,6 +17220,18 @@ declare global {
          * 提交人
          */
         submitBy?: string;
+        /**
+         * 是否通过检测
+         */
+        passed?: boolean;
+        /**
+         * 是否检测过
+         */
+        tested?: boolean;
+        /**
+         * 是否完整
+         */
+        complete?: boolean;
       };
       /**
        * 维保单软件诊断记录
@@ -16083,17 +17242,21 @@ declare global {
          */
         signAddress?: string;
         /**
+         * 签到人
+         */
+        signBy?: string;
+        /**
          * 路线图
          */
         routeMap?: {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -16109,11 +17272,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 软件诊断组到场时间
@@ -16130,11 +17293,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -16150,11 +17313,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * 上位机软件截图-最后图片
@@ -16163,11 +17326,11 @@ declare global {
           /**
            * 原始文件名
            */
-          name?: string;
+          name: string;
           /**
            * oss上的文件名
            */
-          ossName?: string;
+          ossName: string;
           /**
            * 备注
            */
@@ -16183,11 +17346,11 @@ declare global {
           /**
            * uid
            */
-          uid?: string;
+          uid: string;
           /**
            * url
            */
-          url?: string;
+          url: string;
         }[];
         /**
          * SOH测量值
@@ -16326,6 +17489,10 @@ declare global {
          */
         diffVoltageDesc?: string;
         /**
+         * 充电状态
+         */
+        chargeStatus?: "CHARGING" | "UNCHARGED";
+        /**
          * 绝缘阻值（充电）正极
          */
         chargePositive?: number;
@@ -16374,22 +17541,82 @@ declare global {
          */
         nochargeNegativeDesc?: string;
         /**
+         * 电池PN
+         */
+        batteryPN?: string;
+        /**
+         * 电池号
+         */
+        batteryNum?: string;
+        /**
+         * BMU硬件版本
+         */
+        bmuHardware?: string;
+        /**
+         * BMU软件版本
+         */
+        bmuSoftware?: string;
+        /**
+         * CSC硬件版本
+         */
+        cscHardware?: string;
+        /**
+         * CSC软件版本
+         */
+        cscSoftware?: string;
+        /**
+         * RDB
+         */
+        rdb?: string;
+        /**
          * 提交时间
          */
         submitAt?: Date;
         /**
          * 提交人
          */
-        submitBy?: Date;
+        submitBy?: string;
+        /**
+         * 是否通过检测
+         */
+        passed?: boolean;
+        /**
+         * 是否检测过
+         */
+        tested?: boolean;
+        /**
+         * 是否完整
+         */
+        complete?: boolean;
       };
       /**
        * 关联维修单 id
        */
       repair?: string;
       /**
+       * 关联维修单 序号
+       */
+      repairSequence?: string;
+      /**
        * 完工时间
        */
       closeAt?: Date;
+      /**
+       * 维保周期
+       */
+      period?: string;
+      /**
+       * 上一个维保周期
+       */
+      prePeriod?: string;
+      /**
+       * 维保完成的截止日期
+       */
+      deadline?: string;
+      /**
+       * 上次维保完成日期
+       */
+      preCloseAt?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -16411,7 +17638,17 @@ declare global {
        * 车辆里程
        */
       mileages?: number;
+      /**
+       * 外观检查组签到地址
+       */
       signAddress?: string;
+      /**
+       * 签到人
+       */
+      signBy?: string;
+      /**
+       * 外观诊断组到场时间
+       */
       arrivalAt?: Date;
       /**
        * 路线图
@@ -16420,11 +17657,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -16440,11 +17677,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 外观检查组实际出工人
@@ -16595,17 +17832,29 @@ declare global {
        */
       lvConnectorFastenDesc?: string;
       /**
+       * 其他
+       */
+      other?: boolean;
+      /**
+       * 其他现场是否解决
+       */
+      otherResult?: boolean;
+      /**
+       * 其他异常描述及现场处理
+       */
+      otherDesc?: string;
+      /**
        * 车牌（车头照）
        */
       frontPic?: {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -16621,11 +17870,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 整车铭牌图片
@@ -16634,11 +17883,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -16654,11 +17903,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 车辆仪表图片
@@ -16667,11 +17916,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -16687,11 +17936,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 电池号图片
@@ -16700,11 +17949,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -16720,11 +17969,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 故障部位图片
@@ -16733,11 +17982,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -16753,11 +18002,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-开始图片
@@ -16766,11 +18015,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -16786,11 +18035,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机故障显示图片
@@ -16799,11 +18048,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -16819,11 +18068,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-结束图片
@@ -16832,11 +18081,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -16852,11 +18101,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 提交时间
@@ -16866,6 +18115,18 @@ declare global {
        * 提交人
        */
       submitBy?: string;
+      /**
+       * 是否通过检测
+       */
+      passed?: boolean;
+      /**
+       * 是否检测过
+       */
+      tested?: boolean;
+      /**
+       * 是否完整
+       */
+      complete?: boolean;
     };
   }
   export interface UpdateAppearanceRecordResponse {
@@ -16877,7 +18138,17 @@ declare global {
        * 车辆里程
        */
       mileages?: number;
+      /**
+       * 外观检查组签到地址
+       */
       signAddress?: string;
+      /**
+       * 签到人
+       */
+      signBy?: string;
+      /**
+       * 外观诊断组到场时间
+       */
       arrivalAt?: Date;
       /**
        * 路线图
@@ -16886,11 +18157,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -16906,11 +18177,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 外观检查组实际出工人
@@ -17061,17 +18332,29 @@ declare global {
        */
       lvConnectorFastenDesc?: string;
       /**
+       * 其他
+       */
+      other?: boolean;
+      /**
+       * 其他现场是否解决
+       */
+      otherResult?: boolean;
+      /**
+       * 其他异常描述及现场处理
+       */
+      otherDesc?: string;
+      /**
        * 车牌（车头照）
        */
       frontPic?: {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -17087,11 +18370,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 整车铭牌图片
@@ -17100,11 +18383,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -17120,11 +18403,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 车辆仪表图片
@@ -17133,11 +18416,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -17153,11 +18436,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 电池号图片
@@ -17166,11 +18449,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -17186,11 +18469,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 故障部位图片
@@ -17199,11 +18482,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -17219,11 +18502,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-开始图片
@@ -17232,11 +18515,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -17252,11 +18535,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机故障显示图片
@@ -17265,11 +18548,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -17285,11 +18568,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-结束图片
@@ -17298,11 +18581,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -17318,11 +18601,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 提交时间
@@ -17332,6 +18615,18 @@ declare global {
        * 提交人
        */
       submitBy?: string;
+      /**
+       * 是否通过检测
+       */
+      passed?: boolean;
+      /**
+       * 是否检测过
+       */
+      tested?: boolean;
+      /**
+       * 是否完整
+       */
+      complete?: boolean;
     };
   }
   export interface UpdateSoftwareRecordRequest {
@@ -17345,17 +18640,21 @@ declare global {
        */
       signAddress?: string;
       /**
+       * 签到人
+       */
+      signBy?: string;
+      /**
        * 路线图
        */
       routeMap?: {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -17371,11 +18670,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 软件诊断组到场时间
@@ -17392,11 +18691,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -17412,11 +18711,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-最后图片
@@ -17425,11 +18724,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -17445,11 +18744,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * SOH测量值
@@ -17588,6 +18887,10 @@ declare global {
        */
       diffVoltageDesc?: string;
       /**
+       * 充电状态
+       */
+      chargeStatus?: "CHARGING" | "UNCHARGED";
+      /**
        * 绝缘阻值（充电）正极
        */
       chargePositive?: number;
@@ -17636,13 +18939,53 @@ declare global {
        */
       nochargeNegativeDesc?: string;
       /**
+       * 电池PN
+       */
+      batteryPN?: string;
+      /**
+       * 电池号
+       */
+      batteryNum?: string;
+      /**
+       * BMU硬件版本
+       */
+      bmuHardware?: string;
+      /**
+       * BMU软件版本
+       */
+      bmuSoftware?: string;
+      /**
+       * CSC硬件版本
+       */
+      cscHardware?: string;
+      /**
+       * CSC软件版本
+       */
+      cscSoftware?: string;
+      /**
+       * RDB
+       */
+      rdb?: string;
+      /**
        * 提交时间
        */
       submitAt?: Date;
       /**
        * 提交人
        */
-      submitBy?: Date;
+      submitBy?: string;
+      /**
+       * 是否通过检测
+       */
+      passed?: boolean;
+      /**
+       * 是否检测过
+       */
+      tested?: boolean;
+      /**
+       * 是否完整
+       */
+      complete?: boolean;
     };
   }
   export interface UpdateSoftwareRecordResponse {
@@ -17655,17 +18998,21 @@ declare global {
        */
       signAddress?: string;
       /**
+       * 签到人
+       */
+      signBy?: string;
+      /**
        * 路线图
        */
       routeMap?: {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -17681,11 +19028,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 软件诊断组到场时间
@@ -17702,11 +19049,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -17722,11 +19069,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * 上位机软件截图-最后图片
@@ -17735,11 +19082,11 @@ declare global {
         /**
          * 原始文件名
          */
-        name?: string;
+        name: string;
         /**
          * oss上的文件名
          */
-        ossName?: string;
+        ossName: string;
         /**
          * 备注
          */
@@ -17755,11 +19102,11 @@ declare global {
         /**
          * uid
          */
-        uid?: string;
+        uid: string;
         /**
          * url
          */
-        url?: string;
+        url: string;
       }[];
       /**
        * SOH测量值
@@ -17898,6 +19245,10 @@ declare global {
        */
       diffVoltageDesc?: string;
       /**
+       * 充电状态
+       */
+      chargeStatus?: "CHARGING" | "UNCHARGED";
+      /**
        * 绝缘阻值（充电）正极
        */
       chargePositive?: number;
@@ -17946,13 +19297,53 @@ declare global {
        */
       nochargeNegativeDesc?: string;
       /**
+       * 电池PN
+       */
+      batteryPN?: string;
+      /**
+       * 电池号
+       */
+      batteryNum?: string;
+      /**
+       * BMU硬件版本
+       */
+      bmuHardware?: string;
+      /**
+       * BMU软件版本
+       */
+      bmuSoftware?: string;
+      /**
+       * CSC硬件版本
+       */
+      cscHardware?: string;
+      /**
+       * CSC软件版本
+       */
+      cscSoftware?: string;
+      /**
+       * RDB
+       */
+      rdb?: string;
+      /**
        * 提交时间
        */
       submitAt?: Date;
       /**
        * 提交人
        */
-      submitBy?: Date;
+      submitBy?: string;
+      /**
+       * 是否通过检测
+       */
+      passed?: boolean;
+      /**
+       * 是否检测过
+       */
+      tested?: boolean;
+      /**
+       * 是否完整
+       */
+      complete?: boolean;
     };
   }
   export interface CreateRecordRequest {
@@ -17969,6 +19360,14 @@ declare global {
        * 操作记录详情
        */
       desc?: string;
+      /**
+       * 操作者用户名
+       */
+      username?: string;
+      /**
+       * 操作者昵称
+       */
+      nickname?: string;
     };
   }
   export interface CreateRecordResponse {
@@ -17985,6 +19384,14 @@ declare global {
        * 操作记录详情
        */
       desc?: string;
+      /**
+       * 操作者用户名
+       */
+      username?: string;
+      /**
+       * 操作者昵称
+       */
+      nickname?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -18016,6 +19423,14 @@ declare global {
        * 操作记录详情
        */
       desc?: string;
+      /**
+       * 操作者用户名
+       */
+      username?: string;
+      /**
+       * 操作者昵称
+       */
+      nickname?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -18044,6 +19459,14 @@ declare global {
        * 操作记录详情
        */
       desc?: string;
+      /**
+       * 操作者用户名
+       */
+      username?: string;
+      /**
+       * 操作者昵称
+       */
+      nickname?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -18067,6 +19490,14 @@ declare global {
        * 操作记录详情
        */
       desc?: string;
+      /**
+       * 操作者用户名
+       */
+      username?: string;
+      /**
+       * 操作者昵称
+       */
+      nickname?: string;
     };
   }
   export interface UpdateRecordResponse {
@@ -18083,6 +19514,14 @@ declare global {
        * 操作记录详情
        */
       desc?: string;
+      /**
+       * 操作者用户名
+       */
+      username?: string;
+      /**
+       * 操作者昵称
+       */
+      nickname?: string;
     } & {
       id: string;
       updateAt?: Date;

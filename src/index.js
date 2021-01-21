@@ -293,6 +293,38 @@ export default class SDK {
       });
     },
     /**
+     * 停止车辆维保
+     *
+     * @param {StopVehicleMaintainRequest} req stopVehicleMaintain request
+     */
+    stopVehicleMaintain: req => {
+      const { vehicleId } = req || {};
+
+      if (!vehicleId)
+        throw new Error("vehicleId is required for stopVehicleMaintain");
+
+      return fetch(`${this.base}/vehicles/${vehicleId}/!stopMaintain`, {
+        method: "PUT",
+        headers: { Authorization: this.auth },
+      });
+    },
+    /**
+     * 停止车辆维保
+     *
+     * @param {StartVehicleMaintainRequest} req startVehicleMaintain request
+     */
+    startVehicleMaintain: req => {
+      const { vehicleId } = req || {};
+
+      if (!vehicleId)
+        throw new Error("vehicleId is required for startVehicleMaintain");
+
+      return fetch(`${this.base}/vehicles/${vehicleId}/!startMaintain`, {
+        method: "PUT",
+        headers: { Authorization: this.auth },
+      });
+    },
+    /**
      * Create a vehicle record
      *
      * @param {CreateVehicleRecordRequest} req createVehicleRecord request
