@@ -11,6 +11,7 @@ declare class SDK {
   repair: RepairAPI;
   maintain: MaintainAPI;
   record: RecordAPI;
+  notification: NotificationAPI;
 }
 
 declare global {
@@ -185,17 +186,47 @@ declare global {
      */
     deleteRecord(req: DeleteRecordRequest): Promise<DeleteRecordResponse>;
   }
+  export interface NotificationAPI {
+    /**
+     * Create a notification
+     */
+    createNotification(req: CreateNotificationRequest): Promise<CreateNotificationResponse>;
+    /**
+     * List all notifications
+     */
+    listNotifications(req: ListNotificationsRequest): Promise<ListNotificationsResponse>;
+    /**
+     * Find notification by id
+     */
+    getNotification(req: GetNotificationRequest): Promise<GetNotificationResponse>;
+    /**
+     * Update notification
+     */
+    updateNotification(req: UpdateNotificationRequest): Promise<UpdateNotificationResponse>;
+    /**
+     *
+     */
+    deleteNotification(req: DeleteNotificationRequest): Promise<DeleteNotificationResponse>;
+  }
 
   export interface CreateParkRequest {
     body: {
       /**
-       * 车场名
+       * 停保场名
        */
       name?: string;
       /**
-       * 车场地址
+       * 停保场地址
        */
       address?: string;
+      /**
+       * 终端用户
+       */
+      terminal?: string;
+      /**
+       * 终端用户简称
+       */
+      terminalShort?: string;
       /**
        * 外观检测默认组ns
        */
@@ -207,6 +238,7 @@ declare global {
     } & {
       name: string;
       address: string;
+      terminal: string;
       appearance: string;
       software: string;
     };
@@ -214,13 +246,21 @@ declare global {
   export interface CreateParkResponse {
     content?: {
       /**
-       * 车场名
+       * 停保场名
        */
       name?: string;
       /**
-       * 车场地址
+       * 停保场地址
        */
       address?: string;
+      /**
+       * 终端用户
+       */
+      terminal?: string;
+      /**
+       * 终端用户简称
+       */
+      terminalShort?: string;
       /**
        * 外观检测默认组ns
        */
@@ -249,13 +289,21 @@ declare global {
   export interface ListParksResponse {
     content?: ({
       /**
-       * 车场名
+       * 停保场名
        */
       name?: string;
       /**
-       * 车场地址
+       * 停保场地址
        */
       address?: string;
+      /**
+       * 终端用户
+       */
+      terminal?: string;
+      /**
+       * 终端用户简称
+       */
+      terminalShort?: string;
       /**
        * 外观检测默认组ns
        */
@@ -281,13 +329,21 @@ declare global {
   export interface GetParkResponse {
     content?: {
       /**
-       * 车场名
+       * 停保场名
        */
       name?: string;
       /**
-       * 车场地址
+       * 停保场地址
        */
       address?: string;
+      /**
+       * 终端用户
+       */
+      terminal?: string;
+      /**
+       * 终端用户简称
+       */
+      terminalShort?: string;
       /**
        * 外观检测默认组ns
        */
@@ -307,17 +363,25 @@ declare global {
   export interface UpdateParkRequest {
     parkId: string;
     /**
-     * 车场信息
+     * 停保场信息
      */
     body: {
       /**
-       * 车场名
+       * 停保场名
        */
       name?: string;
       /**
-       * 车场地址
+       * 停保场地址
        */
       address?: string;
+      /**
+       * 终端用户
+       */
+      terminal?: string;
+      /**
+       * 终端用户简称
+       */
+      terminalShort?: string;
       /**
        * 外观检测默认组ns
        */
@@ -331,13 +395,21 @@ declare global {
   export interface UpdateParkResponse {
     content?: {
       /**
-       * 车场名
+       * 停保场名
        */
       name?: string;
       /**
-       * 车场地址
+       * 停保场地址
        */
       address?: string;
+      /**
+       * 终端用户
+       */
+      terminal?: string;
+      /**
+       * 终端用户简称
+       */
+      terminalShort?: string;
       /**
        * 外观检测默认组ns
        */
@@ -5820,6 +5892,18 @@ declare global {
        */
       vehicleTerminal?: string;
       /**
+       * 关联车辆CATL项目名称
+       */
+      vehicleCatl?: string;
+      /**
+       * 关联车辆电池PN
+       */
+      vehicleBatteryPN?: string;
+      /**
+       * 关联车辆电池号
+       */
+      vehicleBatteryNum?: string;
+      /**
        * 关联车辆停保场
        */
       vehiclePark?: string;
@@ -5923,6 +6007,10 @@ declare global {
          * 处理方式
          */
         processMethod?: string;
+        /**
+         * 故障现象
+         */
+        faultPhenomenon?: string;
         /**
          * 故障属性
          */
@@ -6567,6 +6655,18 @@ declare global {
        */
       vehicleTerminal?: string;
       /**
+       * 关联车辆CATL项目名称
+       */
+      vehicleCatl?: string;
+      /**
+       * 关联车辆电池PN
+       */
+      vehicleBatteryPN?: string;
+      /**
+       * 关联车辆电池号
+       */
+      vehicleBatteryNum?: string;
+      /**
        * 关联车辆停保场
        */
       vehiclePark?: string;
@@ -6670,6 +6770,10 @@ declare global {
          * 处理方式
          */
         processMethod?: string;
+        /**
+         * 故障现象
+         */
+        faultPhenomenon?: string;
         /**
          * 故障属性
          */
@@ -7287,12 +7391,16 @@ declare global {
       vehicleNo_like?: string;
       collaborators?: string;
       participant?: string;
+      leaderNs?: string;
       withNoSend?: boolean;
       vehicleBrands?: string | string[];
       vehicleTerminal?: string | string[];
       vehicleScrapped?: boolean | boolean[];
       backupAbnormal?: boolean | boolean[];
       vehicle?: string;
+      vehicleCatl_like?: string;
+      vehicleBatteryPN_like?: string;
+      vehicleBatteryNum_like?: string;
     };
   }
   export interface ListRepairsResponse {
@@ -7357,6 +7465,18 @@ declare global {
        * 关联车辆终端用户
        */
       vehicleTerminal?: string;
+      /**
+       * 关联车辆CATL项目名称
+       */
+      vehicleCatl?: string;
+      /**
+       * 关联车辆电池PN
+       */
+      vehicleBatteryPN?: string;
+      /**
+       * 关联车辆电池号
+       */
+      vehicleBatteryNum?: string;
       /**
        * 关联车辆停保场
        */
@@ -7461,6 +7581,10 @@ declare global {
          * 处理方式
          */
         processMethod?: string;
+        /**
+         * 故障现象
+         */
+        faultPhenomenon?: string;
         /**
          * 故障属性
          */
@@ -8124,6 +8248,18 @@ declare global {
        */
       vehicleTerminal?: string;
       /**
+       * 关联车辆CATL项目名称
+       */
+      vehicleCatl?: string;
+      /**
+       * 关联车辆电池PN
+       */
+      vehicleBatteryPN?: string;
+      /**
+       * 关联车辆电池号
+       */
+      vehicleBatteryNum?: string;
+      /**
        * 关联车辆停保场
        */
       vehiclePark?: string;
@@ -8227,6 +8363,10 @@ declare global {
          * 处理方式
          */
         processMethod?: string;
+        /**
+         * 故障现象
+         */
+        faultPhenomenon?: string;
         /**
          * 故障属性
          */
@@ -8885,6 +9025,18 @@ declare global {
        */
       vehicleTerminal?: string;
       /**
+       * 关联车辆CATL项目名称
+       */
+      vehicleCatl?: string;
+      /**
+       * 关联车辆电池PN
+       */
+      vehicleBatteryPN?: string;
+      /**
+       * 关联车辆电池号
+       */
+      vehicleBatteryNum?: string;
+      /**
        * 关联车辆停保场
        */
       vehiclePark?: string;
@@ -8988,6 +9140,10 @@ declare global {
          * 处理方式
          */
         processMethod?: string;
+        /**
+         * 故障现象
+         */
+        faultPhenomenon?: string;
         /**
          * 故障属性
          */
@@ -9639,6 +9795,18 @@ declare global {
        */
       vehicleTerminal?: string;
       /**
+       * 关联车辆CATL项目名称
+       */
+      vehicleCatl?: string;
+      /**
+       * 关联车辆电池PN
+       */
+      vehicleBatteryPN?: string;
+      /**
+       * 关联车辆电池号
+       */
+      vehicleBatteryNum?: string;
+      /**
        * 关联车辆停保场
        */
       vehiclePark?: string;
@@ -9742,6 +9910,10 @@ declare global {
          * 处理方式
          */
         processMethod?: string;
+        /**
+         * 故障现象
+         */
+        faultPhenomenon?: string;
         /**
          * 故障属性
          */
@@ -10391,6 +10563,10 @@ declare global {
        */
       processMethod?: string;
       /**
+       * 故障现象
+       */
+      faultPhenomenon?: string;
+      /**
        * 故障属性
        */
       faultAttr?: string;
@@ -10997,6 +11173,18 @@ declare global {
        */
       vehicleTerminal?: string;
       /**
+       * 关联车辆CATL项目名称
+       */
+      vehicleCatl?: string;
+      /**
+       * 关联车辆电池PN
+       */
+      vehicleBatteryPN?: string;
+      /**
+       * 关联车辆电池号
+       */
+      vehicleBatteryNum?: string;
+      /**
        * 关联车辆停保场
        */
       vehiclePark?: string;
@@ -11100,6 +11288,10 @@ declare global {
          * 处理方式
          */
         processMethod?: string;
+        /**
+         * 故障现象
+         */
+        faultPhenomenon?: string;
         /**
          * 故障属性
          */
@@ -11846,162 +12038,6 @@ declare global {
          */
         workers?: string[];
         /**
-         * 仪表电池报警信息
-         */
-        meterAlarm?: boolean;
-        /**
-         * 仪表电池报警信息现场是否解决
-         */
-        meterAlarmResult?: boolean;
-        /**
-         * 仪表电池报警信息异常描述及现场处理
-         */
-        meterAlarmDesc?: string;
-        /**
-         * 箱体外壳损毁、变形
-         */
-        boxDamage?: boolean;
-        /**
-         * 箱体外壳损毁、变形现场是否解决
-         */
-        boxDamageResult?: boolean;
-        /**
-         * 箱体外壳损毁、变形异常描述及现场处理
-         */
-        boxDamageDesc?: string;
-        /**
-         * 电箱漏液
-         */
-        electricLeakage?: boolean;
-        /**
-         * 电箱漏液现场是否解决
-         */
-        electricLeakageResult?: boolean;
-        /**
-         * 电箱漏液异常描述及现场处理
-         */
-        electricLeakageDesc?: string;
-        /**
-         * 气压平衡阀或防暴阀松动
-         */
-        valveLoose?: boolean;
-        /**
-         * 气压平衡阀或防暴阀松动现场是否解决
-         */
-        valveLooseResult?: boolean;
-        /**
-         * 气压平衡阀或防暴阀松动异常描述及现场处理
-         */
-        valveLooseDesc?: string;
-        /**
-         * 高压端子外盖检查异常
-         */
-        coverAbnormal?: boolean;
-        /**
-         * 高压端子外盖检查异常现场是否解决
-         */
-        coverAbnormalResult?: boolean;
-        /**
-         * 高压端子外盖检查异常异常描述及现场处理
-         */
-        coverAbnormalDesc?: string;
-        /**
-         * 格兰头松动
-         */
-        headLoose?: boolean;
-        /**
-         * 格兰头松动现场是否解决
-         */
-        headLooseResult?: boolean;
-        /**
-         * 格兰头松动异常描述及现场处理
-         */
-        headLooseDesc?: string;
-        /**
-         * 快断器螺栓松动
-         */
-        boltLoose?: boolean;
-        /**
-         * 快断器螺栓松动现场是否解决
-         */
-        boltLooseResult?: boolean;
-        /**
-         * 快断器螺栓松动异常描述及现场处理
-         */
-        boltLooseDesc?: string;
-        /**
-         * 高压盒MSD（扭力抽检时电箱MSD）异常
-         */
-        msdAbnormal?: boolean;
-        /**
-         * 高压盒MSD（扭力抽检时电箱MSD）异常现场是否解决
-         */
-        msdAbnormalResult?: boolean;
-        /**
-         * 高压盒MSD（扭力抽检时电箱MSD）异常异常描述及现场处理
-         */
-        msdAbnormalDesc?: string;
-        /**
-         * 高压线束磨损或磨损风险
-         */
-        hvWireWear?: boolean;
-        /**
-         * 高压线束磨损或磨损风险现场是否解决
-         */
-        hvWireWearResult?: boolean;
-        /**
-         * 高压线束磨损或磨损风险异常描述及现场处理
-         */
-        hvWireWearDesc?: string;
-        /**
-         * 低压线束磨损或磨损风险
-         */
-        lvWireWear?: boolean;
-        /**
-         * 低压线束磨损或磨损风险现场是否解决
-         */
-        lvWireWearResult?: boolean;
-        /**
-         * 低压线束磨损或磨损风险异常描述及现场处理
-         */
-        lvWireWearDesc?: string;
-        /**
-         * 高压接插件不紧固
-         */
-        hvConnectorFasten?: boolean;
-        /**
-         * 高压接插件不紧固现场是否解决
-         */
-        hvConnectorFastenResult?: boolean;
-        /**
-         * 高压接插件不紧固异常描述及现场处理
-         */
-        hvConnectorFastenDesc?: string;
-        /**
-         * 低压接插件不紧固
-         */
-        lvConnectorFasten?: boolean;
-        /**
-         * 低压接插件不紧固现场是否解决
-         */
-        lvConnectorFastenResult?: boolean;
-        /**
-         * 低压接插件不紧固异常描述及现场处理
-         */
-        lvConnectorFastenDesc?: string;
-        /**
-         * 其他
-         */
-        other?: boolean;
-        /**
-         * 其他现场是否解决
-         */
-        otherResult?: boolean;
-        /**
-         * 其他异常描述及现场处理
-         */
-        otherDesc?: string;
-        /**
          * 车牌（车头照）
          */
         frontPic?: {
@@ -12134,7 +12170,106 @@ declare global {
           url: string;
         }[];
         /**
-         * 故障部位图片
+         * 电池仓图片
+         */
+        batteryCompartmentPic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 高压盒图片
+         */
+        hvBoxPic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 维保现场图片
+         */
+        maintenanceSitePic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 故障图片
          */
         faultPic?: {
           /**
@@ -12266,25 +12401,39 @@ declare global {
           url: string;
         }[];
         /**
-         * 提交时间
+         * 外观检查项
          */
-        submitAt?: Date;
+        items?: {
+          /**
+           * 检查结果
+           */
+          result?: string;
+          /**
+           * 检查记录
+           */
+          record?: string;
+          /**
+           * 检查的key
+           */
+          key: string;
+        }[];
         /**
-         * 提交人
+         * 外观检查项错误
          */
-        submitBy?: string;
+        itemErrors?: {
+          /**
+           * 检查的key
+           */
+          key: string;
+          /**
+           * 错误信息
+           */
+          message?: string;
+        }[];
         /**
-         * 是否通过检测
+         * 外观检查状态
          */
-        passed?: boolean;
-        /**
-         * 是否检测过
-         */
-        tested?: boolean;
-        /**
-         * 是否完整
-         */
-        complete?: boolean;
+        checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
       };
       /**
        * 维保单软件诊断记录
@@ -12406,194 +12555,6 @@ declare global {
           url: string;
         }[];
         /**
-         * SOH测量值
-         */
-        soh?: number;
-        /**
-         * SOH测量值现场修复后
-         */
-        sohResult?: number;
-        /**
-         * SOH测量值异常描述及现场处理
-         */
-        sohDesc?: string;
-        /**
-         * 静态上位机电流
-         */
-        current?: number;
-        /**
-         * 静态上位机电流现场修复后
-         */
-        currentResult?: number;
-        /**
-         * 静态上位机电流异常描述及现场处理
-         */
-        currentDesc?: string;
-        /**
-         * soc
-         */
-        soc?: number;
-        /**
-         * soc现场修复后
-         */
-        socResult?: number;
-        /**
-         * roc
-         */
-        roc?: number;
-        /**
-         * roc现场修复后
-         */
-        rocResult?: number;
-        /**
-         * soc异常描述及现场处理
-         */
-        socDesc?: string;
-        /**
-         * 累加电压
-         */
-        addVoltage?: number;
-        /**
-         * 累加电压现场修复后
-         */
-        addVoltageResult?: number;
-        /**
-         * 内侧总电压
-         */
-        totalVoltage?: number;
-        /**
-         * 内侧总电压现场修复后
-         */
-        totalVoltageResult?: number;
-        /**
-         * 累加电压异常描述及现场处理
-         */
-        addVoltageDesc?: string;
-        /**
-         * 最大单体电压Vmax
-         */
-        maxVoltage?: number;
-        /**
-         * 最大单体电压Vmax现场修复后
-         */
-        maxVoltageResult?: number;
-        /**
-         * 最大单体电压Vmax异常描述及现场处理
-         */
-        maxVoltageDesc?: string;
-        /**
-         * 最小单体电压Vmin
-         */
-        minVoltage?: number;
-        /**
-         * 最小单体电压Vmin现场修复后
-         */
-        minVoltageResult?: number;
-        /**
-         * 最小单体电压Vmin异常描述及现场处理
-         */
-        minVoltageDesc?: string;
-        /**
-         * 最大单体温度Tmax
-         */
-        maxTemperature?: number;
-        /**
-         * 最大单体温度Tmax现场修复后
-         */
-        maxTemperatureResult?: number;
-        /**
-         * 最大单体温度Tmax异常描述及现场处理
-         */
-        maxTemperatureDesc?: string;
-        /**
-         * 最小单体温度Tmin
-         */
-        minTemperature?: number;
-        /**
-         * 最小单体温度Tmin现场修复后
-         */
-        minTemperatureResult?: number;
-        /**
-         * 最小单体温度Tmin异常描述及现场处理
-         */
-        minTemperatureDesc?: string;
-        /**
-         * 静态模组温差ΔT
-         */
-        diffTemperature?: number;
-        /**
-         * 静态模组温差ΔT现场修复后
-         */
-        diffTemperatureResult?: number;
-        /**
-         * 静态模组温差ΔT异常描述及现场处理
-         */
-        diffTemperatureDesc?: string;
-        /**
-         * 单体压差ΔU
-         */
-        diffVoltage?: number;
-        /**
-         * 单体压差ΔU现场修复后
-         */
-        diffVoltageResult?: number;
-        /**
-         * 单体压差ΔU异常描述及现场处理
-         */
-        diffVoltageDesc?: string;
-        /**
-         * 充电状态
-         */
-        chargeStatus?: "CHARGING" | "UNCHARGED";
-        /**
-         * 绝缘阻值（充电）正极
-         */
-        chargePositive?: number;
-        /**
-         * 绝缘阻值（充电）正极现场修复后
-         */
-        chargePositiveResult?: number;
-        /**
-         * 绝缘阻值（充电）异常及现场处理
-         */
-        chargePositiveDesc?: string;
-        /**
-         * 绝缘阻值（充电）负极
-         */
-        chargeNegative?: number;
-        /**
-         * 绝缘阻值（充电）负极现场修复后
-         */
-        chargeNegativeResult?: number;
-        /**
-         * 绝缘阻值（充电）异常描述及现场处理
-         */
-        chargeNegativeDesc?: string;
-        /**
-         * 绝缘阻值（非充电）正极
-         */
-        nochargePositive?: number;
-        /**
-         * 绝缘阻值（非充电）正极现场修复后
-         */
-        nochargePositiveResult?: number;
-        /**
-         * 绝缘阻值（非充电）正极异常及现场处理
-         */
-        nochargePositiveDesc?: string;
-        /**
-         * 绝缘阻值（非充电）负极
-         */
-        nochargeNegative?: number;
-        /**
-         * 绝缘阻值（非充电）负极现场修复后
-         */
-        nochargeNegativeResult?: number;
-        /**
-         * 绝缘阻值（非充电）负极异常及现场处理
-         */
-        nochargeNegativeDesc?: string;
-        /**
          * 电池PN
          */
         batteryPN?: string;
@@ -12622,25 +12583,39 @@ declare global {
          */
         rdb?: string;
         /**
-         * 提交时间
+         * 外观检查项
          */
-        submitAt?: Date;
+        items?: {
+          /**
+           * 检查结果
+           */
+          result?: string;
+          /**
+           * 检查记录
+           */
+          record?: string;
+          /**
+           * 检查的key
+           */
+          key: string;
+        }[];
         /**
-         * 提交人
+         * 外观检查项错误
          */
-        submitBy?: string;
+        itemErrors?: {
+          /**
+           * 检查的key
+           */
+          key: string;
+          /**
+           * 错误信息
+           */
+          message?: string;
+        }[];
         /**
-         * 是否通过检测
+         * 软件检查状态
          */
-        passed?: boolean;
-        /**
-         * 是否检测过
-         */
-        tested?: boolean;
-        /**
-         * 是否完整
-         */
-        complete?: boolean;
+        checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
       };
       /**
        * 关联维修单 id
@@ -12665,11 +12640,23 @@ declare global {
       /**
        * 维保完成的截止日期
        */
-      deadline?: string;
+      deadline?: Date;
       /**
        * 上次维保完成日期
        */
-      preCloseAt?: string;
+      preCloseAt?: Date;
+      /**
+       * 状态标记
+       */
+      checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
+      /**
+       * 提交时间
+       */
+      submitAt?: Date;
+      /**
+       * 提交人
+       */
+      submitBy?: string;
     };
   }
   export interface CreateMaintainResponse {
@@ -12824,162 +12811,6 @@ declare global {
          */
         workers?: string[];
         /**
-         * 仪表电池报警信息
-         */
-        meterAlarm?: boolean;
-        /**
-         * 仪表电池报警信息现场是否解决
-         */
-        meterAlarmResult?: boolean;
-        /**
-         * 仪表电池报警信息异常描述及现场处理
-         */
-        meterAlarmDesc?: string;
-        /**
-         * 箱体外壳损毁、变形
-         */
-        boxDamage?: boolean;
-        /**
-         * 箱体外壳损毁、变形现场是否解决
-         */
-        boxDamageResult?: boolean;
-        /**
-         * 箱体外壳损毁、变形异常描述及现场处理
-         */
-        boxDamageDesc?: string;
-        /**
-         * 电箱漏液
-         */
-        electricLeakage?: boolean;
-        /**
-         * 电箱漏液现场是否解决
-         */
-        electricLeakageResult?: boolean;
-        /**
-         * 电箱漏液异常描述及现场处理
-         */
-        electricLeakageDesc?: string;
-        /**
-         * 气压平衡阀或防暴阀松动
-         */
-        valveLoose?: boolean;
-        /**
-         * 气压平衡阀或防暴阀松动现场是否解决
-         */
-        valveLooseResult?: boolean;
-        /**
-         * 气压平衡阀或防暴阀松动异常描述及现场处理
-         */
-        valveLooseDesc?: string;
-        /**
-         * 高压端子外盖检查异常
-         */
-        coverAbnormal?: boolean;
-        /**
-         * 高压端子外盖检查异常现场是否解决
-         */
-        coverAbnormalResult?: boolean;
-        /**
-         * 高压端子外盖检查异常异常描述及现场处理
-         */
-        coverAbnormalDesc?: string;
-        /**
-         * 格兰头松动
-         */
-        headLoose?: boolean;
-        /**
-         * 格兰头松动现场是否解决
-         */
-        headLooseResult?: boolean;
-        /**
-         * 格兰头松动异常描述及现场处理
-         */
-        headLooseDesc?: string;
-        /**
-         * 快断器螺栓松动
-         */
-        boltLoose?: boolean;
-        /**
-         * 快断器螺栓松动现场是否解决
-         */
-        boltLooseResult?: boolean;
-        /**
-         * 快断器螺栓松动异常描述及现场处理
-         */
-        boltLooseDesc?: string;
-        /**
-         * 高压盒MSD（扭力抽检时电箱MSD）异常
-         */
-        msdAbnormal?: boolean;
-        /**
-         * 高压盒MSD（扭力抽检时电箱MSD）异常现场是否解决
-         */
-        msdAbnormalResult?: boolean;
-        /**
-         * 高压盒MSD（扭力抽检时电箱MSD）异常异常描述及现场处理
-         */
-        msdAbnormalDesc?: string;
-        /**
-         * 高压线束磨损或磨损风险
-         */
-        hvWireWear?: boolean;
-        /**
-         * 高压线束磨损或磨损风险现场是否解决
-         */
-        hvWireWearResult?: boolean;
-        /**
-         * 高压线束磨损或磨损风险异常描述及现场处理
-         */
-        hvWireWearDesc?: string;
-        /**
-         * 低压线束磨损或磨损风险
-         */
-        lvWireWear?: boolean;
-        /**
-         * 低压线束磨损或磨损风险现场是否解决
-         */
-        lvWireWearResult?: boolean;
-        /**
-         * 低压线束磨损或磨损风险异常描述及现场处理
-         */
-        lvWireWearDesc?: string;
-        /**
-         * 高压接插件不紧固
-         */
-        hvConnectorFasten?: boolean;
-        /**
-         * 高压接插件不紧固现场是否解决
-         */
-        hvConnectorFastenResult?: boolean;
-        /**
-         * 高压接插件不紧固异常描述及现场处理
-         */
-        hvConnectorFastenDesc?: string;
-        /**
-         * 低压接插件不紧固
-         */
-        lvConnectorFasten?: boolean;
-        /**
-         * 低压接插件不紧固现场是否解决
-         */
-        lvConnectorFastenResult?: boolean;
-        /**
-         * 低压接插件不紧固异常描述及现场处理
-         */
-        lvConnectorFastenDesc?: string;
-        /**
-         * 其他
-         */
-        other?: boolean;
-        /**
-         * 其他现场是否解决
-         */
-        otherResult?: boolean;
-        /**
-         * 其他异常描述及现场处理
-         */
-        otherDesc?: string;
-        /**
          * 车牌（车头照）
          */
         frontPic?: {
@@ -13112,7 +12943,106 @@ declare global {
           url: string;
         }[];
         /**
-         * 故障部位图片
+         * 电池仓图片
+         */
+        batteryCompartmentPic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 高压盒图片
+         */
+        hvBoxPic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 维保现场图片
+         */
+        maintenanceSitePic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 故障图片
          */
         faultPic?: {
           /**
@@ -13244,25 +13174,39 @@ declare global {
           url: string;
         }[];
         /**
-         * 提交时间
+         * 外观检查项
          */
-        submitAt?: Date;
+        items?: {
+          /**
+           * 检查结果
+           */
+          result?: string;
+          /**
+           * 检查记录
+           */
+          record?: string;
+          /**
+           * 检查的key
+           */
+          key: string;
+        }[];
         /**
-         * 提交人
+         * 外观检查项错误
          */
-        submitBy?: string;
+        itemErrors?: {
+          /**
+           * 检查的key
+           */
+          key: string;
+          /**
+           * 错误信息
+           */
+          message?: string;
+        }[];
         /**
-         * 是否通过检测
+         * 外观检查状态
          */
-        passed?: boolean;
-        /**
-         * 是否检测过
-         */
-        tested?: boolean;
-        /**
-         * 是否完整
-         */
-        complete?: boolean;
+        checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
       };
       /**
        * 维保单软件诊断记录
@@ -13384,194 +13328,6 @@ declare global {
           url: string;
         }[];
         /**
-         * SOH测量值
-         */
-        soh?: number;
-        /**
-         * SOH测量值现场修复后
-         */
-        sohResult?: number;
-        /**
-         * SOH测量值异常描述及现场处理
-         */
-        sohDesc?: string;
-        /**
-         * 静态上位机电流
-         */
-        current?: number;
-        /**
-         * 静态上位机电流现场修复后
-         */
-        currentResult?: number;
-        /**
-         * 静态上位机电流异常描述及现场处理
-         */
-        currentDesc?: string;
-        /**
-         * soc
-         */
-        soc?: number;
-        /**
-         * soc现场修复后
-         */
-        socResult?: number;
-        /**
-         * roc
-         */
-        roc?: number;
-        /**
-         * roc现场修复后
-         */
-        rocResult?: number;
-        /**
-         * soc异常描述及现场处理
-         */
-        socDesc?: string;
-        /**
-         * 累加电压
-         */
-        addVoltage?: number;
-        /**
-         * 累加电压现场修复后
-         */
-        addVoltageResult?: number;
-        /**
-         * 内侧总电压
-         */
-        totalVoltage?: number;
-        /**
-         * 内侧总电压现场修复后
-         */
-        totalVoltageResult?: number;
-        /**
-         * 累加电压异常描述及现场处理
-         */
-        addVoltageDesc?: string;
-        /**
-         * 最大单体电压Vmax
-         */
-        maxVoltage?: number;
-        /**
-         * 最大单体电压Vmax现场修复后
-         */
-        maxVoltageResult?: number;
-        /**
-         * 最大单体电压Vmax异常描述及现场处理
-         */
-        maxVoltageDesc?: string;
-        /**
-         * 最小单体电压Vmin
-         */
-        minVoltage?: number;
-        /**
-         * 最小单体电压Vmin现场修复后
-         */
-        minVoltageResult?: number;
-        /**
-         * 最小单体电压Vmin异常描述及现场处理
-         */
-        minVoltageDesc?: string;
-        /**
-         * 最大单体温度Tmax
-         */
-        maxTemperature?: number;
-        /**
-         * 最大单体温度Tmax现场修复后
-         */
-        maxTemperatureResult?: number;
-        /**
-         * 最大单体温度Tmax异常描述及现场处理
-         */
-        maxTemperatureDesc?: string;
-        /**
-         * 最小单体温度Tmin
-         */
-        minTemperature?: number;
-        /**
-         * 最小单体温度Tmin现场修复后
-         */
-        minTemperatureResult?: number;
-        /**
-         * 最小单体温度Tmin异常描述及现场处理
-         */
-        minTemperatureDesc?: string;
-        /**
-         * 静态模组温差ΔT
-         */
-        diffTemperature?: number;
-        /**
-         * 静态模组温差ΔT现场修复后
-         */
-        diffTemperatureResult?: number;
-        /**
-         * 静态模组温差ΔT异常描述及现场处理
-         */
-        diffTemperatureDesc?: string;
-        /**
-         * 单体压差ΔU
-         */
-        diffVoltage?: number;
-        /**
-         * 单体压差ΔU现场修复后
-         */
-        diffVoltageResult?: number;
-        /**
-         * 单体压差ΔU异常描述及现场处理
-         */
-        diffVoltageDesc?: string;
-        /**
-         * 充电状态
-         */
-        chargeStatus?: "CHARGING" | "UNCHARGED";
-        /**
-         * 绝缘阻值（充电）正极
-         */
-        chargePositive?: number;
-        /**
-         * 绝缘阻值（充电）正极现场修复后
-         */
-        chargePositiveResult?: number;
-        /**
-         * 绝缘阻值（充电）异常及现场处理
-         */
-        chargePositiveDesc?: string;
-        /**
-         * 绝缘阻值（充电）负极
-         */
-        chargeNegative?: number;
-        /**
-         * 绝缘阻值（充电）负极现场修复后
-         */
-        chargeNegativeResult?: number;
-        /**
-         * 绝缘阻值（充电）异常描述及现场处理
-         */
-        chargeNegativeDesc?: string;
-        /**
-         * 绝缘阻值（非充电）正极
-         */
-        nochargePositive?: number;
-        /**
-         * 绝缘阻值（非充电）正极现场修复后
-         */
-        nochargePositiveResult?: number;
-        /**
-         * 绝缘阻值（非充电）正极异常及现场处理
-         */
-        nochargePositiveDesc?: string;
-        /**
-         * 绝缘阻值（非充电）负极
-         */
-        nochargeNegative?: number;
-        /**
-         * 绝缘阻值（非充电）负极现场修复后
-         */
-        nochargeNegativeResult?: number;
-        /**
-         * 绝缘阻值（非充电）负极异常及现场处理
-         */
-        nochargeNegativeDesc?: string;
-        /**
          * 电池PN
          */
         batteryPN?: string;
@@ -13600,25 +13356,39 @@ declare global {
          */
         rdb?: string;
         /**
-         * 提交时间
+         * 外观检查项
          */
-        submitAt?: Date;
+        items?: {
+          /**
+           * 检查结果
+           */
+          result?: string;
+          /**
+           * 检查记录
+           */
+          record?: string;
+          /**
+           * 检查的key
+           */
+          key: string;
+        }[];
         /**
-         * 提交人
+         * 外观检查项错误
          */
-        submitBy?: string;
+        itemErrors?: {
+          /**
+           * 检查的key
+           */
+          key: string;
+          /**
+           * 错误信息
+           */
+          message?: string;
+        }[];
         /**
-         * 是否通过检测
+         * 软件检查状态
          */
-        passed?: boolean;
-        /**
-         * 是否检测过
-         */
-        tested?: boolean;
-        /**
-         * 是否完整
-         */
-        complete?: boolean;
+        checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
       };
       /**
        * 关联维修单 id
@@ -13643,11 +13413,23 @@ declare global {
       /**
        * 维保完成的截止日期
        */
-      deadline?: string;
+      deadline?: Date;
       /**
        * 上次维保完成日期
        */
-      preCloseAt?: string;
+      preCloseAt?: Date;
+      /**
+       * 状态标记
+       */
+      checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
+      /**
+       * 提交时间
+       */
+      submitAt?: Date;
+      /**
+       * 提交人
+       */
+      submitBy?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -13675,6 +13457,7 @@ declare global {
       vehicleVin_like?: string;
       vehicleVin?: string;
       vehicleNo_like?: string;
+      vehicleTerminal_like?: string;
       appearance?: string;
       software?: string;
       participant?: string;
@@ -13684,8 +13467,12 @@ declare global {
       vehicleScrapped?: boolean | boolean[];
       vehicle?: string;
       prePeriod?: string;
+      period?: string;
       preCloseAt_gte?: string;
       preCloseAt_lte?: string;
+      checkState?:
+        | ("UNFINISHED" | "FINISHED" | "WAIT_REPAIR")
+        | ("UNFINISHED" | "FINISHED" | "WAIT_REPAIR")[];
     };
   }
   export interface ListMaintainsResponse {
@@ -13840,162 +13627,6 @@ declare global {
          */
         workers?: string[];
         /**
-         * 仪表电池报警信息
-         */
-        meterAlarm?: boolean;
-        /**
-         * 仪表电池报警信息现场是否解决
-         */
-        meterAlarmResult?: boolean;
-        /**
-         * 仪表电池报警信息异常描述及现场处理
-         */
-        meterAlarmDesc?: string;
-        /**
-         * 箱体外壳损毁、变形
-         */
-        boxDamage?: boolean;
-        /**
-         * 箱体外壳损毁、变形现场是否解决
-         */
-        boxDamageResult?: boolean;
-        /**
-         * 箱体外壳损毁、变形异常描述及现场处理
-         */
-        boxDamageDesc?: string;
-        /**
-         * 电箱漏液
-         */
-        electricLeakage?: boolean;
-        /**
-         * 电箱漏液现场是否解决
-         */
-        electricLeakageResult?: boolean;
-        /**
-         * 电箱漏液异常描述及现场处理
-         */
-        electricLeakageDesc?: string;
-        /**
-         * 气压平衡阀或防暴阀松动
-         */
-        valveLoose?: boolean;
-        /**
-         * 气压平衡阀或防暴阀松动现场是否解决
-         */
-        valveLooseResult?: boolean;
-        /**
-         * 气压平衡阀或防暴阀松动异常描述及现场处理
-         */
-        valveLooseDesc?: string;
-        /**
-         * 高压端子外盖检查异常
-         */
-        coverAbnormal?: boolean;
-        /**
-         * 高压端子外盖检查异常现场是否解决
-         */
-        coverAbnormalResult?: boolean;
-        /**
-         * 高压端子外盖检查异常异常描述及现场处理
-         */
-        coverAbnormalDesc?: string;
-        /**
-         * 格兰头松动
-         */
-        headLoose?: boolean;
-        /**
-         * 格兰头松动现场是否解决
-         */
-        headLooseResult?: boolean;
-        /**
-         * 格兰头松动异常描述及现场处理
-         */
-        headLooseDesc?: string;
-        /**
-         * 快断器螺栓松动
-         */
-        boltLoose?: boolean;
-        /**
-         * 快断器螺栓松动现场是否解决
-         */
-        boltLooseResult?: boolean;
-        /**
-         * 快断器螺栓松动异常描述及现场处理
-         */
-        boltLooseDesc?: string;
-        /**
-         * 高压盒MSD（扭力抽检时电箱MSD）异常
-         */
-        msdAbnormal?: boolean;
-        /**
-         * 高压盒MSD（扭力抽检时电箱MSD）异常现场是否解决
-         */
-        msdAbnormalResult?: boolean;
-        /**
-         * 高压盒MSD（扭力抽检时电箱MSD）异常异常描述及现场处理
-         */
-        msdAbnormalDesc?: string;
-        /**
-         * 高压线束磨损或磨损风险
-         */
-        hvWireWear?: boolean;
-        /**
-         * 高压线束磨损或磨损风险现场是否解决
-         */
-        hvWireWearResult?: boolean;
-        /**
-         * 高压线束磨损或磨损风险异常描述及现场处理
-         */
-        hvWireWearDesc?: string;
-        /**
-         * 低压线束磨损或磨损风险
-         */
-        lvWireWear?: boolean;
-        /**
-         * 低压线束磨损或磨损风险现场是否解决
-         */
-        lvWireWearResult?: boolean;
-        /**
-         * 低压线束磨损或磨损风险异常描述及现场处理
-         */
-        lvWireWearDesc?: string;
-        /**
-         * 高压接插件不紧固
-         */
-        hvConnectorFasten?: boolean;
-        /**
-         * 高压接插件不紧固现场是否解决
-         */
-        hvConnectorFastenResult?: boolean;
-        /**
-         * 高压接插件不紧固异常描述及现场处理
-         */
-        hvConnectorFastenDesc?: string;
-        /**
-         * 低压接插件不紧固
-         */
-        lvConnectorFasten?: boolean;
-        /**
-         * 低压接插件不紧固现场是否解决
-         */
-        lvConnectorFastenResult?: boolean;
-        /**
-         * 低压接插件不紧固异常描述及现场处理
-         */
-        lvConnectorFastenDesc?: string;
-        /**
-         * 其他
-         */
-        other?: boolean;
-        /**
-         * 其他现场是否解决
-         */
-        otherResult?: boolean;
-        /**
-         * 其他异常描述及现场处理
-         */
-        otherDesc?: string;
-        /**
          * 车牌（车头照）
          */
         frontPic?: {
@@ -14128,7 +13759,106 @@ declare global {
           url: string;
         }[];
         /**
-         * 故障部位图片
+         * 电池仓图片
+         */
+        batteryCompartmentPic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 高压盒图片
+         */
+        hvBoxPic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 维保现场图片
+         */
+        maintenanceSitePic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 故障图片
          */
         faultPic?: {
           /**
@@ -14260,25 +13990,39 @@ declare global {
           url: string;
         }[];
         /**
-         * 提交时间
+         * 外观检查项
          */
-        submitAt?: Date;
+        items?: {
+          /**
+           * 检查结果
+           */
+          result?: string;
+          /**
+           * 检查记录
+           */
+          record?: string;
+          /**
+           * 检查的key
+           */
+          key: string;
+        }[];
         /**
-         * 提交人
+         * 外观检查项错误
          */
-        submitBy?: string;
+        itemErrors?: {
+          /**
+           * 检查的key
+           */
+          key: string;
+          /**
+           * 错误信息
+           */
+          message?: string;
+        }[];
         /**
-         * 是否通过检测
+         * 外观检查状态
          */
-        passed?: boolean;
-        /**
-         * 是否检测过
-         */
-        tested?: boolean;
-        /**
-         * 是否完整
-         */
-        complete?: boolean;
+        checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
       };
       /**
        * 维保单软件诊断记录
@@ -14400,194 +14144,6 @@ declare global {
           url: string;
         }[];
         /**
-         * SOH测量值
-         */
-        soh?: number;
-        /**
-         * SOH测量值现场修复后
-         */
-        sohResult?: number;
-        /**
-         * SOH测量值异常描述及现场处理
-         */
-        sohDesc?: string;
-        /**
-         * 静态上位机电流
-         */
-        current?: number;
-        /**
-         * 静态上位机电流现场修复后
-         */
-        currentResult?: number;
-        /**
-         * 静态上位机电流异常描述及现场处理
-         */
-        currentDesc?: string;
-        /**
-         * soc
-         */
-        soc?: number;
-        /**
-         * soc现场修复后
-         */
-        socResult?: number;
-        /**
-         * roc
-         */
-        roc?: number;
-        /**
-         * roc现场修复后
-         */
-        rocResult?: number;
-        /**
-         * soc异常描述及现场处理
-         */
-        socDesc?: string;
-        /**
-         * 累加电压
-         */
-        addVoltage?: number;
-        /**
-         * 累加电压现场修复后
-         */
-        addVoltageResult?: number;
-        /**
-         * 内侧总电压
-         */
-        totalVoltage?: number;
-        /**
-         * 内侧总电压现场修复后
-         */
-        totalVoltageResult?: number;
-        /**
-         * 累加电压异常描述及现场处理
-         */
-        addVoltageDesc?: string;
-        /**
-         * 最大单体电压Vmax
-         */
-        maxVoltage?: number;
-        /**
-         * 最大单体电压Vmax现场修复后
-         */
-        maxVoltageResult?: number;
-        /**
-         * 最大单体电压Vmax异常描述及现场处理
-         */
-        maxVoltageDesc?: string;
-        /**
-         * 最小单体电压Vmin
-         */
-        minVoltage?: number;
-        /**
-         * 最小单体电压Vmin现场修复后
-         */
-        minVoltageResult?: number;
-        /**
-         * 最小单体电压Vmin异常描述及现场处理
-         */
-        minVoltageDesc?: string;
-        /**
-         * 最大单体温度Tmax
-         */
-        maxTemperature?: number;
-        /**
-         * 最大单体温度Tmax现场修复后
-         */
-        maxTemperatureResult?: number;
-        /**
-         * 最大单体温度Tmax异常描述及现场处理
-         */
-        maxTemperatureDesc?: string;
-        /**
-         * 最小单体温度Tmin
-         */
-        minTemperature?: number;
-        /**
-         * 最小单体温度Tmin现场修复后
-         */
-        minTemperatureResult?: number;
-        /**
-         * 最小单体温度Tmin异常描述及现场处理
-         */
-        minTemperatureDesc?: string;
-        /**
-         * 静态模组温差ΔT
-         */
-        diffTemperature?: number;
-        /**
-         * 静态模组温差ΔT现场修复后
-         */
-        diffTemperatureResult?: number;
-        /**
-         * 静态模组温差ΔT异常描述及现场处理
-         */
-        diffTemperatureDesc?: string;
-        /**
-         * 单体压差ΔU
-         */
-        diffVoltage?: number;
-        /**
-         * 单体压差ΔU现场修复后
-         */
-        diffVoltageResult?: number;
-        /**
-         * 单体压差ΔU异常描述及现场处理
-         */
-        diffVoltageDesc?: string;
-        /**
-         * 充电状态
-         */
-        chargeStatus?: "CHARGING" | "UNCHARGED";
-        /**
-         * 绝缘阻值（充电）正极
-         */
-        chargePositive?: number;
-        /**
-         * 绝缘阻值（充电）正极现场修复后
-         */
-        chargePositiveResult?: number;
-        /**
-         * 绝缘阻值（充电）异常及现场处理
-         */
-        chargePositiveDesc?: string;
-        /**
-         * 绝缘阻值（充电）负极
-         */
-        chargeNegative?: number;
-        /**
-         * 绝缘阻值（充电）负极现场修复后
-         */
-        chargeNegativeResult?: number;
-        /**
-         * 绝缘阻值（充电）异常描述及现场处理
-         */
-        chargeNegativeDesc?: string;
-        /**
-         * 绝缘阻值（非充电）正极
-         */
-        nochargePositive?: number;
-        /**
-         * 绝缘阻值（非充电）正极现场修复后
-         */
-        nochargePositiveResult?: number;
-        /**
-         * 绝缘阻值（非充电）正极异常及现场处理
-         */
-        nochargePositiveDesc?: string;
-        /**
-         * 绝缘阻值（非充电）负极
-         */
-        nochargeNegative?: number;
-        /**
-         * 绝缘阻值（非充电）负极现场修复后
-         */
-        nochargeNegativeResult?: number;
-        /**
-         * 绝缘阻值（非充电）负极异常及现场处理
-         */
-        nochargeNegativeDesc?: string;
-        /**
          * 电池PN
          */
         batteryPN?: string;
@@ -14616,25 +14172,39 @@ declare global {
          */
         rdb?: string;
         /**
-         * 提交时间
+         * 外观检查项
          */
-        submitAt?: Date;
+        items?: {
+          /**
+           * 检查结果
+           */
+          result?: string;
+          /**
+           * 检查记录
+           */
+          record?: string;
+          /**
+           * 检查的key
+           */
+          key: string;
+        }[];
         /**
-         * 提交人
+         * 外观检查项错误
          */
-        submitBy?: string;
+        itemErrors?: {
+          /**
+           * 检查的key
+           */
+          key: string;
+          /**
+           * 错误信息
+           */
+          message?: string;
+        }[];
         /**
-         * 是否通过检测
+         * 软件检查状态
          */
-        passed?: boolean;
-        /**
-         * 是否检测过
-         */
-        tested?: boolean;
-        /**
-         * 是否完整
-         */
-        complete?: boolean;
+        checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
       };
       /**
        * 关联维修单 id
@@ -14659,11 +14229,23 @@ declare global {
       /**
        * 维保完成的截止日期
        */
-      deadline?: string;
+      deadline?: Date;
       /**
        * 上次维保完成日期
        */
-      preCloseAt?: string;
+      preCloseAt?: Date;
+      /**
+       * 状态标记
+       */
+      checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
+      /**
+       * 提交时间
+       */
+      submitAt?: Date;
+      /**
+       * 提交人
+       */
+      submitBy?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -14830,162 +14412,6 @@ declare global {
          */
         workers?: string[];
         /**
-         * 仪表电池报警信息
-         */
-        meterAlarm?: boolean;
-        /**
-         * 仪表电池报警信息现场是否解决
-         */
-        meterAlarmResult?: boolean;
-        /**
-         * 仪表电池报警信息异常描述及现场处理
-         */
-        meterAlarmDesc?: string;
-        /**
-         * 箱体外壳损毁、变形
-         */
-        boxDamage?: boolean;
-        /**
-         * 箱体外壳损毁、变形现场是否解决
-         */
-        boxDamageResult?: boolean;
-        /**
-         * 箱体外壳损毁、变形异常描述及现场处理
-         */
-        boxDamageDesc?: string;
-        /**
-         * 电箱漏液
-         */
-        electricLeakage?: boolean;
-        /**
-         * 电箱漏液现场是否解决
-         */
-        electricLeakageResult?: boolean;
-        /**
-         * 电箱漏液异常描述及现场处理
-         */
-        electricLeakageDesc?: string;
-        /**
-         * 气压平衡阀或防暴阀松动
-         */
-        valveLoose?: boolean;
-        /**
-         * 气压平衡阀或防暴阀松动现场是否解决
-         */
-        valveLooseResult?: boolean;
-        /**
-         * 气压平衡阀或防暴阀松动异常描述及现场处理
-         */
-        valveLooseDesc?: string;
-        /**
-         * 高压端子外盖检查异常
-         */
-        coverAbnormal?: boolean;
-        /**
-         * 高压端子外盖检查异常现场是否解决
-         */
-        coverAbnormalResult?: boolean;
-        /**
-         * 高压端子外盖检查异常异常描述及现场处理
-         */
-        coverAbnormalDesc?: string;
-        /**
-         * 格兰头松动
-         */
-        headLoose?: boolean;
-        /**
-         * 格兰头松动现场是否解决
-         */
-        headLooseResult?: boolean;
-        /**
-         * 格兰头松动异常描述及现场处理
-         */
-        headLooseDesc?: string;
-        /**
-         * 快断器螺栓松动
-         */
-        boltLoose?: boolean;
-        /**
-         * 快断器螺栓松动现场是否解决
-         */
-        boltLooseResult?: boolean;
-        /**
-         * 快断器螺栓松动异常描述及现场处理
-         */
-        boltLooseDesc?: string;
-        /**
-         * 高压盒MSD（扭力抽检时电箱MSD）异常
-         */
-        msdAbnormal?: boolean;
-        /**
-         * 高压盒MSD（扭力抽检时电箱MSD）异常现场是否解决
-         */
-        msdAbnormalResult?: boolean;
-        /**
-         * 高压盒MSD（扭力抽检时电箱MSD）异常异常描述及现场处理
-         */
-        msdAbnormalDesc?: string;
-        /**
-         * 高压线束磨损或磨损风险
-         */
-        hvWireWear?: boolean;
-        /**
-         * 高压线束磨损或磨损风险现场是否解决
-         */
-        hvWireWearResult?: boolean;
-        /**
-         * 高压线束磨损或磨损风险异常描述及现场处理
-         */
-        hvWireWearDesc?: string;
-        /**
-         * 低压线束磨损或磨损风险
-         */
-        lvWireWear?: boolean;
-        /**
-         * 低压线束磨损或磨损风险现场是否解决
-         */
-        lvWireWearResult?: boolean;
-        /**
-         * 低压线束磨损或磨损风险异常描述及现场处理
-         */
-        lvWireWearDesc?: string;
-        /**
-         * 高压接插件不紧固
-         */
-        hvConnectorFasten?: boolean;
-        /**
-         * 高压接插件不紧固现场是否解决
-         */
-        hvConnectorFastenResult?: boolean;
-        /**
-         * 高压接插件不紧固异常描述及现场处理
-         */
-        hvConnectorFastenDesc?: string;
-        /**
-         * 低压接插件不紧固
-         */
-        lvConnectorFasten?: boolean;
-        /**
-         * 低压接插件不紧固现场是否解决
-         */
-        lvConnectorFastenResult?: boolean;
-        /**
-         * 低压接插件不紧固异常描述及现场处理
-         */
-        lvConnectorFastenDesc?: string;
-        /**
-         * 其他
-         */
-        other?: boolean;
-        /**
-         * 其他现场是否解决
-         */
-        otherResult?: boolean;
-        /**
-         * 其他异常描述及现场处理
-         */
-        otherDesc?: string;
-        /**
          * 车牌（车头照）
          */
         frontPic?: {
@@ -15118,7 +14544,106 @@ declare global {
           url: string;
         }[];
         /**
-         * 故障部位图片
+         * 电池仓图片
+         */
+        batteryCompartmentPic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 高压盒图片
+         */
+        hvBoxPic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 维保现场图片
+         */
+        maintenanceSitePic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 故障图片
          */
         faultPic?: {
           /**
@@ -15250,25 +14775,39 @@ declare global {
           url: string;
         }[];
         /**
-         * 提交时间
+         * 外观检查项
          */
-        submitAt?: Date;
+        items?: {
+          /**
+           * 检查结果
+           */
+          result?: string;
+          /**
+           * 检查记录
+           */
+          record?: string;
+          /**
+           * 检查的key
+           */
+          key: string;
+        }[];
         /**
-         * 提交人
+         * 外观检查项错误
          */
-        submitBy?: string;
+        itemErrors?: {
+          /**
+           * 检查的key
+           */
+          key: string;
+          /**
+           * 错误信息
+           */
+          message?: string;
+        }[];
         /**
-         * 是否通过检测
+         * 外观检查状态
          */
-        passed?: boolean;
-        /**
-         * 是否检测过
-         */
-        tested?: boolean;
-        /**
-         * 是否完整
-         */
-        complete?: boolean;
+        checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
       };
       /**
        * 维保单软件诊断记录
@@ -15390,194 +14929,6 @@ declare global {
           url: string;
         }[];
         /**
-         * SOH测量值
-         */
-        soh?: number;
-        /**
-         * SOH测量值现场修复后
-         */
-        sohResult?: number;
-        /**
-         * SOH测量值异常描述及现场处理
-         */
-        sohDesc?: string;
-        /**
-         * 静态上位机电流
-         */
-        current?: number;
-        /**
-         * 静态上位机电流现场修复后
-         */
-        currentResult?: number;
-        /**
-         * 静态上位机电流异常描述及现场处理
-         */
-        currentDesc?: string;
-        /**
-         * soc
-         */
-        soc?: number;
-        /**
-         * soc现场修复后
-         */
-        socResult?: number;
-        /**
-         * roc
-         */
-        roc?: number;
-        /**
-         * roc现场修复后
-         */
-        rocResult?: number;
-        /**
-         * soc异常描述及现场处理
-         */
-        socDesc?: string;
-        /**
-         * 累加电压
-         */
-        addVoltage?: number;
-        /**
-         * 累加电压现场修复后
-         */
-        addVoltageResult?: number;
-        /**
-         * 内侧总电压
-         */
-        totalVoltage?: number;
-        /**
-         * 内侧总电压现场修复后
-         */
-        totalVoltageResult?: number;
-        /**
-         * 累加电压异常描述及现场处理
-         */
-        addVoltageDesc?: string;
-        /**
-         * 最大单体电压Vmax
-         */
-        maxVoltage?: number;
-        /**
-         * 最大单体电压Vmax现场修复后
-         */
-        maxVoltageResult?: number;
-        /**
-         * 最大单体电压Vmax异常描述及现场处理
-         */
-        maxVoltageDesc?: string;
-        /**
-         * 最小单体电压Vmin
-         */
-        minVoltage?: number;
-        /**
-         * 最小单体电压Vmin现场修复后
-         */
-        minVoltageResult?: number;
-        /**
-         * 最小单体电压Vmin异常描述及现场处理
-         */
-        minVoltageDesc?: string;
-        /**
-         * 最大单体温度Tmax
-         */
-        maxTemperature?: number;
-        /**
-         * 最大单体温度Tmax现场修复后
-         */
-        maxTemperatureResult?: number;
-        /**
-         * 最大单体温度Tmax异常描述及现场处理
-         */
-        maxTemperatureDesc?: string;
-        /**
-         * 最小单体温度Tmin
-         */
-        minTemperature?: number;
-        /**
-         * 最小单体温度Tmin现场修复后
-         */
-        minTemperatureResult?: number;
-        /**
-         * 最小单体温度Tmin异常描述及现场处理
-         */
-        minTemperatureDesc?: string;
-        /**
-         * 静态模组温差ΔT
-         */
-        diffTemperature?: number;
-        /**
-         * 静态模组温差ΔT现场修复后
-         */
-        diffTemperatureResult?: number;
-        /**
-         * 静态模组温差ΔT异常描述及现场处理
-         */
-        diffTemperatureDesc?: string;
-        /**
-         * 单体压差ΔU
-         */
-        diffVoltage?: number;
-        /**
-         * 单体压差ΔU现场修复后
-         */
-        diffVoltageResult?: number;
-        /**
-         * 单体压差ΔU异常描述及现场处理
-         */
-        diffVoltageDesc?: string;
-        /**
-         * 充电状态
-         */
-        chargeStatus?: "CHARGING" | "UNCHARGED";
-        /**
-         * 绝缘阻值（充电）正极
-         */
-        chargePositive?: number;
-        /**
-         * 绝缘阻值（充电）正极现场修复后
-         */
-        chargePositiveResult?: number;
-        /**
-         * 绝缘阻值（充电）异常及现场处理
-         */
-        chargePositiveDesc?: string;
-        /**
-         * 绝缘阻值（充电）负极
-         */
-        chargeNegative?: number;
-        /**
-         * 绝缘阻值（充电）负极现场修复后
-         */
-        chargeNegativeResult?: number;
-        /**
-         * 绝缘阻值（充电）异常描述及现场处理
-         */
-        chargeNegativeDesc?: string;
-        /**
-         * 绝缘阻值（非充电）正极
-         */
-        nochargePositive?: number;
-        /**
-         * 绝缘阻值（非充电）正极现场修复后
-         */
-        nochargePositiveResult?: number;
-        /**
-         * 绝缘阻值（非充电）正极异常及现场处理
-         */
-        nochargePositiveDesc?: string;
-        /**
-         * 绝缘阻值（非充电）负极
-         */
-        nochargeNegative?: number;
-        /**
-         * 绝缘阻值（非充电）负极现场修复后
-         */
-        nochargeNegativeResult?: number;
-        /**
-         * 绝缘阻值（非充电）负极异常及现场处理
-         */
-        nochargeNegativeDesc?: string;
-        /**
          * 电池PN
          */
         batteryPN?: string;
@@ -15606,25 +14957,39 @@ declare global {
          */
         rdb?: string;
         /**
-         * 提交时间
+         * 外观检查项
          */
-        submitAt?: Date;
+        items?: {
+          /**
+           * 检查结果
+           */
+          result?: string;
+          /**
+           * 检查记录
+           */
+          record?: string;
+          /**
+           * 检查的key
+           */
+          key: string;
+        }[];
         /**
-         * 提交人
+         * 外观检查项错误
          */
-        submitBy?: string;
+        itemErrors?: {
+          /**
+           * 检查的key
+           */
+          key: string;
+          /**
+           * 错误信息
+           */
+          message?: string;
+        }[];
         /**
-         * 是否通过检测
+         * 软件检查状态
          */
-        passed?: boolean;
-        /**
-         * 是否检测过
-         */
-        tested?: boolean;
-        /**
-         * 是否完整
-         */
-        complete?: boolean;
+        checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
       };
       /**
        * 关联维修单 id
@@ -15649,11 +15014,23 @@ declare global {
       /**
        * 维保完成的截止日期
        */
-      deadline?: string;
+      deadline?: Date;
       /**
        * 上次维保完成日期
        */
-      preCloseAt?: string;
+      preCloseAt?: Date;
+      /**
+       * 状态标记
+       */
+      checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
+      /**
+       * 提交时间
+       */
+      submitAt?: Date;
+      /**
+       * 提交人
+       */
+      submitBy?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -15815,162 +15192,6 @@ declare global {
          */
         workers?: string[];
         /**
-         * 仪表电池报警信息
-         */
-        meterAlarm?: boolean;
-        /**
-         * 仪表电池报警信息现场是否解决
-         */
-        meterAlarmResult?: boolean;
-        /**
-         * 仪表电池报警信息异常描述及现场处理
-         */
-        meterAlarmDesc?: string;
-        /**
-         * 箱体外壳损毁、变形
-         */
-        boxDamage?: boolean;
-        /**
-         * 箱体外壳损毁、变形现场是否解决
-         */
-        boxDamageResult?: boolean;
-        /**
-         * 箱体外壳损毁、变形异常描述及现场处理
-         */
-        boxDamageDesc?: string;
-        /**
-         * 电箱漏液
-         */
-        electricLeakage?: boolean;
-        /**
-         * 电箱漏液现场是否解决
-         */
-        electricLeakageResult?: boolean;
-        /**
-         * 电箱漏液异常描述及现场处理
-         */
-        electricLeakageDesc?: string;
-        /**
-         * 气压平衡阀或防暴阀松动
-         */
-        valveLoose?: boolean;
-        /**
-         * 气压平衡阀或防暴阀松动现场是否解决
-         */
-        valveLooseResult?: boolean;
-        /**
-         * 气压平衡阀或防暴阀松动异常描述及现场处理
-         */
-        valveLooseDesc?: string;
-        /**
-         * 高压端子外盖检查异常
-         */
-        coverAbnormal?: boolean;
-        /**
-         * 高压端子外盖检查异常现场是否解决
-         */
-        coverAbnormalResult?: boolean;
-        /**
-         * 高压端子外盖检查异常异常描述及现场处理
-         */
-        coverAbnormalDesc?: string;
-        /**
-         * 格兰头松动
-         */
-        headLoose?: boolean;
-        /**
-         * 格兰头松动现场是否解决
-         */
-        headLooseResult?: boolean;
-        /**
-         * 格兰头松动异常描述及现场处理
-         */
-        headLooseDesc?: string;
-        /**
-         * 快断器螺栓松动
-         */
-        boltLoose?: boolean;
-        /**
-         * 快断器螺栓松动现场是否解决
-         */
-        boltLooseResult?: boolean;
-        /**
-         * 快断器螺栓松动异常描述及现场处理
-         */
-        boltLooseDesc?: string;
-        /**
-         * 高压盒MSD（扭力抽检时电箱MSD）异常
-         */
-        msdAbnormal?: boolean;
-        /**
-         * 高压盒MSD（扭力抽检时电箱MSD）异常现场是否解决
-         */
-        msdAbnormalResult?: boolean;
-        /**
-         * 高压盒MSD（扭力抽检时电箱MSD）异常异常描述及现场处理
-         */
-        msdAbnormalDesc?: string;
-        /**
-         * 高压线束磨损或磨损风险
-         */
-        hvWireWear?: boolean;
-        /**
-         * 高压线束磨损或磨损风险现场是否解决
-         */
-        hvWireWearResult?: boolean;
-        /**
-         * 高压线束磨损或磨损风险异常描述及现场处理
-         */
-        hvWireWearDesc?: string;
-        /**
-         * 低压线束磨损或磨损风险
-         */
-        lvWireWear?: boolean;
-        /**
-         * 低压线束磨损或磨损风险现场是否解决
-         */
-        lvWireWearResult?: boolean;
-        /**
-         * 低压线束磨损或磨损风险异常描述及现场处理
-         */
-        lvWireWearDesc?: string;
-        /**
-         * 高压接插件不紧固
-         */
-        hvConnectorFasten?: boolean;
-        /**
-         * 高压接插件不紧固现场是否解决
-         */
-        hvConnectorFastenResult?: boolean;
-        /**
-         * 高压接插件不紧固异常描述及现场处理
-         */
-        hvConnectorFastenDesc?: string;
-        /**
-         * 低压接插件不紧固
-         */
-        lvConnectorFasten?: boolean;
-        /**
-         * 低压接插件不紧固现场是否解决
-         */
-        lvConnectorFastenResult?: boolean;
-        /**
-         * 低压接插件不紧固异常描述及现场处理
-         */
-        lvConnectorFastenDesc?: string;
-        /**
-         * 其他
-         */
-        other?: boolean;
-        /**
-         * 其他现场是否解决
-         */
-        otherResult?: boolean;
-        /**
-         * 其他异常描述及现场处理
-         */
-        otherDesc?: string;
-        /**
          * 车牌（车头照）
          */
         frontPic?: {
@@ -16103,7 +15324,106 @@ declare global {
           url: string;
         }[];
         /**
-         * 故障部位图片
+         * 电池仓图片
+         */
+        batteryCompartmentPic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 高压盒图片
+         */
+        hvBoxPic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 维保现场图片
+         */
+        maintenanceSitePic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 故障图片
          */
         faultPic?: {
           /**
@@ -16235,25 +15555,39 @@ declare global {
           url: string;
         }[];
         /**
-         * 提交时间
+         * 外观检查项
          */
-        submitAt?: Date;
+        items?: {
+          /**
+           * 检查结果
+           */
+          result?: string;
+          /**
+           * 检查记录
+           */
+          record?: string;
+          /**
+           * 检查的key
+           */
+          key: string;
+        }[];
         /**
-         * 提交人
+         * 外观检查项错误
          */
-        submitBy?: string;
+        itemErrors?: {
+          /**
+           * 检查的key
+           */
+          key: string;
+          /**
+           * 错误信息
+           */
+          message?: string;
+        }[];
         /**
-         * 是否通过检测
+         * 外观检查状态
          */
-        passed?: boolean;
-        /**
-         * 是否检测过
-         */
-        tested?: boolean;
-        /**
-         * 是否完整
-         */
-        complete?: boolean;
+        checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
       };
       /**
        * 维保单软件诊断记录
@@ -16375,194 +15709,6 @@ declare global {
           url: string;
         }[];
         /**
-         * SOH测量值
-         */
-        soh?: number;
-        /**
-         * SOH测量值现场修复后
-         */
-        sohResult?: number;
-        /**
-         * SOH测量值异常描述及现场处理
-         */
-        sohDesc?: string;
-        /**
-         * 静态上位机电流
-         */
-        current?: number;
-        /**
-         * 静态上位机电流现场修复后
-         */
-        currentResult?: number;
-        /**
-         * 静态上位机电流异常描述及现场处理
-         */
-        currentDesc?: string;
-        /**
-         * soc
-         */
-        soc?: number;
-        /**
-         * soc现场修复后
-         */
-        socResult?: number;
-        /**
-         * roc
-         */
-        roc?: number;
-        /**
-         * roc现场修复后
-         */
-        rocResult?: number;
-        /**
-         * soc异常描述及现场处理
-         */
-        socDesc?: string;
-        /**
-         * 累加电压
-         */
-        addVoltage?: number;
-        /**
-         * 累加电压现场修复后
-         */
-        addVoltageResult?: number;
-        /**
-         * 内侧总电压
-         */
-        totalVoltage?: number;
-        /**
-         * 内侧总电压现场修复后
-         */
-        totalVoltageResult?: number;
-        /**
-         * 累加电压异常描述及现场处理
-         */
-        addVoltageDesc?: string;
-        /**
-         * 最大单体电压Vmax
-         */
-        maxVoltage?: number;
-        /**
-         * 最大单体电压Vmax现场修复后
-         */
-        maxVoltageResult?: number;
-        /**
-         * 最大单体电压Vmax异常描述及现场处理
-         */
-        maxVoltageDesc?: string;
-        /**
-         * 最小单体电压Vmin
-         */
-        minVoltage?: number;
-        /**
-         * 最小单体电压Vmin现场修复后
-         */
-        minVoltageResult?: number;
-        /**
-         * 最小单体电压Vmin异常描述及现场处理
-         */
-        minVoltageDesc?: string;
-        /**
-         * 最大单体温度Tmax
-         */
-        maxTemperature?: number;
-        /**
-         * 最大单体温度Tmax现场修复后
-         */
-        maxTemperatureResult?: number;
-        /**
-         * 最大单体温度Tmax异常描述及现场处理
-         */
-        maxTemperatureDesc?: string;
-        /**
-         * 最小单体温度Tmin
-         */
-        minTemperature?: number;
-        /**
-         * 最小单体温度Tmin现场修复后
-         */
-        minTemperatureResult?: number;
-        /**
-         * 最小单体温度Tmin异常描述及现场处理
-         */
-        minTemperatureDesc?: string;
-        /**
-         * 静态模组温差ΔT
-         */
-        diffTemperature?: number;
-        /**
-         * 静态模组温差ΔT现场修复后
-         */
-        diffTemperatureResult?: number;
-        /**
-         * 静态模组温差ΔT异常描述及现场处理
-         */
-        diffTemperatureDesc?: string;
-        /**
-         * 单体压差ΔU
-         */
-        diffVoltage?: number;
-        /**
-         * 单体压差ΔU现场修复后
-         */
-        diffVoltageResult?: number;
-        /**
-         * 单体压差ΔU异常描述及现场处理
-         */
-        diffVoltageDesc?: string;
-        /**
-         * 充电状态
-         */
-        chargeStatus?: "CHARGING" | "UNCHARGED";
-        /**
-         * 绝缘阻值（充电）正极
-         */
-        chargePositive?: number;
-        /**
-         * 绝缘阻值（充电）正极现场修复后
-         */
-        chargePositiveResult?: number;
-        /**
-         * 绝缘阻值（充电）异常及现场处理
-         */
-        chargePositiveDesc?: string;
-        /**
-         * 绝缘阻值（充电）负极
-         */
-        chargeNegative?: number;
-        /**
-         * 绝缘阻值（充电）负极现场修复后
-         */
-        chargeNegativeResult?: number;
-        /**
-         * 绝缘阻值（充电）异常描述及现场处理
-         */
-        chargeNegativeDesc?: string;
-        /**
-         * 绝缘阻值（非充电）正极
-         */
-        nochargePositive?: number;
-        /**
-         * 绝缘阻值（非充电）正极现场修复后
-         */
-        nochargePositiveResult?: number;
-        /**
-         * 绝缘阻值（非充电）正极异常及现场处理
-         */
-        nochargePositiveDesc?: string;
-        /**
-         * 绝缘阻值（非充电）负极
-         */
-        nochargeNegative?: number;
-        /**
-         * 绝缘阻值（非充电）负极现场修复后
-         */
-        nochargeNegativeResult?: number;
-        /**
-         * 绝缘阻值（非充电）负极异常及现场处理
-         */
-        nochargeNegativeDesc?: string;
-        /**
          * 电池PN
          */
         batteryPN?: string;
@@ -16591,25 +15737,39 @@ declare global {
          */
         rdb?: string;
         /**
-         * 提交时间
+         * 外观检查项
          */
-        submitAt?: Date;
+        items?: {
+          /**
+           * 检查结果
+           */
+          result?: string;
+          /**
+           * 检查记录
+           */
+          record?: string;
+          /**
+           * 检查的key
+           */
+          key: string;
+        }[];
         /**
-         * 提交人
+         * 外观检查项错误
          */
-        submitBy?: string;
+        itemErrors?: {
+          /**
+           * 检查的key
+           */
+          key: string;
+          /**
+           * 错误信息
+           */
+          message?: string;
+        }[];
         /**
-         * 是否通过检测
+         * 软件检查状态
          */
-        passed?: boolean;
-        /**
-         * 是否检测过
-         */
-        tested?: boolean;
-        /**
-         * 是否完整
-         */
-        complete?: boolean;
+        checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
       };
       /**
        * 关联维修单 id
@@ -16634,11 +15794,23 @@ declare global {
       /**
        * 维保完成的截止日期
        */
-      deadline?: string;
+      deadline?: Date;
       /**
        * 上次维保完成日期
        */
-      preCloseAt?: string;
+      preCloseAt?: Date;
+      /**
+       * 状态标记
+       */
+      checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
+      /**
+       * 提交时间
+       */
+      submitAt?: Date;
+      /**
+       * 提交人
+       */
+      submitBy?: string;
     };
   }
   export interface UpdateMaintainResponse {
@@ -16793,162 +15965,6 @@ declare global {
          */
         workers?: string[];
         /**
-         * 仪表电池报警信息
-         */
-        meterAlarm?: boolean;
-        /**
-         * 仪表电池报警信息现场是否解决
-         */
-        meterAlarmResult?: boolean;
-        /**
-         * 仪表电池报警信息异常描述及现场处理
-         */
-        meterAlarmDesc?: string;
-        /**
-         * 箱体外壳损毁、变形
-         */
-        boxDamage?: boolean;
-        /**
-         * 箱体外壳损毁、变形现场是否解决
-         */
-        boxDamageResult?: boolean;
-        /**
-         * 箱体外壳损毁、变形异常描述及现场处理
-         */
-        boxDamageDesc?: string;
-        /**
-         * 电箱漏液
-         */
-        electricLeakage?: boolean;
-        /**
-         * 电箱漏液现场是否解决
-         */
-        electricLeakageResult?: boolean;
-        /**
-         * 电箱漏液异常描述及现场处理
-         */
-        electricLeakageDesc?: string;
-        /**
-         * 气压平衡阀或防暴阀松动
-         */
-        valveLoose?: boolean;
-        /**
-         * 气压平衡阀或防暴阀松动现场是否解决
-         */
-        valveLooseResult?: boolean;
-        /**
-         * 气压平衡阀或防暴阀松动异常描述及现场处理
-         */
-        valveLooseDesc?: string;
-        /**
-         * 高压端子外盖检查异常
-         */
-        coverAbnormal?: boolean;
-        /**
-         * 高压端子外盖检查异常现场是否解决
-         */
-        coverAbnormalResult?: boolean;
-        /**
-         * 高压端子外盖检查异常异常描述及现场处理
-         */
-        coverAbnormalDesc?: string;
-        /**
-         * 格兰头松动
-         */
-        headLoose?: boolean;
-        /**
-         * 格兰头松动现场是否解决
-         */
-        headLooseResult?: boolean;
-        /**
-         * 格兰头松动异常描述及现场处理
-         */
-        headLooseDesc?: string;
-        /**
-         * 快断器螺栓松动
-         */
-        boltLoose?: boolean;
-        /**
-         * 快断器螺栓松动现场是否解决
-         */
-        boltLooseResult?: boolean;
-        /**
-         * 快断器螺栓松动异常描述及现场处理
-         */
-        boltLooseDesc?: string;
-        /**
-         * 高压盒MSD（扭力抽检时电箱MSD）异常
-         */
-        msdAbnormal?: boolean;
-        /**
-         * 高压盒MSD（扭力抽检时电箱MSD）异常现场是否解决
-         */
-        msdAbnormalResult?: boolean;
-        /**
-         * 高压盒MSD（扭力抽检时电箱MSD）异常异常描述及现场处理
-         */
-        msdAbnormalDesc?: string;
-        /**
-         * 高压线束磨损或磨损风险
-         */
-        hvWireWear?: boolean;
-        /**
-         * 高压线束磨损或磨损风险现场是否解决
-         */
-        hvWireWearResult?: boolean;
-        /**
-         * 高压线束磨损或磨损风险异常描述及现场处理
-         */
-        hvWireWearDesc?: string;
-        /**
-         * 低压线束磨损或磨损风险
-         */
-        lvWireWear?: boolean;
-        /**
-         * 低压线束磨损或磨损风险现场是否解决
-         */
-        lvWireWearResult?: boolean;
-        /**
-         * 低压线束磨损或磨损风险异常描述及现场处理
-         */
-        lvWireWearDesc?: string;
-        /**
-         * 高压接插件不紧固
-         */
-        hvConnectorFasten?: boolean;
-        /**
-         * 高压接插件不紧固现场是否解决
-         */
-        hvConnectorFastenResult?: boolean;
-        /**
-         * 高压接插件不紧固异常描述及现场处理
-         */
-        hvConnectorFastenDesc?: string;
-        /**
-         * 低压接插件不紧固
-         */
-        lvConnectorFasten?: boolean;
-        /**
-         * 低压接插件不紧固现场是否解决
-         */
-        lvConnectorFastenResult?: boolean;
-        /**
-         * 低压接插件不紧固异常描述及现场处理
-         */
-        lvConnectorFastenDesc?: string;
-        /**
-         * 其他
-         */
-        other?: boolean;
-        /**
-         * 其他现场是否解决
-         */
-        otherResult?: boolean;
-        /**
-         * 其他异常描述及现场处理
-         */
-        otherDesc?: string;
-        /**
          * 车牌（车头照）
          */
         frontPic?: {
@@ -17081,7 +16097,106 @@ declare global {
           url: string;
         }[];
         /**
-         * 故障部位图片
+         * 电池仓图片
+         */
+        batteryCompartmentPic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 高压盒图片
+         */
+        hvBoxPic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 维保现场图片
+         */
+        maintenanceSitePic?: {
+          /**
+           * 原始文件名
+           */
+          name: string;
+          /**
+           * oss上的文件名
+           */
+          ossName: string;
+          /**
+           * 备注
+           */
+          remark?: string;
+          /**
+           * 文件大小
+           */
+          size?: number;
+          /**
+           * 上传状态
+           */
+          status?: string;
+          /**
+           * uid
+           */
+          uid: string;
+          /**
+           * url
+           */
+          url: string;
+        }[];
+        /**
+         * 故障图片
          */
         faultPic?: {
           /**
@@ -17213,25 +16328,39 @@ declare global {
           url: string;
         }[];
         /**
-         * 提交时间
+         * 外观检查项
          */
-        submitAt?: Date;
+        items?: {
+          /**
+           * 检查结果
+           */
+          result?: string;
+          /**
+           * 检查记录
+           */
+          record?: string;
+          /**
+           * 检查的key
+           */
+          key: string;
+        }[];
         /**
-         * 提交人
+         * 外观检查项错误
          */
-        submitBy?: string;
+        itemErrors?: {
+          /**
+           * 检查的key
+           */
+          key: string;
+          /**
+           * 错误信息
+           */
+          message?: string;
+        }[];
         /**
-         * 是否通过检测
+         * 外观检查状态
          */
-        passed?: boolean;
-        /**
-         * 是否检测过
-         */
-        tested?: boolean;
-        /**
-         * 是否完整
-         */
-        complete?: boolean;
+        checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
       };
       /**
        * 维保单软件诊断记录
@@ -17353,194 +16482,6 @@ declare global {
           url: string;
         }[];
         /**
-         * SOH测量值
-         */
-        soh?: number;
-        /**
-         * SOH测量值现场修复后
-         */
-        sohResult?: number;
-        /**
-         * SOH测量值异常描述及现场处理
-         */
-        sohDesc?: string;
-        /**
-         * 静态上位机电流
-         */
-        current?: number;
-        /**
-         * 静态上位机电流现场修复后
-         */
-        currentResult?: number;
-        /**
-         * 静态上位机电流异常描述及现场处理
-         */
-        currentDesc?: string;
-        /**
-         * soc
-         */
-        soc?: number;
-        /**
-         * soc现场修复后
-         */
-        socResult?: number;
-        /**
-         * roc
-         */
-        roc?: number;
-        /**
-         * roc现场修复后
-         */
-        rocResult?: number;
-        /**
-         * soc异常描述及现场处理
-         */
-        socDesc?: string;
-        /**
-         * 累加电压
-         */
-        addVoltage?: number;
-        /**
-         * 累加电压现场修复后
-         */
-        addVoltageResult?: number;
-        /**
-         * 内侧总电压
-         */
-        totalVoltage?: number;
-        /**
-         * 内侧总电压现场修复后
-         */
-        totalVoltageResult?: number;
-        /**
-         * 累加电压异常描述及现场处理
-         */
-        addVoltageDesc?: string;
-        /**
-         * 最大单体电压Vmax
-         */
-        maxVoltage?: number;
-        /**
-         * 最大单体电压Vmax现场修复后
-         */
-        maxVoltageResult?: number;
-        /**
-         * 最大单体电压Vmax异常描述及现场处理
-         */
-        maxVoltageDesc?: string;
-        /**
-         * 最小单体电压Vmin
-         */
-        minVoltage?: number;
-        /**
-         * 最小单体电压Vmin现场修复后
-         */
-        minVoltageResult?: number;
-        /**
-         * 最小单体电压Vmin异常描述及现场处理
-         */
-        minVoltageDesc?: string;
-        /**
-         * 最大单体温度Tmax
-         */
-        maxTemperature?: number;
-        /**
-         * 最大单体温度Tmax现场修复后
-         */
-        maxTemperatureResult?: number;
-        /**
-         * 最大单体温度Tmax异常描述及现场处理
-         */
-        maxTemperatureDesc?: string;
-        /**
-         * 最小单体温度Tmin
-         */
-        minTemperature?: number;
-        /**
-         * 最小单体温度Tmin现场修复后
-         */
-        minTemperatureResult?: number;
-        /**
-         * 最小单体温度Tmin异常描述及现场处理
-         */
-        minTemperatureDesc?: string;
-        /**
-         * 静态模组温差ΔT
-         */
-        diffTemperature?: number;
-        /**
-         * 静态模组温差ΔT现场修复后
-         */
-        diffTemperatureResult?: number;
-        /**
-         * 静态模组温差ΔT异常描述及现场处理
-         */
-        diffTemperatureDesc?: string;
-        /**
-         * 单体压差ΔU
-         */
-        diffVoltage?: number;
-        /**
-         * 单体压差ΔU现场修复后
-         */
-        diffVoltageResult?: number;
-        /**
-         * 单体压差ΔU异常描述及现场处理
-         */
-        diffVoltageDesc?: string;
-        /**
-         * 充电状态
-         */
-        chargeStatus?: "CHARGING" | "UNCHARGED";
-        /**
-         * 绝缘阻值（充电）正极
-         */
-        chargePositive?: number;
-        /**
-         * 绝缘阻值（充电）正极现场修复后
-         */
-        chargePositiveResult?: number;
-        /**
-         * 绝缘阻值（充电）异常及现场处理
-         */
-        chargePositiveDesc?: string;
-        /**
-         * 绝缘阻值（充电）负极
-         */
-        chargeNegative?: number;
-        /**
-         * 绝缘阻值（充电）负极现场修复后
-         */
-        chargeNegativeResult?: number;
-        /**
-         * 绝缘阻值（充电）异常描述及现场处理
-         */
-        chargeNegativeDesc?: string;
-        /**
-         * 绝缘阻值（非充电）正极
-         */
-        nochargePositive?: number;
-        /**
-         * 绝缘阻值（非充电）正极现场修复后
-         */
-        nochargePositiveResult?: number;
-        /**
-         * 绝缘阻值（非充电）正极异常及现场处理
-         */
-        nochargePositiveDesc?: string;
-        /**
-         * 绝缘阻值（非充电）负极
-         */
-        nochargeNegative?: number;
-        /**
-         * 绝缘阻值（非充电）负极现场修复后
-         */
-        nochargeNegativeResult?: number;
-        /**
-         * 绝缘阻值（非充电）负极异常及现场处理
-         */
-        nochargeNegativeDesc?: string;
-        /**
          * 电池PN
          */
         batteryPN?: string;
@@ -17569,25 +16510,39 @@ declare global {
          */
         rdb?: string;
         /**
-         * 提交时间
+         * 外观检查项
          */
-        submitAt?: Date;
+        items?: {
+          /**
+           * 检查结果
+           */
+          result?: string;
+          /**
+           * 检查记录
+           */
+          record?: string;
+          /**
+           * 检查的key
+           */
+          key: string;
+        }[];
         /**
-         * 提交人
+         * 外观检查项错误
          */
-        submitBy?: string;
+        itemErrors?: {
+          /**
+           * 检查的key
+           */
+          key: string;
+          /**
+           * 错误信息
+           */
+          message?: string;
+        }[];
         /**
-         * 是否通过检测
+         * 软件检查状态
          */
-        passed?: boolean;
-        /**
-         * 是否检测过
-         */
-        tested?: boolean;
-        /**
-         * 是否完整
-         */
-        complete?: boolean;
+        checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
       };
       /**
        * 关联维修单 id
@@ -17612,11 +16567,23 @@ declare global {
       /**
        * 维保完成的截止日期
        */
-      deadline?: string;
+      deadline?: Date;
       /**
        * 上次维保完成日期
        */
-      preCloseAt?: string;
+      preCloseAt?: Date;
+      /**
+       * 状态标记
+       */
+      checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
+      /**
+       * 提交时间
+       */
+      submitAt?: Date;
+      /**
+       * 提交人
+       */
+      submitBy?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -17688,162 +16655,6 @@ declare global {
        */
       workers?: string[];
       /**
-       * 仪表电池报警信息
-       */
-      meterAlarm?: boolean;
-      /**
-       * 仪表电池报警信息现场是否解决
-       */
-      meterAlarmResult?: boolean;
-      /**
-       * 仪表电池报警信息异常描述及现场处理
-       */
-      meterAlarmDesc?: string;
-      /**
-       * 箱体外壳损毁、变形
-       */
-      boxDamage?: boolean;
-      /**
-       * 箱体外壳损毁、变形现场是否解决
-       */
-      boxDamageResult?: boolean;
-      /**
-       * 箱体外壳损毁、变形异常描述及现场处理
-       */
-      boxDamageDesc?: string;
-      /**
-       * 电箱漏液
-       */
-      electricLeakage?: boolean;
-      /**
-       * 电箱漏液现场是否解决
-       */
-      electricLeakageResult?: boolean;
-      /**
-       * 电箱漏液异常描述及现场处理
-       */
-      electricLeakageDesc?: string;
-      /**
-       * 气压平衡阀或防暴阀松动
-       */
-      valveLoose?: boolean;
-      /**
-       * 气压平衡阀或防暴阀松动现场是否解决
-       */
-      valveLooseResult?: boolean;
-      /**
-       * 气压平衡阀或防暴阀松动异常描述及现场处理
-       */
-      valveLooseDesc?: string;
-      /**
-       * 高压端子外盖检查异常
-       */
-      coverAbnormal?: boolean;
-      /**
-       * 高压端子外盖检查异常现场是否解决
-       */
-      coverAbnormalResult?: boolean;
-      /**
-       * 高压端子外盖检查异常异常描述及现场处理
-       */
-      coverAbnormalDesc?: string;
-      /**
-       * 格兰头松动
-       */
-      headLoose?: boolean;
-      /**
-       * 格兰头松动现场是否解决
-       */
-      headLooseResult?: boolean;
-      /**
-       * 格兰头松动异常描述及现场处理
-       */
-      headLooseDesc?: string;
-      /**
-       * 快断器螺栓松动
-       */
-      boltLoose?: boolean;
-      /**
-       * 快断器螺栓松动现场是否解决
-       */
-      boltLooseResult?: boolean;
-      /**
-       * 快断器螺栓松动异常描述及现场处理
-       */
-      boltLooseDesc?: string;
-      /**
-       * 高压盒MSD（扭力抽检时电箱MSD）异常
-       */
-      msdAbnormal?: boolean;
-      /**
-       * 高压盒MSD（扭力抽检时电箱MSD）异常现场是否解决
-       */
-      msdAbnormalResult?: boolean;
-      /**
-       * 高压盒MSD（扭力抽检时电箱MSD）异常异常描述及现场处理
-       */
-      msdAbnormalDesc?: string;
-      /**
-       * 高压线束磨损或磨损风险
-       */
-      hvWireWear?: boolean;
-      /**
-       * 高压线束磨损或磨损风险现场是否解决
-       */
-      hvWireWearResult?: boolean;
-      /**
-       * 高压线束磨损或磨损风险异常描述及现场处理
-       */
-      hvWireWearDesc?: string;
-      /**
-       * 低压线束磨损或磨损风险
-       */
-      lvWireWear?: boolean;
-      /**
-       * 低压线束磨损或磨损风险现场是否解决
-       */
-      lvWireWearResult?: boolean;
-      /**
-       * 低压线束磨损或磨损风险异常描述及现场处理
-       */
-      lvWireWearDesc?: string;
-      /**
-       * 高压接插件不紧固
-       */
-      hvConnectorFasten?: boolean;
-      /**
-       * 高压接插件不紧固现场是否解决
-       */
-      hvConnectorFastenResult?: boolean;
-      /**
-       * 高压接插件不紧固异常描述及现场处理
-       */
-      hvConnectorFastenDesc?: string;
-      /**
-       * 低压接插件不紧固
-       */
-      lvConnectorFasten?: boolean;
-      /**
-       * 低压接插件不紧固现场是否解决
-       */
-      lvConnectorFastenResult?: boolean;
-      /**
-       * 低压接插件不紧固异常描述及现场处理
-       */
-      lvConnectorFastenDesc?: string;
-      /**
-       * 其他
-       */
-      other?: boolean;
-      /**
-       * 其他现场是否解决
-       */
-      otherResult?: boolean;
-      /**
-       * 其他异常描述及现场处理
-       */
-      otherDesc?: string;
-      /**
        * 车牌（车头照）
        */
       frontPic?: {
@@ -17976,7 +16787,106 @@ declare global {
         url: string;
       }[];
       /**
-       * 故障部位图片
+       * 电池仓图片
+       */
+      batteryCompartmentPic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 高压盒图片
+       */
+      hvBoxPic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 维保现场图片
+       */
+      maintenanceSitePic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 故障图片
        */
       faultPic?: {
         /**
@@ -18108,25 +17018,39 @@ declare global {
         url: string;
       }[];
       /**
-       * 提交时间
+       * 外观检查项
        */
-      submitAt?: Date;
+      items?: {
+        /**
+         * 检查结果
+         */
+        result?: string;
+        /**
+         * 检查记录
+         */
+        record?: string;
+        /**
+         * 检查的key
+         */
+        key: string;
+      }[];
       /**
-       * 提交人
+       * 外观检查项错误
        */
-      submitBy?: string;
+      itemErrors?: {
+        /**
+         * 检查的key
+         */
+        key: string;
+        /**
+         * 错误信息
+         */
+        message?: string;
+      }[];
       /**
-       * 是否通过检测
+       * 外观检查状态
        */
-      passed?: boolean;
-      /**
-       * 是否检测过
-       */
-      tested?: boolean;
-      /**
-       * 是否完整
-       */
-      complete?: boolean;
+      checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
     };
   }
   export interface UpdateAppearanceRecordResponse {
@@ -18188,162 +17112,6 @@ declare global {
        */
       workers?: string[];
       /**
-       * 仪表电池报警信息
-       */
-      meterAlarm?: boolean;
-      /**
-       * 仪表电池报警信息现场是否解决
-       */
-      meterAlarmResult?: boolean;
-      /**
-       * 仪表电池报警信息异常描述及现场处理
-       */
-      meterAlarmDesc?: string;
-      /**
-       * 箱体外壳损毁、变形
-       */
-      boxDamage?: boolean;
-      /**
-       * 箱体外壳损毁、变形现场是否解决
-       */
-      boxDamageResult?: boolean;
-      /**
-       * 箱体外壳损毁、变形异常描述及现场处理
-       */
-      boxDamageDesc?: string;
-      /**
-       * 电箱漏液
-       */
-      electricLeakage?: boolean;
-      /**
-       * 电箱漏液现场是否解决
-       */
-      electricLeakageResult?: boolean;
-      /**
-       * 电箱漏液异常描述及现场处理
-       */
-      electricLeakageDesc?: string;
-      /**
-       * 气压平衡阀或防暴阀松动
-       */
-      valveLoose?: boolean;
-      /**
-       * 气压平衡阀或防暴阀松动现场是否解决
-       */
-      valveLooseResult?: boolean;
-      /**
-       * 气压平衡阀或防暴阀松动异常描述及现场处理
-       */
-      valveLooseDesc?: string;
-      /**
-       * 高压端子外盖检查异常
-       */
-      coverAbnormal?: boolean;
-      /**
-       * 高压端子外盖检查异常现场是否解决
-       */
-      coverAbnormalResult?: boolean;
-      /**
-       * 高压端子外盖检查异常异常描述及现场处理
-       */
-      coverAbnormalDesc?: string;
-      /**
-       * 格兰头松动
-       */
-      headLoose?: boolean;
-      /**
-       * 格兰头松动现场是否解决
-       */
-      headLooseResult?: boolean;
-      /**
-       * 格兰头松动异常描述及现场处理
-       */
-      headLooseDesc?: string;
-      /**
-       * 快断器螺栓松动
-       */
-      boltLoose?: boolean;
-      /**
-       * 快断器螺栓松动现场是否解决
-       */
-      boltLooseResult?: boolean;
-      /**
-       * 快断器螺栓松动异常描述及现场处理
-       */
-      boltLooseDesc?: string;
-      /**
-       * 高压盒MSD（扭力抽检时电箱MSD）异常
-       */
-      msdAbnormal?: boolean;
-      /**
-       * 高压盒MSD（扭力抽检时电箱MSD）异常现场是否解决
-       */
-      msdAbnormalResult?: boolean;
-      /**
-       * 高压盒MSD（扭力抽检时电箱MSD）异常异常描述及现场处理
-       */
-      msdAbnormalDesc?: string;
-      /**
-       * 高压线束磨损或磨损风险
-       */
-      hvWireWear?: boolean;
-      /**
-       * 高压线束磨损或磨损风险现场是否解决
-       */
-      hvWireWearResult?: boolean;
-      /**
-       * 高压线束磨损或磨损风险异常描述及现场处理
-       */
-      hvWireWearDesc?: string;
-      /**
-       * 低压线束磨损或磨损风险
-       */
-      lvWireWear?: boolean;
-      /**
-       * 低压线束磨损或磨损风险现场是否解决
-       */
-      lvWireWearResult?: boolean;
-      /**
-       * 低压线束磨损或磨损风险异常描述及现场处理
-       */
-      lvWireWearDesc?: string;
-      /**
-       * 高压接插件不紧固
-       */
-      hvConnectorFasten?: boolean;
-      /**
-       * 高压接插件不紧固现场是否解决
-       */
-      hvConnectorFastenResult?: boolean;
-      /**
-       * 高压接插件不紧固异常描述及现场处理
-       */
-      hvConnectorFastenDesc?: string;
-      /**
-       * 低压接插件不紧固
-       */
-      lvConnectorFasten?: boolean;
-      /**
-       * 低压接插件不紧固现场是否解决
-       */
-      lvConnectorFastenResult?: boolean;
-      /**
-       * 低压接插件不紧固异常描述及现场处理
-       */
-      lvConnectorFastenDesc?: string;
-      /**
-       * 其他
-       */
-      other?: boolean;
-      /**
-       * 其他现场是否解决
-       */
-      otherResult?: boolean;
-      /**
-       * 其他异常描述及现场处理
-       */
-      otherDesc?: string;
-      /**
        * 车牌（车头照）
        */
       frontPic?: {
@@ -18476,7 +17244,106 @@ declare global {
         url: string;
       }[];
       /**
-       * 故障部位图片
+       * 电池仓图片
+       */
+      batteryCompartmentPic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 高压盒图片
+       */
+      hvBoxPic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 维保现场图片
+       */
+      maintenanceSitePic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 故障图片
        */
       faultPic?: {
         /**
@@ -18608,25 +17475,39 @@ declare global {
         url: string;
       }[];
       /**
-       * 提交时间
+       * 外观检查项
        */
-      submitAt?: Date;
+      items?: {
+        /**
+         * 检查结果
+         */
+        result?: string;
+        /**
+         * 检查记录
+         */
+        record?: string;
+        /**
+         * 检查的key
+         */
+        key: string;
+      }[];
       /**
-       * 提交人
+       * 外观检查项错误
        */
-      submitBy?: string;
+      itemErrors?: {
+        /**
+         * 检查的key
+         */
+        key: string;
+        /**
+         * 错误信息
+         */
+        message?: string;
+      }[];
       /**
-       * 是否通过检测
+       * 外观检查状态
        */
-      passed?: boolean;
-      /**
-       * 是否检测过
-       */
-      tested?: boolean;
-      /**
-       * 是否完整
-       */
-      complete?: boolean;
+      checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
     };
   }
   export interface UpdateSoftwareRecordRequest {
@@ -18751,194 +17632,6 @@ declare global {
         url: string;
       }[];
       /**
-       * SOH测量值
-       */
-      soh?: number;
-      /**
-       * SOH测量值现场修复后
-       */
-      sohResult?: number;
-      /**
-       * SOH测量值异常描述及现场处理
-       */
-      sohDesc?: string;
-      /**
-       * 静态上位机电流
-       */
-      current?: number;
-      /**
-       * 静态上位机电流现场修复后
-       */
-      currentResult?: number;
-      /**
-       * 静态上位机电流异常描述及现场处理
-       */
-      currentDesc?: string;
-      /**
-       * soc
-       */
-      soc?: number;
-      /**
-       * soc现场修复后
-       */
-      socResult?: number;
-      /**
-       * roc
-       */
-      roc?: number;
-      /**
-       * roc现场修复后
-       */
-      rocResult?: number;
-      /**
-       * soc异常描述及现场处理
-       */
-      socDesc?: string;
-      /**
-       * 累加电压
-       */
-      addVoltage?: number;
-      /**
-       * 累加电压现场修复后
-       */
-      addVoltageResult?: number;
-      /**
-       * 内侧总电压
-       */
-      totalVoltage?: number;
-      /**
-       * 内侧总电压现场修复后
-       */
-      totalVoltageResult?: number;
-      /**
-       * 累加电压异常描述及现场处理
-       */
-      addVoltageDesc?: string;
-      /**
-       * 最大单体电压Vmax
-       */
-      maxVoltage?: number;
-      /**
-       * 最大单体电压Vmax现场修复后
-       */
-      maxVoltageResult?: number;
-      /**
-       * 最大单体电压Vmax异常描述及现场处理
-       */
-      maxVoltageDesc?: string;
-      /**
-       * 最小单体电压Vmin
-       */
-      minVoltage?: number;
-      /**
-       * 最小单体电压Vmin现场修复后
-       */
-      minVoltageResult?: number;
-      /**
-       * 最小单体电压Vmin异常描述及现场处理
-       */
-      minVoltageDesc?: string;
-      /**
-       * 最大单体温度Tmax
-       */
-      maxTemperature?: number;
-      /**
-       * 最大单体温度Tmax现场修复后
-       */
-      maxTemperatureResult?: number;
-      /**
-       * 最大单体温度Tmax异常描述及现场处理
-       */
-      maxTemperatureDesc?: string;
-      /**
-       * 最小单体温度Tmin
-       */
-      minTemperature?: number;
-      /**
-       * 最小单体温度Tmin现场修复后
-       */
-      minTemperatureResult?: number;
-      /**
-       * 最小单体温度Tmin异常描述及现场处理
-       */
-      minTemperatureDesc?: string;
-      /**
-       * 静态模组温差ΔT
-       */
-      diffTemperature?: number;
-      /**
-       * 静态模组温差ΔT现场修复后
-       */
-      diffTemperatureResult?: number;
-      /**
-       * 静态模组温差ΔT异常描述及现场处理
-       */
-      diffTemperatureDesc?: string;
-      /**
-       * 单体压差ΔU
-       */
-      diffVoltage?: number;
-      /**
-       * 单体压差ΔU现场修复后
-       */
-      diffVoltageResult?: number;
-      /**
-       * 单体压差ΔU异常描述及现场处理
-       */
-      diffVoltageDesc?: string;
-      /**
-       * 充电状态
-       */
-      chargeStatus?: "CHARGING" | "UNCHARGED";
-      /**
-       * 绝缘阻值（充电）正极
-       */
-      chargePositive?: number;
-      /**
-       * 绝缘阻值（充电）正极现场修复后
-       */
-      chargePositiveResult?: number;
-      /**
-       * 绝缘阻值（充电）异常及现场处理
-       */
-      chargePositiveDesc?: string;
-      /**
-       * 绝缘阻值（充电）负极
-       */
-      chargeNegative?: number;
-      /**
-       * 绝缘阻值（充电）负极现场修复后
-       */
-      chargeNegativeResult?: number;
-      /**
-       * 绝缘阻值（充电）异常描述及现场处理
-       */
-      chargeNegativeDesc?: string;
-      /**
-       * 绝缘阻值（非充电）正极
-       */
-      nochargePositive?: number;
-      /**
-       * 绝缘阻值（非充电）正极现场修复后
-       */
-      nochargePositiveResult?: number;
-      /**
-       * 绝缘阻值（非充电）正极异常及现场处理
-       */
-      nochargePositiveDesc?: string;
-      /**
-       * 绝缘阻值（非充电）负极
-       */
-      nochargeNegative?: number;
-      /**
-       * 绝缘阻值（非充电）负极现场修复后
-       */
-      nochargeNegativeResult?: number;
-      /**
-       * 绝缘阻值（非充电）负极异常及现场处理
-       */
-      nochargeNegativeDesc?: string;
-      /**
        * 电池PN
        */
       batteryPN?: string;
@@ -18967,25 +17660,39 @@ declare global {
        */
       rdb?: string;
       /**
-       * 提交时间
+       * 外观检查项
        */
-      submitAt?: Date;
+      items?: {
+        /**
+         * 检查结果
+         */
+        result?: string;
+        /**
+         * 检查记录
+         */
+        record?: string;
+        /**
+         * 检查的key
+         */
+        key: string;
+      }[];
       /**
-       * 提交人
+       * 外观检查项错误
        */
-      submitBy?: string;
+      itemErrors?: {
+        /**
+         * 检查的key
+         */
+        key: string;
+        /**
+         * 错误信息
+         */
+        message?: string;
+      }[];
       /**
-       * 是否通过检测
+       * 软件检查状态
        */
-      passed?: boolean;
-      /**
-       * 是否检测过
-       */
-      tested?: boolean;
-      /**
-       * 是否完整
-       */
-      complete?: boolean;
+      checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
     };
   }
   export interface UpdateSoftwareRecordResponse {
@@ -19109,194 +17816,6 @@ declare global {
         url: string;
       }[];
       /**
-       * SOH测量值
-       */
-      soh?: number;
-      /**
-       * SOH测量值现场修复后
-       */
-      sohResult?: number;
-      /**
-       * SOH测量值异常描述及现场处理
-       */
-      sohDesc?: string;
-      /**
-       * 静态上位机电流
-       */
-      current?: number;
-      /**
-       * 静态上位机电流现场修复后
-       */
-      currentResult?: number;
-      /**
-       * 静态上位机电流异常描述及现场处理
-       */
-      currentDesc?: string;
-      /**
-       * soc
-       */
-      soc?: number;
-      /**
-       * soc现场修复后
-       */
-      socResult?: number;
-      /**
-       * roc
-       */
-      roc?: number;
-      /**
-       * roc现场修复后
-       */
-      rocResult?: number;
-      /**
-       * soc异常描述及现场处理
-       */
-      socDesc?: string;
-      /**
-       * 累加电压
-       */
-      addVoltage?: number;
-      /**
-       * 累加电压现场修复后
-       */
-      addVoltageResult?: number;
-      /**
-       * 内侧总电压
-       */
-      totalVoltage?: number;
-      /**
-       * 内侧总电压现场修复后
-       */
-      totalVoltageResult?: number;
-      /**
-       * 累加电压异常描述及现场处理
-       */
-      addVoltageDesc?: string;
-      /**
-       * 最大单体电压Vmax
-       */
-      maxVoltage?: number;
-      /**
-       * 最大单体电压Vmax现场修复后
-       */
-      maxVoltageResult?: number;
-      /**
-       * 最大单体电压Vmax异常描述及现场处理
-       */
-      maxVoltageDesc?: string;
-      /**
-       * 最小单体电压Vmin
-       */
-      minVoltage?: number;
-      /**
-       * 最小单体电压Vmin现场修复后
-       */
-      minVoltageResult?: number;
-      /**
-       * 最小单体电压Vmin异常描述及现场处理
-       */
-      minVoltageDesc?: string;
-      /**
-       * 最大单体温度Tmax
-       */
-      maxTemperature?: number;
-      /**
-       * 最大单体温度Tmax现场修复后
-       */
-      maxTemperatureResult?: number;
-      /**
-       * 最大单体温度Tmax异常描述及现场处理
-       */
-      maxTemperatureDesc?: string;
-      /**
-       * 最小单体温度Tmin
-       */
-      minTemperature?: number;
-      /**
-       * 最小单体温度Tmin现场修复后
-       */
-      minTemperatureResult?: number;
-      /**
-       * 最小单体温度Tmin异常描述及现场处理
-       */
-      minTemperatureDesc?: string;
-      /**
-       * 静态模组温差ΔT
-       */
-      diffTemperature?: number;
-      /**
-       * 静态模组温差ΔT现场修复后
-       */
-      diffTemperatureResult?: number;
-      /**
-       * 静态模组温差ΔT异常描述及现场处理
-       */
-      diffTemperatureDesc?: string;
-      /**
-       * 单体压差ΔU
-       */
-      diffVoltage?: number;
-      /**
-       * 单体压差ΔU现场修复后
-       */
-      diffVoltageResult?: number;
-      /**
-       * 单体压差ΔU异常描述及现场处理
-       */
-      diffVoltageDesc?: string;
-      /**
-       * 充电状态
-       */
-      chargeStatus?: "CHARGING" | "UNCHARGED";
-      /**
-       * 绝缘阻值（充电）正极
-       */
-      chargePositive?: number;
-      /**
-       * 绝缘阻值（充电）正极现场修复后
-       */
-      chargePositiveResult?: number;
-      /**
-       * 绝缘阻值（充电）异常及现场处理
-       */
-      chargePositiveDesc?: string;
-      /**
-       * 绝缘阻值（充电）负极
-       */
-      chargeNegative?: number;
-      /**
-       * 绝缘阻值（充电）负极现场修复后
-       */
-      chargeNegativeResult?: number;
-      /**
-       * 绝缘阻值（充电）异常描述及现场处理
-       */
-      chargeNegativeDesc?: string;
-      /**
-       * 绝缘阻值（非充电）正极
-       */
-      nochargePositive?: number;
-      /**
-       * 绝缘阻值（非充电）正极现场修复后
-       */
-      nochargePositiveResult?: number;
-      /**
-       * 绝缘阻值（非充电）正极异常及现场处理
-       */
-      nochargePositiveDesc?: string;
-      /**
-       * 绝缘阻值（非充电）负极
-       */
-      nochargeNegative?: number;
-      /**
-       * 绝缘阻值（非充电）负极现场修复后
-       */
-      nochargeNegativeResult?: number;
-      /**
-       * 绝缘阻值（非充电）负极异常及现场处理
-       */
-      nochargeNegativeDesc?: string;
-      /**
        * 电池PN
        */
       batteryPN?: string;
@@ -19325,25 +17844,39 @@ declare global {
        */
       rdb?: string;
       /**
-       * 提交时间
+       * 外观检查项
        */
-      submitAt?: Date;
+      items?: {
+        /**
+         * 检查结果
+         */
+        result?: string;
+        /**
+         * 检查记录
+         */
+        record?: string;
+        /**
+         * 检查的key
+         */
+        key: string;
+      }[];
       /**
-       * 提交人
+       * 外观检查项错误
        */
-      submitBy?: string;
+      itemErrors?: {
+        /**
+         * 检查的key
+         */
+        key: string;
+        /**
+         * 错误信息
+         */
+        message?: string;
+      }[];
       /**
-       * 是否通过检测
+       * 软件检查状态
        */
-      passed?: boolean;
-      /**
-       * 是否检测过
-       */
-      tested?: boolean;
-      /**
-       * 是否完整
-       */
-      complete?: boolean;
+      checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
     };
   }
   export interface CreateRecordRequest {
@@ -19532,6 +18065,327 @@ declare global {
   }
   export interface DeleteRecordRequest {
     recordId: string;
+  }
+  export interface CreateNotificationRequest {
+    body: {
+      /**
+       * 标题
+       */
+      title?: string;
+      /**
+       * 内容
+       */
+      content?: string;
+      /**
+       * 附件
+       */
+      files?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+    } & {
+      title: string;
+      content: string;
+    };
+  }
+  export interface CreateNotificationResponse {
+    content?: {
+      /**
+       * 标题
+       */
+      title?: string;
+      /**
+       * 内容
+       */
+      content?: string;
+      /**
+       * 附件
+       */
+      files?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+    } & {
+      id: string;
+      updateAt?: Date;
+      updateBy?: string;
+      createAt?: Date;
+      createBy?: string;
+    };
+  }
+  export interface ListNotificationsRequest {
+    query?: {
+      _limit?: number;
+      _offset?: number;
+      _sort?: string;
+      _select?: string[];
+      title_like?: string;
+      createAt_gte?: string;
+      createAt_lte?: string;
+    };
+  }
+  export interface ListNotificationsResponse {
+    content?: ({
+      /**
+       * 标题
+       */
+      title?: string;
+      /**
+       * 内容
+       */
+      content?: string;
+      /**
+       * 附件
+       */
+      files?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+    } & {
+      id: string;
+      updateAt?: Date;
+      updateBy?: string;
+      createAt?: Date;
+      createBy?: string;
+    })[];
+    headers?: {
+      "X-Total-Count": number;
+    };
+  }
+  export interface GetNotificationRequest {
+    notificationId: string;
+  }
+  export interface GetNotificationResponse {
+    content?: {
+      /**
+       * 标题
+       */
+      title?: string;
+      /**
+       * 内容
+       */
+      content?: string;
+      /**
+       * 附件
+       */
+      files?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+    } & {
+      id: string;
+      updateAt?: Date;
+      updateBy?: string;
+      createAt?: Date;
+      createBy?: string;
+    };
+  }
+  export interface UpdateNotificationRequest {
+    notificationId: string;
+    /**
+     * 通知
+     */
+    body: {
+      /**
+       * 标题
+       */
+      title?: string;
+      /**
+       * 内容
+       */
+      content?: string;
+      /**
+       * 附件
+       */
+      files?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+    };
+  }
+  export interface UpdateNotificationResponse {
+    content?: {
+      /**
+       * 标题
+       */
+      title?: string;
+      /**
+       * 内容
+       */
+      content?: string;
+      /**
+       * 附件
+       */
+      files?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+    } & {
+      id: string;
+      updateAt?: Date;
+      updateBy?: string;
+      createAt?: Date;
+      createBy?: string;
+    };
+  }
+  export interface DeleteNotificationRequest {
+    notificationId: string;
   }
 }
 

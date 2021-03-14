@@ -702,4 +702,95 @@ export default class SDK {
       });
     },
   };
+  /**
+   * notification's methods
+   */
+  notification = {
+    /**
+     * Create a notification
+     *
+     * @param {CreateNotificationRequest} req createNotification request
+     * @returns {Promise<CreateNotificationResponse>} The Notification created
+     */
+    createNotification: req => {
+      const { body } = req || {};
+
+      if (!body)
+        throw new Error("requetBody is required for createNotification");
+
+      return fetch(`${this.base}/notifications`, {
+        method: "POST",
+        body,
+        headers: { Authorization: this.auth },
+      });
+    },
+    /**
+     * List all notifications
+     *
+     * @param {ListNotificationsRequest} req listNotifications request
+     * @returns {Promise<ListNotificationsResponse>} A paged array of notifications
+     */
+    listNotifications: req => {
+      const { query } = req || {};
+
+      return fetch(`${this.base}/notifications`, {
+        method: "GET",
+        query,
+        headers: { Authorization: this.auth },
+      });
+    },
+    /**
+     * Find notification by id
+     *
+     * @param {GetNotificationRequest} req getNotification request
+     * @returns {Promise<GetNotificationResponse>} Expected response to a valid request
+     */
+    getNotification: req => {
+      const { notificationId } = req || {};
+
+      if (!notificationId)
+        throw new Error("notificationId is required for getNotification");
+
+      return fetch(`${this.base}/notifications/${notificationId}`, {
+        method: "GET",
+        headers: { Authorization: this.auth },
+      });
+    },
+    /**
+     * Update notification
+     *
+     * @param {UpdateNotificationRequest} req updateNotification request
+     * @returns {Promise<UpdateNotificationResponse>} The notification
+     */
+    updateNotification: req => {
+      const { notificationId, body } = req || {};
+
+      if (!notificationId)
+        throw new Error("notificationId is required for updateNotification");
+      if (!body)
+        throw new Error("requetBody is required for updateNotification");
+
+      return fetch(`${this.base}/notifications/${notificationId}`, {
+        method: "PUT",
+        body,
+        headers: { Authorization: this.auth },
+      });
+    },
+    /**
+     *
+     *
+     * @param {DeleteNotificationRequest} req deleteNotification request
+     */
+    deleteNotification: req => {
+      const { notificationId } = req || {};
+
+      if (!notificationId)
+        throw new Error("notificationId is required for deleteNotification");
+
+      return fetch(`${this.base}/notifications/${notificationId}`, {
+        method: "DELETE",
+        headers: { Authorization: this.auth },
+      });
+    },
+  };
 }
