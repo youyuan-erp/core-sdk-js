@@ -486,6 +486,91 @@ export default class SDK {
         headers: { Authorization: this.auth },
       });
     },
+    /**
+     * 统计-维修单分布排序
+     *
+     * @param {SummaryRepairsRankRequest} req summaryRepairsRank request
+     * @returns {Promise<SummaryRepairsRankResponse>} A array of repair summary rank
+     */
+    summaryRepairsRank: req => {
+      const { query } = req || {};
+
+      if (!query) throw new Error("query is required for repair");
+
+      return fetch(`${this.base}/summary/repairs/rank`, {
+        method: "GET",
+        query,
+        headers: { Authorization: this.auth },
+      });
+    },
+    /**
+     * 统计-维修单维修故障按月统计
+     *
+     * @param {SummaryRepairsFaultByMonthRequest} req summaryRepairsFaultByMonth request
+     * @returns {Promise<SummaryRepairsFaultByMonthResponse>} A array of repair summary fault by month
+     */
+    summaryRepairsFaultByMonth: req => {
+      const { query } = req || {};
+
+      if (!query) throw new Error("query is required for repair");
+
+      return fetch(`${this.base}/summary/repairs/faultByMonth`, {
+        method: "GET",
+        query,
+        headers: { Authorization: this.auth },
+      });
+    },
+    /**
+     * 统计-关联维修单完成情况 按月
+     *
+     * @param {SummaryRepairsMaintainByMonthRequest} req summaryRepairsMaintainByMonth request
+     * @returns {Promise<SummaryRepairsMaintainByMonthResponse>} A array of repair summary maintain by month
+     */
+    summaryRepairsMaintainByMonth: req => {
+      const { query } = req || {};
+
+      if (!query) throw new Error("query is required for repair");
+
+      return fetch(`${this.base}/summary/repairs/maintainByMonth`, {
+        method: "GET",
+        query,
+        headers: { Authorization: this.auth },
+      });
+    },
+    /**
+     * 统计-维修组组内人员故障元件分布
+     *
+     * @param {SummaryRepairsPersonFaultRequest} req summaryRepairsPersonFault request
+     * @returns {Promise<SummaryRepairsPersonFaultResponse>} A array of repair summary fault
+     */
+    summaryRepairsPersonFault: req => {
+      const { query } = req || {};
+
+      if (!query) throw new Error("query is required for repair");
+
+      return fetch(`${this.base}/summary/repairs/person/fault`, {
+        method: "GET",
+        query,
+        headers: { Authorization: this.auth },
+      });
+    },
+    /**
+     * 统计-维修组组内人员故障元件分布
+     *
+     * @param {SummaryRepairsPersonEffectRequest} req summaryRepairsPersonEffect request
+     * @returns {Promise<SummaryRepairsPersonEffectResponse>} A array of repair summary effect by month
+     */
+    summaryRepairsPersonEffect: req => {
+      const { query } = req || {};
+
+      if (!query) throw new Error("query is required for repair");
+
+      return fetch(`${this.base}/summary/repairs/person/effect`, {
+        method: "GET",
+        query,
+        headers: { Authorization: this.auth },
+      });
+    },
   };
   /**
    * maintain's methods
@@ -612,6 +697,23 @@ export default class SDK {
       return fetch(`${this.base}/maintains/${maintainId}/softwareRecord`, {
         method: "PUT",
         body,
+        headers: { Authorization: this.auth },
+      });
+    },
+    /**
+     * 统计-维保单完成情况 按月
+     *
+     * @param {SummaryMaintainsByMonthRequest} req summaryMaintainsByMonth request
+     * @returns {Promise<SummaryMaintainsByMonthResponse>} A array of maintain summary by month
+     */
+    summaryMaintainsByMonth: req => {
+      const { query } = req || {};
+
+      if (!query) throw new Error("query is required for maintain");
+
+      return fetch(`${this.base}/summary/maintains/byMonth`, {
+        method: "GET",
+        query,
         headers: { Authorization: this.auth },
       });
     },

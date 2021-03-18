@@ -131,6 +131,34 @@ declare global {
      * update repair order record
      */
     updateRepairRecord(req: UpdateRepairRecordRequest): Promise<UpdateRepairRecordResponse>;
+    /**
+     * 统计-维修单分布排序
+     */
+    summaryRepairsRank(req: SummaryRepairsRankRequest): Promise<SummaryRepairsRankResponse>;
+    /**
+     * 统计-维修单维修故障按月统计
+     */
+    summaryRepairsFaultByMonth(
+      req: SummaryRepairsFaultByMonthRequest
+    ): Promise<SummaryRepairsFaultByMonthResponse>;
+    /**
+     * 统计-关联维修单完成情况 按月
+     */
+    summaryRepairsMaintainByMonth(
+      req: SummaryRepairsMaintainByMonthRequest
+    ): Promise<SummaryRepairsMaintainByMonthResponse>;
+    /**
+     * 统计-维修组组内人员故障元件分布
+     */
+    summaryRepairsPersonFault(
+      req: SummaryRepairsPersonFaultRequest
+    ): Promise<SummaryRepairsPersonFaultResponse>;
+    /**
+     * 统计-维修组组内人员故障元件分布
+     */
+    summaryRepairsPersonEffect(
+      req: SummaryRepairsPersonEffectRequest
+    ): Promise<SummaryRepairsPersonEffectResponse>;
   }
   export interface MaintainAPI {
     /**
@@ -163,6 +191,12 @@ declare global {
      * update maintain order software record
      */
     updateSoftwareRecord(req: UpdateSoftwareRecordRequest): Promise<UpdateSoftwareRecordResponse>;
+    /**
+     * 统计-维保单完成情况 按月
+     */
+    summaryMaintainsByMonth(
+      req: SummaryMaintainsByMonthRequest
+    ): Promise<SummaryMaintainsByMonthResponse>;
   }
   export interface RecordAPI {
     /**
@@ -11886,6 +11920,58 @@ declare global {
       createBy?: string;
     };
   }
+  export interface SummaryRepairsRankRequest {
+    query?: {
+      createAt_gte: Date;
+      createAt_lte: Date;
+      keyword: string;
+    };
+  }
+  export interface SummaryRepairsRankResponse {
+    content?: {
+      total?: number;
+      items?: any[];
+    };
+  }
+  export interface SummaryRepairsFaultByMonthRequest {
+    query?: {
+      createAt_gte: Date;
+      createAt_lte: Date;
+      fault: string;
+    };
+  }
+  export interface SummaryRepairsFaultByMonthResponse {
+    content?: any[];
+  }
+  export interface SummaryRepairsMaintainByMonthRequest {
+    query?: {
+      createAt_gte: Date;
+      createAt_lte: Date;
+    };
+  }
+  export interface SummaryRepairsMaintainByMonthResponse {
+    content?: any[];
+  }
+  export interface SummaryRepairsPersonFaultRequest {
+    query?: {
+      createAt_gte: Date;
+      createAt_lte: Date;
+      ticketNs: string;
+    };
+  }
+  export interface SummaryRepairsPersonFaultResponse {
+    content?: any[];
+  }
+  export interface SummaryRepairsPersonEffectRequest {
+    query?: {
+      createAt_gte: Date;
+      createAt_lte: Date;
+      ticketNs: string;
+    };
+  }
+  export interface SummaryRepairsPersonEffectResponse {
+    content?: any[];
+  }
   export interface CreateMaintainRequest {
     body: {
       /**
@@ -17878,6 +17964,15 @@ declare global {
        */
       checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
     };
+  }
+  export interface SummaryMaintainsByMonthRequest {
+    query?: {
+      createAt_gte: Date;
+      createAt_lte: Date;
+    };
+  }
+  export interface SummaryMaintainsByMonthResponse {
+    content?: any[];
   }
   export interface CreateRecordRequest {
     body: {
