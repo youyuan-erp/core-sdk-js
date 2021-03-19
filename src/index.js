@@ -380,6 +380,23 @@ export default class SDK {
         headers: { Authorization: this.auth },
       });
     },
+    /**
+     * 统计-概览
+     *
+     * @param {SummaryAllRequest} req summaryAll request
+     * @returns {Promise<SummaryAllResponse>} A array of repair summary effect by month
+     */
+    summaryAll: req => {
+      const { query } = req || {};
+
+      if (!query) throw new Error("query is required for vehicle");
+
+      return fetch(`${this.base}/summary/all`, {
+        method: "GET",
+        query,
+        headers: { Authorization: this.auth },
+      });
+    },
   };
   /**
    * repair's methods
@@ -571,6 +588,20 @@ export default class SDK {
         headers: { Authorization: this.auth },
       });
     },
+    /**
+     * 统计-正在处理维修单的人员情况
+     *
+     * @param {SummaryRepairsPersonStateRequest} req summaryRepairsPersonState request
+     * @returns {Promise<SummaryRepairsPersonStateResponse>} A array of repair summary effect by month
+     */
+    summaryRepairsPersonState: req => {
+      const {} = req || {};
+
+      return fetch(`${this.base}/summary/repairs/person/state`, {
+        method: "GET",
+        headers: { Authorization: this.auth },
+      });
+    },
   };
   /**
    * maintain's methods
@@ -712,6 +743,40 @@ export default class SDK {
       if (!query) throw new Error("query is required for maintain");
 
       return fetch(`${this.base}/summary/maintains/byMonth`, {
+        method: "GET",
+        query,
+        headers: { Authorization: this.auth },
+      });
+    },
+    /**
+     * 统计-维保单故障修复情况
+     *
+     * @param {SummaryMaintainsFaultRequest} req summaryMaintainsFault request
+     * @returns {Promise<SummaryMaintainsFaultResponse>} A array of maintain summary
+     */
+    summaryMaintainsFault: req => {
+      const { query } = req || {};
+
+      if (!query) throw new Error("query is required for maintain");
+
+      return fetch(`${this.base}/summary/maintains/fault`, {
+        method: "GET",
+        query,
+        headers: { Authorization: this.auth },
+      });
+    },
+    /**
+     * 统计-维保单故障按故障分类统计修复情况
+     *
+     * @param {SummaryMaintainsFaultRankRequest} req summaryMaintainsFaultRank request
+     * @returns {Promise<SummaryMaintainsFaultRankResponse>} A array of maintain summary
+     */
+    summaryMaintainsFaultRank: req => {
+      const { query } = req || {};
+
+      if (!query) throw new Error("query is required for maintain");
+
+      return fetch(`${this.base}/summary/maintains/faultRank`, {
         method: "GET",
         query,
         headers: { Authorization: this.auth },

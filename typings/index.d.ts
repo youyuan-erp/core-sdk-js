@@ -105,6 +105,10 @@ declare global {
      * List all alerts by vehicleId
      */
     listVehicleAlerts(req: ListVehicleAlertsRequest): Promise<ListVehicleAlertsResponse>;
+    /**
+     * 统计-概览
+     */
+    summaryAll(req: SummaryAllRequest): Promise<SummaryAllResponse>;
   }
   export interface RepairAPI {
     /**
@@ -159,6 +163,12 @@ declare global {
     summaryRepairsPersonEffect(
       req: SummaryRepairsPersonEffectRequest
     ): Promise<SummaryRepairsPersonEffectResponse>;
+    /**
+     * 统计-正在处理维修单的人员情况
+     */
+    summaryRepairsPersonState(
+      req: SummaryRepairsPersonStateRequest
+    ): Promise<SummaryRepairsPersonStateResponse>;
   }
   export interface MaintainAPI {
     /**
@@ -197,6 +207,18 @@ declare global {
     summaryMaintainsByMonth(
       req: SummaryMaintainsByMonthRequest
     ): Promise<SummaryMaintainsByMonthResponse>;
+    /**
+     * 统计-维保单故障修复情况
+     */
+    summaryMaintainsFault(
+      req: SummaryMaintainsFaultRequest
+    ): Promise<SummaryMaintainsFaultResponse>;
+    /**
+     * 统计-维保单故障按故障分类统计修复情况
+     */
+    summaryMaintainsFaultRank(
+      req: SummaryMaintainsFaultRankRequest
+    ): Promise<SummaryMaintainsFaultRankResponse>;
   }
   export interface RecordAPI {
     /**
@@ -5863,6 +5885,32 @@ declare global {
       "X-Total-Count": number;
     };
   }
+  export interface SummaryAllRequest {
+    query?: {
+      createAt_gte: Date;
+      createAt_lte: Date;
+    };
+  }
+  export interface SummaryAllResponse {
+    content?: {
+      /**
+       * 车辆总数
+       */
+      vehicle?: number;
+      /**
+       * 维修单总数
+       */
+      repair?: number;
+      /**
+       * 维保单总数
+       */
+      maintain?: number;
+      /**
+       * 人员数
+       */
+      person?: number;
+    };
+  }
   export interface CreateRepairRequest {
     body: {
       /**
@@ -7394,6 +7442,18 @@ declare global {
        * 维修单工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
        */
       status?: "NOSEND" | "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
+      /**
+       * 前一次状态修改时间
+       */
+      perStatusAt?: Date;
+      /**
+       * 只有在第一次提交时才记录实际出工时长 后续不在纪录 默认为true
+       */
+      needActualWorkHours?: boolean;
+      /**
+       * 实际出工时长（小时）
+       */
+      actualWorkHours?: number;
     } & {
       id: string;
       updateAt?: Date;
@@ -8205,6 +8265,18 @@ declare global {
        * 维修单工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
        */
       status?: "NOSEND" | "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
+      /**
+       * 前一次状态修改时间
+       */
+      perStatusAt?: Date;
+      /**
+       * 只有在第一次提交时才记录实际出工时长 后续不在纪录 默认为true
+       */
+      needActualWorkHours?: boolean;
+      /**
+       * 实际出工时长（小时）
+       */
+      actualWorkHours?: number;
     } & {
       id: string;
       updateAt?: Date;
@@ -8987,6 +9059,18 @@ declare global {
        * 维修单工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
        */
       status?: "NOSEND" | "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
+      /**
+       * 前一次状态修改时间
+       */
+      perStatusAt?: Date;
+      /**
+       * 只有在第一次提交时才记录实际出工时长 后续不在纪录 默认为true
+       */
+      needActualWorkHours?: boolean;
+      /**
+       * 实际出工时长（小时）
+       */
+      actualWorkHours?: number;
     } & {
       id: string;
       updateAt?: Date;
@@ -9764,6 +9848,18 @@ declare global {
        * 维修单工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
        */
       status?: "NOSEND" | "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
+      /**
+       * 前一次状态修改时间
+       */
+      perStatusAt?: Date;
+      /**
+       * 只有在第一次提交时才记录实际出工时长 后续不在纪录 默认为true
+       */
+      needActualWorkHours?: boolean;
+      /**
+       * 实际出工时长（小时）
+       */
+      actualWorkHours?: number;
     };
   }
   export interface UpdateRepairResponse {
@@ -10534,6 +10630,18 @@ declare global {
        * 维修单工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
        */
       status?: "NOSEND" | "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
+      /**
+       * 前一次状态修改时间
+       */
+      perStatusAt?: Date;
+      /**
+       * 只有在第一次提交时才记录实际出工时长 后续不在纪录 默认为true
+       */
+      needActualWorkHours?: boolean;
+      /**
+       * 实际出工时长（小时）
+       */
+      actualWorkHours?: number;
     } & {
       id: string;
       updateAt?: Date;
@@ -11912,6 +12020,18 @@ declare global {
        * 维修单工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
        */
       status?: "NOSEND" | "CREATING" | "REPARING" | "PAUSING" | "REJECTED" | "PENDING" | "PASSED";
+      /**
+       * 前一次状态修改时间
+       */
+      perStatusAt?: Date;
+      /**
+       * 只有在第一次提交时才记录实际出工时长 后续不在纪录 默认为true
+       */
+      needActualWorkHours?: boolean;
+      /**
+       * 实际出工时长（小时）
+       */
+      actualWorkHours?: number;
     } & {
       id: string;
       updateAt?: Date;
@@ -11928,10 +12048,7 @@ declare global {
     };
   }
   export interface SummaryRepairsRankResponse {
-    content?: {
-      total?: number;
-      items?: any[];
-    };
+    content?: any[];
   }
   export interface SummaryRepairsFaultByMonthRequest {
     query?: {
@@ -11970,6 +12087,9 @@ declare global {
     };
   }
   export interface SummaryRepairsPersonEffectResponse {
+    content?: any[];
+  }
+  export interface SummaryRepairsPersonStateResponse {
     content?: any[];
   }
   export interface CreateMaintainRequest {
@@ -17972,6 +18092,33 @@ declare global {
     };
   }
   export interface SummaryMaintainsByMonthResponse {
+    content?: any[];
+  }
+  export interface SummaryMaintainsFaultRequest {
+    query?: {
+      createAt_gte: Date;
+      createAt_lte: Date;
+    };
+  }
+  export interface SummaryMaintainsFaultResponse {
+    content?: {
+      /**
+       * 故障已修复数量
+       */
+      repaired?: number;
+      /**
+       * 故障已修复和故障未修复的数量和
+       */
+      total?: number;
+    };
+  }
+  export interface SummaryMaintainsFaultRankRequest {
+    query?: {
+      createAt_gte: Date;
+      createAt_lte: Date;
+    };
+  }
+  export interface SummaryMaintainsFaultRankResponse {
     content?: any[];
   }
   export interface CreateRecordRequest {
