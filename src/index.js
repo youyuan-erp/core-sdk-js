@@ -749,17 +749,17 @@ export default class SDK {
       });
     },
     /**
-     * 统计-维保单故障修复情况
+     * 统计-按月维保单故障修复情况
      *
-     * @param {SummaryMaintainsFaultRequest} req summaryMaintainsFault request
-     * @returns {Promise<SummaryMaintainsFaultResponse>} A array of maintain summary
+     * @param {SummaryMaintainsFaultByMonthRequest} req summaryMaintainsFaultByMonth request
+     * @returns {Promise<SummaryMaintainsFaultByMonthResponse>} A array of maintain summary
      */
-    summaryMaintainsFault: req => {
+    summaryMaintainsFaultByMonth: req => {
       const { query } = req || {};
 
       if (!query) throw new Error("query is required for maintain");
 
-      return fetch(`${this.base}/summary/maintains/fault`, {
+      return fetch(`${this.base}/summary/maintains/faultByMonth`, {
         method: "GET",
         query,
         headers: { Authorization: this.auth },

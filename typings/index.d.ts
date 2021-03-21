@@ -208,11 +208,11 @@ declare global {
       req: SummaryMaintainsByMonthRequest
     ): Promise<SummaryMaintainsByMonthResponse>;
     /**
-     * 统计-维保单故障修复情况
+     * 统计-按月维保单故障修复情况
      */
-    summaryMaintainsFault(
-      req: SummaryMaintainsFaultRequest
-    ): Promise<SummaryMaintainsFaultResponse>;
+    summaryMaintainsFaultByMonth(
+      req: SummaryMaintainsFaultByMonthRequest
+    ): Promise<SummaryMaintainsFaultByMonthResponse>;
     /**
      * 统计-维保单故障按故障分类统计修复情况
      */
@@ -12863,6 +12863,10 @@ declare global {
        * 提交人
        */
       submitBy?: string;
+      /**
+       * 点检报告URL
+       */
+      reportUrl?: string;
     };
   }
   export interface CreateMaintainResponse {
@@ -13636,6 +13640,10 @@ declare global {
        * 提交人
        */
       submitBy?: string;
+      /**
+       * 点检报告URL
+       */
+      reportUrl?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -14452,6 +14460,10 @@ declare global {
        * 提交人
        */
       submitBy?: string;
+      /**
+       * 点检报告URL
+       */
+      reportUrl?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -15237,6 +15249,10 @@ declare global {
        * 提交人
        */
       submitBy?: string;
+      /**
+       * 点检报告URL
+       */
+      reportUrl?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -16017,6 +16033,10 @@ declare global {
        * 提交人
        */
       submitBy?: string;
+      /**
+       * 点检报告URL
+       */
+      reportUrl?: string;
     };
   }
   export interface UpdateMaintainResponse {
@@ -16790,6 +16810,10 @@ declare global {
        * 提交人
        */
       submitBy?: string;
+      /**
+       * 点检报告URL
+       */
+      reportUrl?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -18094,23 +18118,14 @@ declare global {
   export interface SummaryMaintainsByMonthResponse {
     content?: any[];
   }
-  export interface SummaryMaintainsFaultRequest {
+  export interface SummaryMaintainsFaultByMonthRequest {
     query?: {
       createAt_gte: Date;
       createAt_lte: Date;
     };
   }
-  export interface SummaryMaintainsFaultResponse {
-    content?: {
-      /**
-       * 故障已修复数量
-       */
-      repaired?: number;
-      /**
-       * 故障已修复和故障未修复的数量和
-       */
-      total?: number;
-    };
+  export interface SummaryMaintainsFaultByMonthResponse {
+    content?: any[];
   }
   export interface SummaryMaintainsFaultRankRequest {
     query?: {
