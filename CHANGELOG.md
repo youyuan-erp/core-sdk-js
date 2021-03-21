@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.13](https://github.com/youyuan-erp/core-sdk-js/compare/release-v0.0.12...release-v0.0.13) (2021-03-21)
+
 ### [0.0.12](https://github.com/youyuan-erp/core-sdk-js/compare/release-v0.0.11...release-v0.0.12) (2021-03-19)
 
 ### [0.0.11](https://github.com/youyuan-erp/core-sdk-js/compare/release-v0.0.10...release-v0.0.11) (2021-03-18)
