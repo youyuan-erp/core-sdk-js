@@ -263,6 +263,12 @@ declare global {
      *
      */
     deleteNotification(req: DeleteNotificationRequest): Promise<DeleteNotificationResponse>;
+    /**
+     * update notification read
+     */
+    updateNotificationRead(
+      req: UpdateNotificationReadRequest
+    ): Promise<UpdateNotificationReadResponse>;
   }
 
   export interface CreateParkRequest {
@@ -694,39 +700,6 @@ declare global {
        */
       year?: number;
       /**
-       * 车辆行驶证
-       */
-      license?: {
-        /**
-         * 原始文件名
-         */
-        name: string;
-        /**
-         * oss上的文件名
-         */
-        ossName: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid: string;
-        /**
-         * url
-         */
-        url: string;
-      }[];
-      /**
        * 整车品牌
        */
       brands?: string;
@@ -926,6 +899,72 @@ declare global {
        * 电池号图片
        */
       batteryPic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 整车外观图片
+       */
+      appearancePic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 车辆行驶证图片
+       */
+      license?: {
         /**
          * 原始文件名
          */
@@ -1215,39 +1254,6 @@ declare global {
        */
       year?: number;
       /**
-       * 车辆行驶证
-       */
-      license?: {
-        /**
-         * 原始文件名
-         */
-        name: string;
-        /**
-         * oss上的文件名
-         */
-        ossName: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid: string;
-        /**
-         * url
-         */
-        url: string;
-      }[];
-      /**
        * 整车品牌
        */
       brands?: string;
@@ -1447,6 +1453,72 @@ declare global {
        * 电池号图片
        */
       batteryPic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 整车外观图片
+       */
+      appearancePic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 车辆行驶证图片
+       */
+      license?: {
         /**
          * 原始文件名
          */
@@ -1769,39 +1841,6 @@ declare global {
        */
       year?: number;
       /**
-       * 车辆行驶证
-       */
-      license?: {
-        /**
-         * 原始文件名
-         */
-        name: string;
-        /**
-         * oss上的文件名
-         */
-        ossName: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid: string;
-        /**
-         * url
-         */
-        url: string;
-      }[];
-      /**
        * 整车品牌
        */
       brands?: string;
@@ -2001,6 +2040,72 @@ declare global {
        * 电池号图片
        */
       batteryPic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 整车外观图片
+       */
+      appearancePic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 车辆行驶证图片
+       */
+      license?: {
         /**
          * 原始文件名
          */
@@ -2302,39 +2407,6 @@ declare global {
        */
       year?: number;
       /**
-       * 车辆行驶证
-       */
-      license?: {
-        /**
-         * 原始文件名
-         */
-        name: string;
-        /**
-         * oss上的文件名
-         */
-        ossName: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid: string;
-        /**
-         * url
-         */
-        url: string;
-      }[];
-      /**
        * 整车品牌
        */
       brands?: string;
@@ -2534,6 +2606,72 @@ declare global {
        * 电池号图片
        */
       batteryPic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 整车外观图片
+       */
+      appearancePic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 车辆行驶证图片
+       */
+      license?: {
         /**
          * 原始文件名
          */
@@ -2830,39 +2968,6 @@ declare global {
        */
       year?: number;
       /**
-       * 车辆行驶证
-       */
-      license?: {
-        /**
-         * 原始文件名
-         */
-        name: string;
-        /**
-         * oss上的文件名
-         */
-        ossName: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid: string;
-        /**
-         * url
-         */
-        url: string;
-      }[];
-      /**
        * 整车品牌
        */
       brands?: string;
@@ -3062,6 +3167,72 @@ declare global {
        * 电池号图片
        */
       batteryPic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 整车外观图片
+       */
+      appearancePic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 车辆行驶证图片
+       */
+      license?: {
         /**
          * 原始文件名
          */
@@ -3351,39 +3522,6 @@ declare global {
        */
       year?: number;
       /**
-       * 车辆行驶证
-       */
-      license?: {
-        /**
-         * 原始文件名
-         */
-        name: string;
-        /**
-         * oss上的文件名
-         */
-        ossName: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid: string;
-        /**
-         * url
-         */
-        url: string;
-      }[];
-      /**
        * 整车品牌
        */
       brands?: string;
@@ -3583,6 +3721,72 @@ declare global {
        * 电池号图片
        */
       batteryPic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 整车外观图片
+       */
+      appearancePic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 车辆行驶证图片
+       */
+      license?: {
         /**
          * 原始文件名
          */
@@ -3887,39 +4091,6 @@ declare global {
        */
       year?: number;
       /**
-       * 车辆行驶证
-       */
-      license?: {
-        /**
-         * 原始文件名
-         */
-        name: string;
-        /**
-         * oss上的文件名
-         */
-        ossName: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid: string;
-        /**
-         * url
-         */
-        url: string;
-      }[];
-      /**
        * 整车品牌
        */
       brands?: string;
@@ -4119,6 +4290,72 @@ declare global {
        * 电池号图片
        */
       batteryPic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 整车外观图片
+       */
+      appearancePic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 车辆行驶证图片
+       */
+      license?: {
         /**
          * 原始文件名
          */
@@ -4358,39 +4595,6 @@ declare global {
        */
       year?: number;
       /**
-       * 车辆行驶证
-       */
-      license?: {
-        /**
-         * 原始文件名
-         */
-        name: string;
-        /**
-         * oss上的文件名
-         */
-        ossName: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid: string;
-        /**
-         * url
-         */
-        url: string;
-      }[];
-      /**
        * 整车品牌
        */
       brands?: string;
@@ -4590,6 +4794,72 @@ declare global {
        * 电池号图片
        */
       batteryPic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 整车外观图片
+       */
+      appearancePic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 车辆行驶证图片
+       */
+      license?: {
         /**
          * 原始文件名
          */
@@ -4886,39 +5156,6 @@ declare global {
        */
       year?: number;
       /**
-       * 车辆行驶证
-       */
-      license?: {
-        /**
-         * 原始文件名
-         */
-        name: string;
-        /**
-         * oss上的文件名
-         */
-        ossName: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid: string;
-        /**
-         * url
-         */
-        url: string;
-      }[];
-      /**
        * 整车品牌
        */
       brands?: string;
@@ -5118,6 +5355,72 @@ declare global {
        * 电池号图片
        */
       batteryPic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 整车外观图片
+       */
+      appearancePic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 车辆行驶证图片
+       */
+      license?: {
         /**
          * 原始文件名
          */
@@ -5354,39 +5657,6 @@ declare global {
        */
       year?: number;
       /**
-       * 车辆行驶证
-       */
-      license?: {
-        /**
-         * 原始文件名
-         */
-        name: string;
-        /**
-         * oss上的文件名
-         */
-        ossName: string;
-        /**
-         * 备注
-         */
-        remark?: string;
-        /**
-         * 文件大小
-         */
-        size?: number;
-        /**
-         * 上传状态
-         */
-        status?: string;
-        /**
-         * uid
-         */
-        uid: string;
-        /**
-         * url
-         */
-        url: string;
-      }[];
-      /**
        * 整车品牌
        */
       brands?: string;
@@ -5586,6 +5856,72 @@ declare global {
        * 电池号图片
        */
       batteryPic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 整车外观图片
+       */
+      appearancePic?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 车辆行驶证图片
+       */
+      license?: {
         /**
          * 原始文件名
          */
@@ -6014,6 +6350,10 @@ declare global {
        */
       reporterPosition?: string;
       /**
+       * 预约上门时间
+       */
+      orderAt?: Date;
+      /**
        * 问题描述
        */
       problem?: string;
@@ -6654,6 +6994,10 @@ declare global {
        * 提交人
        */
       submitBy?: string;
+      /**
+       * 审核通过时间
+       */
+      passedAt?: Date;
       /**
        * 工时计算公式
        */
@@ -6777,6 +7121,10 @@ declare global {
        */
       reporterPosition?: string;
       /**
+       * 预约上门时间
+       */
+      orderAt?: Date;
+      /**
        * 问题描述
        */
       problem?: string;
@@ -7418,6 +7766,10 @@ declare global {
        */
       submitBy?: string;
       /**
+       * 审核通过时间
+       */
+      passedAt?: Date;
+      /**
        * 工时计算公式
        */
       workHoursCalc?: string;
@@ -7495,6 +7847,7 @@ declare global {
       vehicleCatl_like?: string;
       vehicleBatteryPN_like?: string;
       vehicleBatteryNum_like?: string;
+      maintainExist?: boolean[];
     };
   }
   export interface ListRepairsResponse {
@@ -7600,6 +7953,10 @@ declare global {
        */
       reporterPosition?: string;
       /**
+       * 预约上门时间
+       */
+      orderAt?: Date;
+      /**
        * 问题描述
        */
       problem?: string;
@@ -8240,6 +8597,10 @@ declare global {
        * 提交人
        */
       submitBy?: string;
+      /**
+       * 审核通过时间
+       */
+      passedAt?: Date;
       /**
        * 工时计算公式
        */
@@ -8394,6 +8755,10 @@ declare global {
        */
       reporterPosition?: string;
       /**
+       * 预约上门时间
+       */
+      orderAt?: Date;
+      /**
        * 问题描述
        */
       problem?: string;
@@ -9034,6 +9399,10 @@ declare global {
        * 提交人
        */
       submitBy?: string;
+      /**
+       * 审核通过时间
+       */
+      passedAt?: Date;
       /**
        * 工时计算公式
        */
@@ -9183,6 +9552,10 @@ declare global {
        */
       reporterPosition?: string;
       /**
+       * 预约上门时间
+       */
+      orderAt?: Date;
+      /**
        * 问题描述
        */
       problem?: string;
@@ -9823,6 +10196,10 @@ declare global {
        * 提交人
        */
       submitBy?: string;
+      /**
+       * 审核通过时间
+       */
+      passedAt?: Date;
       /**
        * 工时计算公式
        */
@@ -9965,6 +10342,10 @@ declare global {
        */
       reporterPosition?: string;
       /**
+       * 预约上门时间
+       */
+      orderAt?: Date;
+      /**
        * 问题描述
        */
       problem?: string;
@@ -10605,6 +10986,10 @@ declare global {
        * 提交人
        */
       submitBy?: string;
+      /**
+       * 审核通过时间
+       */
+      passedAt?: Date;
       /**
        * 工时计算公式
        */
@@ -11355,6 +11740,10 @@ declare global {
        */
       reporterPosition?: string;
       /**
+       * 预约上门时间
+       */
+      orderAt?: Date;
+      /**
        * 问题描述
        */
       problem?: string;
@@ -11996,6 +12385,10 @@ declare global {
        */
       submitBy?: string;
       /**
+       * 审核通过时间
+       */
+      passedAt?: Date;
+      /**
        * 工时计算公式
        */
       workHoursCalc?: string;
@@ -12083,7 +12476,6 @@ declare global {
     query?: {
       createAt_gte: Date;
       createAt_lte: Date;
-      ticketNs: string;
     };
   }
   export interface SummaryRepairsPersonEffectResponse {
@@ -12202,6 +12594,18 @@ declare global {
          * 签到人
          */
         signBy?: string;
+        /**
+         * 签到人角色
+         */
+        signRoles?: string[];
+        /**
+         * 签到人手机号
+         */
+        signPhone?: string;
+        /**
+         * 签到人名字
+         */
+        signName?: string;
         /**
          * 外观诊断组到场时间
          */
@@ -12637,9 +13041,9 @@ declare global {
           message?: string;
         }[];
         /**
-         * 外观检查状态
+         * 是否待审通过
          */
-        checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
+        checkPass?: boolean;
       };
       /**
        * 维保单软件诊断记录
@@ -12653,6 +13057,18 @@ declare global {
          * 签到人
          */
         signBy?: string;
+        /**
+         * 签到人角色
+         */
+        signRoles?: string[];
+        /**
+         * 签到人手机号
+         */
+        signPhone?: string;
+        /**
+         * 签到人名字
+         */
+        signName?: string;
         /**
          * 路线图
          */
@@ -12819,9 +13235,9 @@ declare global {
           message?: string;
         }[];
         /**
-         * 软件检查状态
+         * 是否待审通过
          */
-        checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
+        checkPass?: boolean;
       };
       /**
        * 关联维修单 id
@@ -12851,10 +13267,6 @@ declare global {
        * 上次维保完成日期
        */
       preCloseAt?: Date;
-      /**
-       * 状态标记
-       */
-      checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
       /**
        * 提交时间
        */
@@ -12980,6 +13392,18 @@ declare global {
          */
         signBy?: string;
         /**
+         * 签到人角色
+         */
+        signRoles?: string[];
+        /**
+         * 签到人手机号
+         */
+        signPhone?: string;
+        /**
+         * 签到人名字
+         */
+        signName?: string;
+        /**
          * 外观诊断组到场时间
          */
         arrivalAt?: Date;
@@ -13414,9 +13838,9 @@ declare global {
           message?: string;
         }[];
         /**
-         * 外观检查状态
+         * 是否待审通过
          */
-        checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
+        checkPass?: boolean;
       };
       /**
        * 维保单软件诊断记录
@@ -13430,6 +13854,18 @@ declare global {
          * 签到人
          */
         signBy?: string;
+        /**
+         * 签到人角色
+         */
+        signRoles?: string[];
+        /**
+         * 签到人手机号
+         */
+        signPhone?: string;
+        /**
+         * 签到人名字
+         */
+        signName?: string;
         /**
          * 路线图
          */
@@ -13596,9 +14032,9 @@ declare global {
           message?: string;
         }[];
         /**
-         * 软件检查状态
+         * 是否待审通过
          */
-        checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
+        checkPass?: boolean;
       };
       /**
        * 关联维修单 id
@@ -13628,10 +14064,6 @@ declare global {
        * 上次维保完成日期
        */
       preCloseAt?: Date;
-      /**
-       * 状态标记
-       */
-      checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
       /**
        * 提交时间
        */
@@ -13684,9 +14116,6 @@ declare global {
       period?: string;
       preCloseAt_gte?: string;
       preCloseAt_lte?: string;
-      checkState?:
-        | ("UNFINISHED" | "FINISHED" | "WAIT_REPAIR")
-        | ("UNFINISHED" | "FINISHED" | "WAIT_REPAIR")[];
     };
   }
   export interface ListMaintainsResponse {
@@ -13800,6 +14229,18 @@ declare global {
          */
         signBy?: string;
         /**
+         * 签到人角色
+         */
+        signRoles?: string[];
+        /**
+         * 签到人手机号
+         */
+        signPhone?: string;
+        /**
+         * 签到人名字
+         */
+        signName?: string;
+        /**
          * 外观诊断组到场时间
          */
         arrivalAt?: Date;
@@ -14234,9 +14675,9 @@ declare global {
           message?: string;
         }[];
         /**
-         * 外观检查状态
+         * 是否待审通过
          */
-        checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
+        checkPass?: boolean;
       };
       /**
        * 维保单软件诊断记录
@@ -14250,6 +14691,18 @@ declare global {
          * 签到人
          */
         signBy?: string;
+        /**
+         * 签到人角色
+         */
+        signRoles?: string[];
+        /**
+         * 签到人手机号
+         */
+        signPhone?: string;
+        /**
+         * 签到人名字
+         */
+        signName?: string;
         /**
          * 路线图
          */
@@ -14416,9 +14869,9 @@ declare global {
           message?: string;
         }[];
         /**
-         * 软件检查状态
+         * 是否待审通过
          */
-        checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
+        checkPass?: boolean;
       };
       /**
        * 关联维修单 id
@@ -14448,10 +14901,6 @@ declare global {
        * 上次维保完成日期
        */
       preCloseAt?: Date;
-      /**
-       * 状态标记
-       */
-      checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
       /**
        * 提交时间
        */
@@ -14589,6 +15038,18 @@ declare global {
          */
         signBy?: string;
         /**
+         * 签到人角色
+         */
+        signRoles?: string[];
+        /**
+         * 签到人手机号
+         */
+        signPhone?: string;
+        /**
+         * 签到人名字
+         */
+        signName?: string;
+        /**
          * 外观诊断组到场时间
          */
         arrivalAt?: Date;
@@ -15023,9 +15484,9 @@ declare global {
           message?: string;
         }[];
         /**
-         * 外观检查状态
+         * 是否待审通过
          */
-        checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
+        checkPass?: boolean;
       };
       /**
        * 维保单软件诊断记录
@@ -15039,6 +15500,18 @@ declare global {
          * 签到人
          */
         signBy?: string;
+        /**
+         * 签到人角色
+         */
+        signRoles?: string[];
+        /**
+         * 签到人手机号
+         */
+        signPhone?: string;
+        /**
+         * 签到人名字
+         */
+        signName?: string;
         /**
          * 路线图
          */
@@ -15205,9 +15678,9 @@ declare global {
           message?: string;
         }[];
         /**
-         * 软件检查状态
+         * 是否待审通过
          */
-        checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
+        checkPass?: boolean;
       };
       /**
        * 关联维修单 id
@@ -15237,10 +15710,6 @@ declare global {
        * 上次维保完成日期
        */
       preCloseAt?: Date;
-      /**
-       * 状态标记
-       */
-      checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
       /**
        * 提交时间
        */
@@ -15373,6 +15842,18 @@ declare global {
          */
         signBy?: string;
         /**
+         * 签到人角色
+         */
+        signRoles?: string[];
+        /**
+         * 签到人手机号
+         */
+        signPhone?: string;
+        /**
+         * 签到人名字
+         */
+        signName?: string;
+        /**
          * 外观诊断组到场时间
          */
         arrivalAt?: Date;
@@ -15807,9 +16288,9 @@ declare global {
           message?: string;
         }[];
         /**
-         * 外观检查状态
+         * 是否待审通过
          */
-        checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
+        checkPass?: boolean;
       };
       /**
        * 维保单软件诊断记录
@@ -15823,6 +16304,18 @@ declare global {
          * 签到人
          */
         signBy?: string;
+        /**
+         * 签到人角色
+         */
+        signRoles?: string[];
+        /**
+         * 签到人手机号
+         */
+        signPhone?: string;
+        /**
+         * 签到人名字
+         */
+        signName?: string;
         /**
          * 路线图
          */
@@ -15989,9 +16482,9 @@ declare global {
           message?: string;
         }[];
         /**
-         * 软件检查状态
+         * 是否待审通过
          */
-        checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
+        checkPass?: boolean;
       };
       /**
        * 关联维修单 id
@@ -16021,10 +16514,6 @@ declare global {
        * 上次维保完成日期
        */
       preCloseAt?: Date;
-      /**
-       * 状态标记
-       */
-      checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
       /**
        * 提交时间
        */
@@ -16150,6 +16639,18 @@ declare global {
          */
         signBy?: string;
         /**
+         * 签到人角色
+         */
+        signRoles?: string[];
+        /**
+         * 签到人手机号
+         */
+        signPhone?: string;
+        /**
+         * 签到人名字
+         */
+        signName?: string;
+        /**
          * 外观诊断组到场时间
          */
         arrivalAt?: Date;
@@ -16584,9 +17085,9 @@ declare global {
           message?: string;
         }[];
         /**
-         * 外观检查状态
+         * 是否待审通过
          */
-        checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
+        checkPass?: boolean;
       };
       /**
        * 维保单软件诊断记录
@@ -16600,6 +17101,18 @@ declare global {
          * 签到人
          */
         signBy?: string;
+        /**
+         * 签到人角色
+         */
+        signRoles?: string[];
+        /**
+         * 签到人手机号
+         */
+        signPhone?: string;
+        /**
+         * 签到人名字
+         */
+        signName?: string;
         /**
          * 路线图
          */
@@ -16766,9 +17279,9 @@ declare global {
           message?: string;
         }[];
         /**
-         * 软件检查状态
+         * 是否待审通过
          */
-        checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
+        checkPass?: boolean;
       };
       /**
        * 关联维修单 id
@@ -16798,10 +17311,6 @@ declare global {
        * 上次维保完成日期
        */
       preCloseAt?: Date;
-      /**
-       * 状态标记
-       */
-      checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
       /**
        * 提交时间
        */
@@ -16844,6 +17353,18 @@ declare global {
        */
       signBy?: string;
       /**
+       * 签到人角色
+       */
+      signRoles?: string[];
+      /**
+       * 签到人手机号
+       */
+      signPhone?: string;
+      /**
+       * 签到人名字
+       */
+      signName?: string;
+      /**
        * 外观诊断组到场时间
        */
       arrivalAt?: Date;
@@ -17278,9 +17799,9 @@ declare global {
         message?: string;
       }[];
       /**
-       * 外观检查状态
+       * 是否待审通过
        */
-      checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
+      checkPass?: boolean;
     };
   }
   export interface UpdateAppearanceRecordResponse {
@@ -17301,6 +17822,18 @@ declare global {
        */
       signBy?: string;
       /**
+       * 签到人角色
+       */
+      signRoles?: string[];
+      /**
+       * 签到人手机号
+       */
+      signPhone?: string;
+      /**
+       * 签到人名字
+       */
+      signName?: string;
+      /**
        * 外观诊断组到场时间
        */
       arrivalAt?: Date;
@@ -17735,9 +18268,9 @@ declare global {
         message?: string;
       }[];
       /**
-       * 外观检查状态
+       * 是否待审通过
        */
-      checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
+      checkPass?: boolean;
     };
   }
   export interface UpdateSoftwareRecordRequest {
@@ -17755,6 +18288,18 @@ declare global {
        */
       signBy?: string;
       /**
+       * 签到人角色
+       */
+      signRoles?: string[];
+      /**
+       * 签到人手机号
+       */
+      signPhone?: string;
+      /**
+       * 签到人名字
+       */
+      signName?: string;
+      /**
        * 路线图
        */
       routeMap?: {
@@ -17920,9 +18465,9 @@ declare global {
         message?: string;
       }[];
       /**
-       * 软件检查状态
+       * 是否待审通过
        */
-      checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
+      checkPass?: boolean;
     };
   }
   export interface UpdateSoftwareRecordResponse {
@@ -17939,6 +18484,18 @@ declare global {
        */
       signBy?: string;
       /**
+       * 签到人角色
+       */
+      signRoles?: string[];
+      /**
+       * 签到人手机号
+       */
+      signPhone?: string;
+      /**
+       * 签到人名字
+       */
+      signName?: string;
+      /**
        * 路线图
        */
       routeMap?: {
@@ -18104,9 +18661,9 @@ declare global {
         message?: string;
       }[];
       /**
-       * 软件检查状态
+       * 是否待审通过
        */
-      checkState?: "UNFINISHED" | "FINISHED" | "WAIT_REPAIR";
+      checkPass?: boolean;
     };
   }
   export interface SummaryMaintainsByMonthRequest {
@@ -18366,6 +18923,19 @@ declare global {
          */
         url: string;
       }[];
+      /**
+       * 已读用户数组
+       */
+      readUsers?: {
+        /**
+         * 用户id
+         */
+        id: string;
+        /**
+         * 用户昵称
+         */
+        nickname: string;
+      }[];
     } & {
       title: string;
       content: string;
@@ -18413,6 +18983,19 @@ declare global {
          * url
          */
         url: string;
+      }[];
+      /**
+       * 已读用户数组
+       */
+      readUsers?: {
+        /**
+         * 用户id
+         */
+        id: string;
+        /**
+         * 用户昵称
+         */
+        nickname: string;
       }[];
     } & {
       id: string;
@@ -18476,6 +19059,19 @@ declare global {
          */
         url: string;
       }[];
+      /**
+       * 已读用户数组
+       */
+      readUsers?: {
+        /**
+         * 用户id
+         */
+        id: string;
+        /**
+         * 用户昵称
+         */
+        nickname: string;
+      }[];
     } & {
       id: string;
       updateAt?: Date;
@@ -18533,6 +19129,19 @@ declare global {
          */
         url: string;
       }[];
+      /**
+       * 已读用户数组
+       */
+      readUsers?: {
+        /**
+         * 用户id
+         */
+        id: string;
+        /**
+         * 用户昵称
+         */
+        nickname: string;
+      }[];
     } & {
       id: string;
       updateAt?: Date;
@@ -18588,6 +19197,19 @@ declare global {
          */
         url: string;
       }[];
+      /**
+       * 已读用户数组
+       */
+      readUsers?: {
+        /**
+         * 用户id
+         */
+        id: string;
+        /**
+         * 用户昵称
+         */
+        nickname: string;
+      }[];
     };
   }
   export interface UpdateNotificationResponse {
@@ -18633,6 +19255,19 @@ declare global {
          */
         url: string;
       }[];
+      /**
+       * 已读用户数组
+       */
+      readUsers?: {
+        /**
+         * 用户id
+         */
+        id: string;
+        /**
+         * 用户昵称
+         */
+        nickname: string;
+      }[];
     } & {
       id: string;
       updateAt?: Date;
@@ -18643,6 +19278,86 @@ declare global {
   }
   export interface DeleteNotificationRequest {
     notificationId: string;
+  }
+  export interface UpdateNotificationReadRequest {
+    notificationId: string;
+    /**
+     * 通知已读用户
+     */
+    body: {
+      /**
+       * 用户id
+       */
+      id: string;
+      /**
+       * 用户昵称
+       */
+      nickname: string;
+    };
+  }
+  export interface UpdateNotificationReadResponse {
+    content?: {
+      /**
+       * 标题
+       */
+      title?: string;
+      /**
+       * 内容
+       */
+      content?: string;
+      /**
+       * 附件
+       */
+      files?: {
+        /**
+         * 原始文件名
+         */
+        name: string;
+        /**
+         * oss上的文件名
+         */
+        ossName: string;
+        /**
+         * 备注
+         */
+        remark?: string;
+        /**
+         * 文件大小
+         */
+        size?: number;
+        /**
+         * 上传状态
+         */
+        status?: string;
+        /**
+         * uid
+         */
+        uid: string;
+        /**
+         * url
+         */
+        url: string;
+      }[];
+      /**
+       * 已读用户数组
+       */
+      readUsers?: {
+        /**
+         * 用户id
+         */
+        id: string;
+        /**
+         * 用户昵称
+         */
+        nickname: string;
+      }[];
+    } & {
+      id: string;
+      updateAt?: Date;
+      updateBy?: string;
+      createAt?: Date;
+      createBy?: string;
+    };
   }
 }
 

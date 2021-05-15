@@ -959,5 +959,27 @@ export default class SDK {
         headers: { Authorization: this.auth },
       });
     },
+    /**
+     * update notification read
+     *
+     * @param {UpdateNotificationReadRequest} req updateNotificationRead request
+     * @returns {Promise<UpdateNotificationReadResponse>} The notification
+     */
+    updateNotificationRead: req => {
+      const { notificationId, body } = req || {};
+
+      if (!notificationId)
+        throw new Error(
+          "notificationId is required for updateNotificationRead"
+        );
+      if (!body)
+        throw new Error("requetBody is required for updateNotificationRead");
+
+      return fetch(`${this.base}/notifications/${notificationId}/!read`, {
+        method: "PUT",
+        body,
+        headers: { Authorization: this.auth },
+      });
+    },
   };
 }
