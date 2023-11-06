@@ -1,6 +1,6 @@
 {
   "name": "@youyuan-erp/core-sdk-js",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "youyuan erp core sdk",
   "repository": {
     "url": "youyuan-erp/core-sdk-js",
@@ -24,7 +24,7 @@
   "scripts": {
     "build": "sketch build",
     "format": "prettier --trailing-comma es5 --write 'src/**/*.js'",
-    "gen": "swagen sdk https://api.youyuan.36node.com/core/uat/openapi.yml && npm run format",
+    "gen": "swagen sdk ../core/openapi.yml && npm run format",
     "lint": "sketch lint src",
     "release": "standard-version -t release-v",
     "start": "bin/mock-server.js",
