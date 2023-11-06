@@ -1159,6 +1159,14 @@ declare global {
          */
         url: string;
       }[];
+      /**
+       * 维保次数
+       */
+      maintainNumber?: number;
+      /**
+       * 车型
+       */
+      model?: string;
       [k: string]: any;
     } & {
       /**
@@ -1210,9 +1218,37 @@ declare global {
        */
       scrapped?: boolean;
       /**
+       * 车辆报废备注
+       */
+      scrappedRemark?: string;
+      /**
+       * 车辆报废人
+       */
+      scrappedBy?: string;
+      /**
        * CRM 订单号
        */
       crm?: string;
+      /**
+       * 首年是否赠送2次维保
+       */
+      maintainFree?: boolean;
+      /**
+       * 维保外观组-季度保4为止
+       */
+      maintainAppearanceFirst?: string;
+      /**
+       * 维保外观组-季度保5开始
+       */
+      maintainAppearanceLast?: string;
+      /**
+       * 维保软件组-季度保4为止
+       */
+      maintainSoftwareFirst?: string;
+      /**
+       * 维保软件组-季度保5开始
+       */
+      maintainSoftwareLast?: string;
     };
   }
   export interface CreateVehicleResponse {
@@ -1713,6 +1749,14 @@ declare global {
          */
         url: string;
       }[];
+      /**
+       * 维保次数
+       */
+      maintainNumber?: number;
+      /**
+       * 车型
+       */
+      model?: string;
       [k: string]: any;
     } & {
       /**
@@ -1764,9 +1808,37 @@ declare global {
        */
       scrapped?: boolean;
       /**
+       * 车辆报废备注
+       */
+      scrappedRemark?: string;
+      /**
+       * 车辆报废人
+       */
+      scrappedBy?: string;
+      /**
        * CRM 订单号
        */
       crm?: string;
+      /**
+       * 首年是否赠送2次维保
+       */
+      maintainFree?: boolean;
+      /**
+       * 维保外观组-季度保4为止
+       */
+      maintainAppearanceFirst?: string;
+      /**
+       * 维保外观组-季度保5开始
+       */
+      maintainAppearanceLast?: string;
+      /**
+       * 维保软件组-季度保4为止
+       */
+      maintainSoftwareFirst?: string;
+      /**
+       * 维保软件组-季度保5开始
+       */
+      maintainSoftwareLast?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -1784,8 +1856,8 @@ declare global {
       id?: string;
       id_like?: string;
       sequence_like?: string;
-      createAt_gte?: string;
-      createAt_lte?: string;
+      createAt_gte?: Date;
+      createAt_lte?: Date;
       plate?: string;
       plate_like?: string;
       crm?: string;
@@ -1795,11 +1867,21 @@ declare global {
       ticketNs_like?: string;
       num_like?: string;
       batteryNum_like?: string;
+      batteryPN_like?: string;
+      rdb?: string;
       scrapped?: boolean[];
       brands?: string | string[];
       terminal?: string | string[];
       park?: string | string[];
       status?: ("PENDING" | "PASSED" | "REJECTED") | ("PENDING" | "PASSED" | "REJECTED")[];
+      passAt_gte?: Date;
+      passAt_lte?: Date;
+      year?: number;
+      batteryPropRight_like?: string;
+      model_like?: string;
+      terminal_like?: string;
+      maintaining?: boolean[];
+      maintainNumber?: number;
     };
   }
   export interface ListVehiclesResponse {
@@ -2300,6 +2382,14 @@ declare global {
          */
         url: string;
       }[];
+      /**
+       * 维保次数
+       */
+      maintainNumber?: number;
+      /**
+       * 车型
+       */
+      model?: string;
       [k: string]: any;
     } & {
       /**
@@ -2351,9 +2441,37 @@ declare global {
        */
       scrapped?: boolean;
       /**
+       * 车辆报废备注
+       */
+      scrappedRemark?: string;
+      /**
+       * 车辆报废人
+       */
+      scrappedBy?: string;
+      /**
        * CRM 订单号
        */
       crm?: string;
+      /**
+       * 首年是否赠送2次维保
+       */
+      maintainFree?: boolean;
+      /**
+       * 维保外观组-季度保4为止
+       */
+      maintainAppearanceFirst?: string;
+      /**
+       * 维保外观组-季度保5开始
+       */
+      maintainAppearanceLast?: string;
+      /**
+       * 维保软件组-季度保4为止
+       */
+      maintainSoftwareFirst?: string;
+      /**
+       * 维保软件组-季度保5开始
+       */
+      maintainSoftwareLast?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -2866,6 +2984,14 @@ declare global {
          */
         url: string;
       }[];
+      /**
+       * 维保次数
+       */
+      maintainNumber?: number;
+      /**
+       * 车型
+       */
+      model?: string;
       [k: string]: any;
     } & {
       /**
@@ -2917,9 +3043,37 @@ declare global {
        */
       scrapped?: boolean;
       /**
+       * 车辆报废备注
+       */
+      scrappedRemark?: string;
+      /**
+       * 车辆报废人
+       */
+      scrappedBy?: string;
+      /**
        * CRM 订单号
        */
       crm?: string;
+      /**
+       * 首年是否赠送2次维保
+       */
+      maintainFree?: boolean;
+      /**
+       * 维保外观组-季度保4为止
+       */
+      maintainAppearanceFirst?: string;
+      /**
+       * 维保外观组-季度保5开始
+       */
+      maintainAppearanceLast?: string;
+      /**
+       * 维保软件组-季度保4为止
+       */
+      maintainSoftwareFirst?: string;
+      /**
+       * 维保软件组-季度保5开始
+       */
+      maintainSoftwareLast?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -3427,6 +3581,14 @@ declare global {
          */
         url: string;
       }[];
+      /**
+       * 维保次数
+       */
+      maintainNumber?: number;
+      /**
+       * 车型
+       */
+      model?: string;
       [k: string]: any;
     } & {
       /**
@@ -3478,9 +3640,37 @@ declare global {
        */
       scrapped?: boolean;
       /**
+       * 车辆报废备注
+       */
+      scrappedRemark?: string;
+      /**
+       * 车辆报废人
+       */
+      scrappedBy?: string;
+      /**
        * CRM 订单号
        */
       crm?: string;
+      /**
+       * 首年是否赠送2次维保
+       */
+      maintainFree?: boolean;
+      /**
+       * 维保外观组-季度保4为止
+       */
+      maintainAppearanceFirst?: string;
+      /**
+       * 维保外观组-季度保5开始
+       */
+      maintainAppearanceLast?: string;
+      /**
+       * 维保软件组-季度保4为止
+       */
+      maintainSoftwareFirst?: string;
+      /**
+       * 维保软件组-季度保5开始
+       */
+      maintainSoftwareLast?: string;
     };
   }
   export interface UpdateVehicleResponse {
@@ -3981,6 +4171,14 @@ declare global {
          */
         url: string;
       }[];
+      /**
+       * 维保次数
+       */
+      maintainNumber?: number;
+      /**
+       * 车型
+       */
+      model?: string;
       [k: string]: any;
     } & {
       /**
@@ -4032,9 +4230,37 @@ declare global {
        */
       scrapped?: boolean;
       /**
+       * 车辆报废备注
+       */
+      scrappedRemark?: string;
+      /**
+       * 车辆报废人
+       */
+      scrappedBy?: string;
+      /**
        * CRM 订单号
        */
       crm?: string;
+      /**
+       * 首年是否赠送2次维保
+       */
+      maintainFree?: boolean;
+      /**
+       * 维保外观组-季度保4为止
+       */
+      maintainAppearanceFirst?: string;
+      /**
+       * 维保外观组-季度保5开始
+       */
+      maintainAppearanceLast?: string;
+      /**
+       * 维保软件组-季度保4为止
+       */
+      maintainSoftwareFirst?: string;
+      /**
+       * 维保软件组-季度保5开始
+       */
+      maintainSoftwareLast?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -4550,6 +4776,14 @@ declare global {
          */
         url: string;
       }[];
+      /**
+       * 维保次数
+       */
+      maintainNumber?: number;
+      /**
+       * 车型
+       */
+      model?: string;
       [k: string]: any;
     } & {
       ticketNs: string;
@@ -5054,6 +5288,14 @@ declare global {
          */
         url: string;
       }[];
+      /**
+       * 维保次数
+       */
+      maintainNumber?: number;
+      /**
+       * 车型
+       */
+      model?: string;
       [k: string]: any;
     } & {
       /**
@@ -5105,9 +5347,37 @@ declare global {
        */
       scrapped?: boolean;
       /**
+       * 车辆报废备注
+       */
+      scrappedRemark?: string;
+      /**
+       * 车辆报废人
+       */
+      scrappedBy?: string;
+      /**
        * CRM 订单号
        */
       crm?: string;
+      /**
+       * 首年是否赠送2次维保
+       */
+      maintainFree?: boolean;
+      /**
+       * 维保外观组-季度保4为止
+       */
+      maintainAppearanceFirst?: string;
+      /**
+       * 维保外观组-季度保5开始
+       */
+      maintainAppearanceLast?: string;
+      /**
+       * 维保软件组-季度保4为止
+       */
+      maintainSoftwareFirst?: string;
+      /**
+       * 维保软件组-季度保5开始
+       */
+      maintainSoftwareLast?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -5615,6 +5885,14 @@ declare global {
          */
         url: string;
       }[];
+      /**
+       * 维保次数
+       */
+      maintainNumber?: number;
+      /**
+       * 车型
+       */
+      model?: string;
       [k: string]: any;
     };
   }
@@ -6116,6 +6394,14 @@ declare global {
          */
         url: string;
       }[];
+      /**
+       * 维保次数
+       */
+      maintainNumber?: number;
+      /**
+       * 车型
+       */
+      model?: string;
       [k: string]: any;
     } & {
       /**
@@ -6167,9 +6453,37 @@ declare global {
        */
       scrapped?: boolean;
       /**
+       * 车辆报废备注
+       */
+      scrappedRemark?: string;
+      /**
+       * 车辆报废人
+       */
+      scrappedBy?: string;
+      /**
        * CRM 订单号
        */
       crm?: string;
+      /**
+       * 首年是否赠送2次维保
+       */
+      maintainFree?: boolean;
+      /**
+       * 维保外观组-季度保4为止
+       */
+      maintainAppearanceFirst?: string;
+      /**
+       * 维保外观组-季度保5开始
+       */
+      maintainAppearanceLast?: string;
+      /**
+       * 维保软件组-季度保4为止
+       */
+      maintainSoftwareFirst?: string;
+      /**
+       * 维保软件组-季度保5开始
+       */
+      maintainSoftwareLast?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -6274,6 +6588,10 @@ declare global {
        */
       rejectBy?: string;
       /**
+       * 是否存在审核超时，一旦有过超时，便不再修改
+       */
+      auditTimeout?: boolean;
+      /**
        * 曾经是否超时
        */
       resubmitTimedOut?: boolean;
@@ -6321,6 +6639,10 @@ declare global {
        * 关联车辆电池号
        */
       vehicleBatteryNum?: string;
+      /**
+       * 关联车辆电池产权
+       */
+      vehicleBatteryPropRight?: string;
       /**
        * 关联车辆停保场
        */
@@ -6374,7 +6696,7 @@ declare global {
        */
       assignAt?: Date;
       /**
-       * 完工时间
+       * 工单关闭时间
        */
       closeAt?: Date;
       /**
@@ -6995,9 +7317,17 @@ declare global {
        */
       submitBy?: string;
       /**
-       * 审核通过时间
+       * 审核备注
+       */
+      passRemark?: string;
+      /**
+       * 审核通过时间，一般与工单关闭时间相同
        */
       passedAt?: Date;
+      /**
+       * 审核通过人
+       */
+      passedBy?: string;
       /**
        * 工时计算公式
        */
@@ -7045,6 +7375,10 @@ declare global {
        */
       rejectBy?: string;
       /**
+       * 是否存在审核超时，一旦有过超时，便不再修改
+       */
+      auditTimeout?: boolean;
+      /**
        * 曾经是否超时
        */
       resubmitTimedOut?: boolean;
@@ -7092,6 +7426,10 @@ declare global {
        * 关联车辆电池号
        */
       vehicleBatteryNum?: string;
+      /**
+       * 关联车辆电池产权
+       */
+      vehicleBatteryPropRight?: string;
       /**
        * 关联车辆停保场
        */
@@ -7145,7 +7483,7 @@ declare global {
        */
       assignAt?: Date;
       /**
-       * 完工时间
+       * 工单关闭时间
        */
       closeAt?: Date;
       /**
@@ -7766,9 +8104,17 @@ declare global {
        */
       submitBy?: string;
       /**
-       * 审核通过时间
+       * 审核备注
+       */
+      passRemark?: string;
+      /**
+       * 审核通过时间，一般与工单关闭时间相同
        */
       passedAt?: Date;
+      /**
+       * 审核通过人
+       */
+      passedBy?: string;
       /**
        * 工时计算公式
        */
@@ -7840,7 +8186,9 @@ declare global {
       leaderNs?: string;
       withNoSend?: boolean;
       vehicleBrands?: string | string[];
+      vehicleBrands_like?: string;
       vehicleTerminal?: string | string[];
+      vehicleTerminal_like?: string;
       vehicleScrapped?: boolean | boolean[];
       backupAbnormal?: boolean | boolean[];
       vehicle?: string;
@@ -7848,6 +8196,12 @@ declare global {
       vehicleBatteryPN_like?: string;
       vehicleBatteryNum_like?: string;
       maintainExist?: boolean[];
+      assignAt_gte?: Date;
+      assignAt_lte?: Date;
+      passedAt_gte?: Date;
+      passedAt_lte?: Date;
+      passRemark_like?: string;
+      passedBy?: string;
     };
   }
   export interface ListRepairsResponse {
@@ -7876,6 +8230,10 @@ declare global {
        * 驳回人
        */
       rejectBy?: string;
+      /**
+       * 是否存在审核超时，一旦有过超时，便不再修改
+       */
+      auditTimeout?: boolean;
       /**
        * 曾经是否超时
        */
@@ -7924,6 +8282,10 @@ declare global {
        * 关联车辆电池号
        */
       vehicleBatteryNum?: string;
+      /**
+       * 关联车辆电池产权
+       */
+      vehicleBatteryPropRight?: string;
       /**
        * 关联车辆停保场
        */
@@ -7977,7 +8339,7 @@ declare global {
        */
       assignAt?: Date;
       /**
-       * 完工时间
+       * 工单关闭时间
        */
       closeAt?: Date;
       /**
@@ -8598,9 +8960,17 @@ declare global {
        */
       submitBy?: string;
       /**
-       * 审核通过时间
+       * 审核备注
+       */
+      passRemark?: string;
+      /**
+       * 审核通过时间，一般与工单关闭时间相同
        */
       passedAt?: Date;
+      /**
+       * 审核通过人
+       */
+      passedBy?: string;
       /**
        * 工时计算公式
        */
@@ -8679,6 +9049,10 @@ declare global {
        */
       rejectBy?: string;
       /**
+       * 是否存在审核超时，一旦有过超时，便不再修改
+       */
+      auditTimeout?: boolean;
+      /**
        * 曾经是否超时
        */
       resubmitTimedOut?: boolean;
@@ -8726,6 +9100,10 @@ declare global {
        * 关联车辆电池号
        */
       vehicleBatteryNum?: string;
+      /**
+       * 关联车辆电池产权
+       */
+      vehicleBatteryPropRight?: string;
       /**
        * 关联车辆停保场
        */
@@ -8779,7 +9157,7 @@ declare global {
        */
       assignAt?: Date;
       /**
-       * 完工时间
+       * 工单关闭时间
        */
       closeAt?: Date;
       /**
@@ -9400,9 +9778,17 @@ declare global {
        */
       submitBy?: string;
       /**
-       * 审核通过时间
+       * 审核备注
+       */
+      passRemark?: string;
+      /**
+       * 审核通过时间，一般与工单关闭时间相同
        */
       passedAt?: Date;
+      /**
+       * 审核通过人
+       */
+      passedBy?: string;
       /**
        * 工时计算公式
        */
@@ -9476,6 +9862,10 @@ declare global {
        */
       rejectBy?: string;
       /**
+       * 是否存在审核超时，一旦有过超时，便不再修改
+       */
+      auditTimeout?: boolean;
+      /**
        * 曾经是否超时
        */
       resubmitTimedOut?: boolean;
@@ -9523,6 +9913,10 @@ declare global {
        * 关联车辆电池号
        */
       vehicleBatteryNum?: string;
+      /**
+       * 关联车辆电池产权
+       */
+      vehicleBatteryPropRight?: string;
       /**
        * 关联车辆停保场
        */
@@ -9576,7 +9970,7 @@ declare global {
        */
       assignAt?: Date;
       /**
-       * 完工时间
+       * 工单关闭时间
        */
       closeAt?: Date;
       /**
@@ -10197,9 +10591,17 @@ declare global {
        */
       submitBy?: string;
       /**
-       * 审核通过时间
+       * 审核备注
+       */
+      passRemark?: string;
+      /**
+       * 审核通过时间，一般与工单关闭时间相同
        */
       passedAt?: Date;
+      /**
+       * 审核通过人
+       */
+      passedBy?: string;
       /**
        * 工时计算公式
        */
@@ -10266,6 +10668,10 @@ declare global {
        */
       rejectBy?: string;
       /**
+       * 是否存在审核超时，一旦有过超时，便不再修改
+       */
+      auditTimeout?: boolean;
+      /**
        * 曾经是否超时
        */
       resubmitTimedOut?: boolean;
@@ -10313,6 +10719,10 @@ declare global {
        * 关联车辆电池号
        */
       vehicleBatteryNum?: string;
+      /**
+       * 关联车辆电池产权
+       */
+      vehicleBatteryPropRight?: string;
       /**
        * 关联车辆停保场
        */
@@ -10366,7 +10776,7 @@ declare global {
        */
       assignAt?: Date;
       /**
-       * 完工时间
+       * 工单关闭时间
        */
       closeAt?: Date;
       /**
@@ -10987,9 +11397,17 @@ declare global {
        */
       submitBy?: string;
       /**
-       * 审核通过时间
+       * 审核备注
+       */
+      passRemark?: string;
+      /**
+       * 审核通过时间，一般与工单关闭时间相同
        */
       passedAt?: Date;
+      /**
+       * 审核通过人
+       */
+      passedBy?: string;
       /**
        * 工时计算公式
        */
@@ -11664,6 +12082,10 @@ declare global {
        */
       rejectBy?: string;
       /**
+       * 是否存在审核超时，一旦有过超时，便不再修改
+       */
+      auditTimeout?: boolean;
+      /**
        * 曾经是否超时
        */
       resubmitTimedOut?: boolean;
@@ -11711,6 +12133,10 @@ declare global {
        * 关联车辆电池号
        */
       vehicleBatteryNum?: string;
+      /**
+       * 关联车辆电池产权
+       */
+      vehicleBatteryPropRight?: string;
       /**
        * 关联车辆停保场
        */
@@ -11764,7 +12190,7 @@ declare global {
        */
       assignAt?: Date;
       /**
-       * 完工时间
+       * 工单关闭时间
        */
       closeAt?: Date;
       /**
@@ -12385,9 +12811,17 @@ declare global {
        */
       submitBy?: string;
       /**
-       * 审核通过时间
+       * 审核备注
+       */
+      passRemark?: string;
+      /**
+       * 审核通过时间，一般与工单关闭时间相同
        */
       passedAt?: Date;
+      /**
+       * 审核通过人
+       */
+      passedBy?: string;
       /**
        * 工时计算公式
        */
@@ -12527,6 +12961,10 @@ declare global {
        */
       rejectBy?: string;
       /**
+       * 是否存在审核超时，一旦有过超时，便不再修改
+       */
+      auditTimeout?: boolean;
+      /**
        * CRM 订单号
        */
       crm?: string;
@@ -12570,6 +13008,10 @@ declare global {
        * 关联车辆 电池号
        */
       vehicleBatteryNo?: string;
+      /**
+       * 关联车辆电池产权
+       */
+      vehicleBatteryPropRight?: string;
       /**
        * 关联车辆 运营日期
        */
@@ -13205,6 +13647,10 @@ declare global {
          */
         rdb?: string;
         /**
+         * 整车信息-车辆备注
+         */
+        vehicleRemark?: string;
+        /**
          * 外观检查项
          */
         items?: {
@@ -13272,9 +13718,25 @@ declare global {
        */
       submitAt?: Date;
       /**
+       * 初次提交时间
+       */
+      firstSubmitAt?: Date;
+      /**
        * 提交人
        */
       submitBy?: string;
+      /**
+       * 审核备注
+       */
+      passRemark?: string;
+      /**
+       * 审核通过时间，一般与工单关闭时间相同
+       */
+      passedAt?: Date;
+      /**
+       * 审核通过人
+       */
+      passedBy?: string;
       /**
        * 点检报告URL
        */
@@ -13324,6 +13786,10 @@ declare global {
        */
       rejectBy?: string;
       /**
+       * 是否存在审核超时，一旦有过超时，便不再修改
+       */
+      auditTimeout?: boolean;
+      /**
        * CRM 订单号
        */
       crm?: string;
@@ -13367,6 +13833,10 @@ declare global {
        * 关联车辆 电池号
        */
       vehicleBatteryNo?: string;
+      /**
+       * 关联车辆电池产权
+       */
+      vehicleBatteryPropRight?: string;
       /**
        * 关联车辆 运营日期
        */
@@ -14002,6 +14472,10 @@ declare global {
          */
         rdb?: string;
         /**
+         * 整车信息-车辆备注
+         */
+        vehicleRemark?: string;
+        /**
          * 外观检查项
          */
         items?: {
@@ -14069,9 +14543,25 @@ declare global {
        */
       submitAt?: Date;
       /**
+       * 初次提交时间
+       */
+      firstSubmitAt?: Date;
+      /**
        * 提交人
        */
       submitBy?: string;
+      /**
+       * 审核备注
+       */
+      passRemark?: string;
+      /**
+       * 审核通过时间，一般与工单关闭时间相同
+       */
+      passedAt?: Date;
+      /**
+       * 审核通过人
+       */
+      passedBy?: string;
       /**
        * 点检报告URL
        */
@@ -14108,14 +14598,18 @@ declare global {
       software?: string;
       participant?: string;
       vehicleBrands?: string | string[];
+      vehicleBrands_like?: string;
       vehicleTerminal?: string | string[];
       vehiclePark?: string | string[];
       vehicleScrapped?: boolean | boolean[];
       vehicle?: string;
       prePeriod?: string;
       period?: string;
-      preCloseAt_gte?: string;
-      preCloseAt_lte?: string;
+      preCloseAt_gte?: Date;
+      preCloseAt_lte?: Date;
+      passedAt_gte?: Date;
+      passedAt_lte?: Date;
+      vehicleBatteryPropRight?: string;
     };
   }
   export interface ListMaintainsResponse {
@@ -14161,6 +14655,10 @@ declare global {
        */
       rejectBy?: string;
       /**
+       * 是否存在审核超时，一旦有过超时，便不再修改
+       */
+      auditTimeout?: boolean;
+      /**
        * CRM 订单号
        */
       crm?: string;
@@ -14204,6 +14702,10 @@ declare global {
        * 关联车辆 电池号
        */
       vehicleBatteryNo?: string;
+      /**
+       * 关联车辆电池产权
+       */
+      vehicleBatteryPropRight?: string;
       /**
        * 关联车辆 运营日期
        */
@@ -14839,6 +15341,10 @@ declare global {
          */
         rdb?: string;
         /**
+         * 整车信息-车辆备注
+         */
+        vehicleRemark?: string;
+        /**
          * 外观检查项
          */
         items?: {
@@ -14906,9 +15412,25 @@ declare global {
        */
       submitAt?: Date;
       /**
+       * 初次提交时间
+       */
+      firstSubmitAt?: Date;
+      /**
        * 提交人
        */
       submitBy?: string;
+      /**
+       * 审核备注
+       */
+      passRemark?: string;
+      /**
+       * 审核通过时间，一般与工单关闭时间相同
+       */
+      passedAt?: Date;
+      /**
+       * 审核通过人
+       */
+      passedBy?: string;
       /**
        * 点检报告URL
        */
@@ -14970,6 +15492,10 @@ declare global {
        */
       rejectBy?: string;
       /**
+       * 是否存在审核超时，一旦有过超时，便不再修改
+       */
+      auditTimeout?: boolean;
+      /**
        * CRM 订单号
        */
       crm?: string;
@@ -15013,6 +15539,10 @@ declare global {
        * 关联车辆 电池号
        */
       vehicleBatteryNo?: string;
+      /**
+       * 关联车辆电池产权
+       */
+      vehicleBatteryPropRight?: string;
       /**
        * 关联车辆 运营日期
        */
@@ -15648,6 +16178,10 @@ declare global {
          */
         rdb?: string;
         /**
+         * 整车信息-车辆备注
+         */
+        vehicleRemark?: string;
+        /**
          * 外观检查项
          */
         items?: {
@@ -15715,9 +16249,25 @@ declare global {
        */
       submitAt?: Date;
       /**
+       * 初次提交时间
+       */
+      firstSubmitAt?: Date;
+      /**
        * 提交人
        */
       submitBy?: string;
+      /**
+       * 审核备注
+       */
+      passRemark?: string;
+      /**
+       * 审核通过时间，一般与工单关闭时间相同
+       */
+      passedAt?: Date;
+      /**
+       * 审核通过人
+       */
+      passedBy?: string;
       /**
        * 点检报告URL
        */
@@ -15774,6 +16324,10 @@ declare global {
        */
       rejectBy?: string;
       /**
+       * 是否存在审核超时，一旦有过超时，便不再修改
+       */
+      auditTimeout?: boolean;
+      /**
        * CRM 订单号
        */
       crm?: string;
@@ -15817,6 +16371,10 @@ declare global {
        * 关联车辆 电池号
        */
       vehicleBatteryNo?: string;
+      /**
+       * 关联车辆电池产权
+       */
+      vehicleBatteryPropRight?: string;
       /**
        * 关联车辆 运营日期
        */
@@ -16452,6 +17010,10 @@ declare global {
          */
         rdb?: string;
         /**
+         * 整车信息-车辆备注
+         */
+        vehicleRemark?: string;
+        /**
          * 外观检查项
          */
         items?: {
@@ -16519,9 +17081,25 @@ declare global {
        */
       submitAt?: Date;
       /**
+       * 初次提交时间
+       */
+      firstSubmitAt?: Date;
+      /**
        * 提交人
        */
       submitBy?: string;
+      /**
+       * 审核备注
+       */
+      passRemark?: string;
+      /**
+       * 审核通过时间，一般与工单关闭时间相同
+       */
+      passedAt?: Date;
+      /**
+       * 审核通过人
+       */
+      passedBy?: string;
       /**
        * 点检报告URL
        */
@@ -16571,6 +17149,10 @@ declare global {
        */
       rejectBy?: string;
       /**
+       * 是否存在审核超时，一旦有过超时，便不再修改
+       */
+      auditTimeout?: boolean;
+      /**
        * CRM 订单号
        */
       crm?: string;
@@ -16614,6 +17196,10 @@ declare global {
        * 关联车辆 电池号
        */
       vehicleBatteryNo?: string;
+      /**
+       * 关联车辆电池产权
+       */
+      vehicleBatteryPropRight?: string;
       /**
        * 关联车辆 运营日期
        */
@@ -17249,6 +17835,10 @@ declare global {
          */
         rdb?: string;
         /**
+         * 整车信息-车辆备注
+         */
+        vehicleRemark?: string;
+        /**
          * 外观检查项
          */
         items?: {
@@ -17316,9 +17906,25 @@ declare global {
        */
       submitAt?: Date;
       /**
+       * 初次提交时间
+       */
+      firstSubmitAt?: Date;
+      /**
        * 提交人
        */
       submitBy?: string;
+      /**
+       * 审核备注
+       */
+      passRemark?: string;
+      /**
+       * 审核通过时间，一般与工单关闭时间相同
+       */
+      passedAt?: Date;
+      /**
+       * 审核通过人
+       */
+      passedBy?: string;
       /**
        * 点检报告URL
        */
@@ -18435,6 +19041,10 @@ declare global {
        */
       rdb?: string;
       /**
+       * 整车信息-车辆备注
+       */
+      vehicleRemark?: string;
+      /**
        * 外观检查项
        */
       items?: {
@@ -18630,6 +19240,10 @@ declare global {
        * RDB
        */
       rdb?: string;
+      /**
+       * 整车信息-车辆备注
+       */
+      vehicleRemark?: string;
       /**
        * 外观检查项
        */
