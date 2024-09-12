@@ -20,32 +20,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: "14"
           registry-url: "https://npm.pkg.github.com"
-      - uses: pnpm/action-setup@v4
-        name: Install pnpm
+      - name: Cache Dependencies
+        id: cache-node-modules
+        uses: actions/cache@v2
         with:
-          version: 8
-          run_install: false
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        run: echo "pnpm_cache_dir=$($(pnpm store path) | base64)" >> $GITHUB_OUTPUT
-      - name: Setup pnpm cache
-        uses: actions/cache@v4
-        with:
-          path: $(${{ steps.pnpm-cache.outputs.pnpm_cache_dir }} | base64 -d)
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: node_modules
+          key: ${{ runner.os }}-node-14-nodemodules-${{ hashFiles('yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+            ${{ runner.os }}-node-14-nodemodules-
       - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
+        run: |
+          yarn config set strict-ssl false
+          yarn install
       - name: Build Package
-        run: NODE_ENV=production pnpm build
+        run: NODE_ENV=production yarn build
       - name: Eslint
-        run: pnpm lint
+        run: yarn lint
         env:
           CI: true
