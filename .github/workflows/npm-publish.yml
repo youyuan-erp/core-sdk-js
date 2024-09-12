@@ -17,23 +17,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '14'
-          registry-url: 'https://npm.pkg.github.com'
-      - name: Cache Dependencies
-        id: cache-node-modules
-        uses: actions/cache@v2
+          node-version: 18
+          registry-url: "https://npm.pkg.github.com"
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
         with:
-          path: node_modules
-          key: ${{ runner.os }}-node-14-nodemodules-${{ hashFiles('yarn.lock') }}
+          version: 8
+          run_install: false
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: echo "pnpm_cache_dir=$($(pnpm store path) | base64)" >> $GITHUB_OUTPUT
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: $(${{ steps.pnpm-cache.outputs.pnpm_cache_dir }} | base64 -d)
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-node-14-nodemodules-
+            ${{ runner.os }}-pnpm-store-
       - name: Install Dependencies
-        run: yarn install
+        run: pnpm install --frozen-lockfile
       - name: Build Package
-        run: NODE_ENV=production yarn build
+        run: NODE_ENV=production pnpm build
       - name: Publish
         run: npm publish
