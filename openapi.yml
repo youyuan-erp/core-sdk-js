@@ -1,0 +1,3801 @@
+openapi: "3.0.0"
+info:
+  version: v0
+  title: youyuan core Service
+  license:
+    name: MIT
+servers:
+  - url: https://api.youyuan.36node.com{basePath}
+    description: The production API server
+    variables:
+      basePath:
+        default: /core/v0
+paths:
+  /parks:
+    post:
+      summary: Create a park
+      operationId: createPark
+      tags:
+        - park
+      requestBody:
+        description: Park to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ParkCreateDoc"
+      responses:
+        "201":
+          description: The Park created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Park"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    get:
+      summary: List all parks
+      operationId: listParks
+      tags:
+        - park
+      parameters:
+        - name: _limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: _offset
+          in: query
+          description: How many items to escape
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: _sort
+          in: query
+          description: Fields to sort
+          required: false
+          schema:
+            type: string
+        - name: _select
+          in: query
+          description: Fields to select
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: name_like
+          in: query
+          description: name like of park
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A paged array of parks
+          headers:
+            X-Total-Count:
+              description: Total count of all warnings match the query
+              required: true
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Park"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /parks/{parkId}:
+    get:
+      summary: Find park by id
+      operationId: getPark
+      tags:
+        - park
+      parameters:
+        - name: parkId
+          in: path
+          required: true
+          description: The id of the park to retrieve
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Park"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    put:
+      summary: Update park
+      operationId: updatePark
+      tags:
+        - park
+      parameters:
+        - name: parkId
+          in: path
+          required: true
+          description: The id of park
+          schema:
+            type: string
+      requestBody:
+        description: Park to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ParkDoc"
+      responses:
+        "200":
+          description: The park
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Park"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    delete:
+      description: deletes a single park based on the ID supplied
+      operationId: deletePark
+      tags:
+        - park
+      parameters:
+        - name: parkId
+          in: path
+          description: ID of park to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: park deleted
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /drafts:
+    post:
+      summary: Create a draft
+      operationId: createDraft
+      tags:
+        - draft
+      requestBody:
+        description: draft to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DraftCreateDoc"
+      responses:
+        "201":
+          description: The draft created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Draft"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    get:
+      summary: List all drafts
+      operationId: listDafts
+      tags:
+        - draft
+      parameters:
+        - name: _limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: _offset
+          in: query
+          description: How many items to escape
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: _sort
+          in: query
+          description: Fields to sort
+          required: false
+          schema:
+            type: string
+        - name: _select
+          in: query
+          description: Fields to select
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: resource
+          in: query
+          description: 可按照维保关联的资源查询
+          schema:
+            type: string
+        - name: ticketNs_like
+          in: query
+          description: ns like
+          schema:
+            type: string
+        - name: createBy
+          in: query
+          description: createBy
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A paged array of drafts
+          headers:
+            X-Total-Count:
+              description: Total count of all warnings match the query
+              required: true
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Draft"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /drafts/{draftId}:
+    get:
+      summary: Find draft by id
+      operationId: getDraft
+      tags:
+        - draft
+      parameters:
+        - name: draftId
+          in: path
+          required: true
+          description: The id of the draft to retrieve
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Draft"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    put:
+      summary: Update draft
+      operationId: updateDraft
+      tags:
+        - draft
+      parameters:
+        - name: draftId
+          in: path
+          required: true
+          description: The id of draft
+          schema:
+            type: string
+      requestBody:
+        description: draft to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DraftDoc"
+      responses:
+        "200":
+          description: The draft
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Draft"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    delete:
+      description: deletes a single draft based on the ID supplied
+      operationId: deleteDraft
+      tags:
+        - draft
+      parameters:
+        - name: draftId
+          in: path
+          description: ID of draft to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: draft deleted
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /vehicles:
+    post:
+      summary: Create a vehicle
+      operationId: createVehicle
+      tags:
+        - vehicle
+      requestBody:
+        description: vehicle to add
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VehicleDoc"
+      responses:
+        "201":
+          description: The Vehicle created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Vehicle"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    get:
+      summary: List all vehicles
+      operationId: listVehicles
+      tags:
+        - vehicle
+      parameters:
+        - name: _limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: _offset
+          in: query
+          description: How many items to escape
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: _sort
+          in: query
+          description: Fields to sort
+          required: false
+          schema:
+            type: string
+        - name: _select
+          in: query
+          description: Fields to select
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: id
+          in: query
+          description: vehicle id
+          required: false
+          schema:
+            type: string
+        - name: id_like
+          in: query
+          description: vehicle id 模糊查询
+          required: false
+          schema:
+            type: string
+        - name: sequence_like
+          in: query
+          description: 根据序号模糊查询
+          required: false
+          schema:
+            type: string
+        - name: createAt_gte
+          in: query
+          description: createAt grater
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: createAt_lte
+          in: query
+          description: createAt litter
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: plate
+          in: query
+          description: plate
+          required: false
+          schema:
+            type: string
+        - name: plate_like
+          in: query
+          description: plate模糊查询
+          required: false
+          schema:
+            type: string
+        - name: crm
+          in: query
+          description: vehicle crm
+          required: false
+          schema:
+            type: string
+        - name: vin
+          in: query
+          description: vehicle vin
+          required: false
+          schema:
+            type: string
+        - name: vin_like
+          in: query
+          description: vehicle vin 模糊查询
+          required: false
+          schema:
+            type: string
+        - name: createBy
+          in: query
+          description: 导入者
+          required: false
+          schema:
+            type: string
+        - name: ticketNs_like
+          in: query
+          description: 所属部门
+          required: false
+          schema:
+            type: string
+        - name: num_like
+          in: query
+          description: 自编号查询
+          required: false
+          schema:
+            type: string
+        - name: batteryNum_like
+          in: query
+          description: 电池号查询
+          required: false
+          schema:
+            type: string
+        - name: batteryPN_like
+          in: query
+          description: 电池PN模糊查询
+          required: false
+          schema:
+            type: string
+        - name: batteryPN_like
+          in: query
+          description: 电池PN模糊查询
+          required: false
+          schema:
+            type: string
+        - name: rdb
+          in: query
+          description: rdb
+          required: false
+          schema:
+            type: string
+        - name: scrapped
+          in: query
+          description: 是否退役
+          required: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - name: brands
+          in: query
+          description: vehicle brands 支持数组查询
+          required: false
+          schema:
+            oneOf:
+              - type: string
+              - type: array
+                items:
+                  type: string
+        - name: terminal
+          in: query
+          description: vehicle terminal 支持数组查询
+          required: false
+          schema:
+            oneOf:
+              - type: string
+              - type: array
+                items:
+                  type: string
+        - name: park
+          in: query
+          description: vehicle park 支持数组查询
+          required: false
+          schema:
+            oneOf:
+              - type: string
+              - type: array
+                items:
+                  type: string
+        - name: status
+          in: query
+          description: vehicle ticket status 支持数组查询
+          required: false
+          schema:
+            oneOf:
+              - type: string
+                enum: ["PENDING", "PASSED", "REJECTED"]
+              - type: array
+                items:
+                  type: string
+                  enum: ["PENDING", "PASSED", "REJECTED"]
+        - name: passAt_gte
+          in: query
+          description: greater than passAt
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: passAt_lte
+          in: query
+          description: less than passAt
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        "200":
+          description: A paged array of vehicles
+          headers:
+            X-Total-Count:
+              description: Total count of all warnings match the query
+              required: true
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Vehicle"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /vehicles/{vehicleId}:
+    get:
+      summary: Find vehicle by id
+      operationId: getVehicle
+      tags:
+        - vehicle
+      parameters:
+        - name: vehicleId
+          in: path
+          required: true
+          description: The id of the vehicle to retrieve
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Vehicle"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    put:
+      summary: Update vehicle
+      operationId: updateVehicle
+      tags:
+        - vehicle
+      parameters:
+        - name: vehicleId
+          in: path
+          required: true
+          description: The id of vehicle
+          schema:
+            type: string
+      requestBody:
+        description: Vehicle to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VehicleDoc"
+      responses:
+        "200":
+          description: The vehicle
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Vehicle"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    delete:
+      description: deletes a single vehicle based on the ID supplied
+      operationId: deleteVehicle
+      tags:
+        - vehicle
+      parameters:
+        - name: vehicleId
+          in: path
+          description: ID of vehicle to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: vehicle deleted
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /vehicles/{vehicleId}/!stopMaintain:
+    put:
+      summary: 停止车辆维保
+      operationId: stopVehicleMaintain
+      tags:
+        - vehicle
+      parameters:
+        - name: vehicleId
+          in: path
+          required: true
+          description: The id of vehicle
+          schema:
+            type: string
+      responses:
+        "204":
+          description: vehicle maintain stopped
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /vehicles/{vehicleId}/!startMaintain:
+    put:
+      summary: 停止车辆维保
+      operationId: startVehicleMaintain
+      tags:
+        - vehicle
+      parameters:
+        - name: vehicleId
+          in: path
+          required: true
+          description: The id of vehicle
+          schema:
+            type: string
+      responses:
+        "204":
+          description: vehicle maintain started
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /vehicles/record:
+    post:
+      summary: Create a vehicle record
+      operationId: createVehicleRecord
+      tags:
+        - vehicle
+      requestBody:
+        description: vehicle to add
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VehicleRecordCreateDoc"
+      responses:
+        "201":
+          description: The Vehicle created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Vehicle"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /vehicles/{vehicleId}/record:
+    put:
+      summary: Update vehicle
+      operationId: updateVehicleRecord
+      tags:
+        - vehicle
+      parameters:
+        - name: vehicleId
+          in: path
+          required: true
+          description: The id of vehicle
+          schema:
+            type: string
+      requestBody:
+        description: Vehicle to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VehicleRecordDoc"
+      responses:
+        "200":
+          description: The vehicle
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Vehicle"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /vehicles/{vehicleId}/alerts:
+    get:
+      summary: List all alerts by vehicleId
+      operationId: listVehicleAlerts
+      tags:
+        - vehicle
+      parameters:
+        - name: _limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: _offset
+          in: query
+          description: How many items to escape
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: _sort
+          in: query
+          description: Fields to sort
+          required: false
+          schema:
+            type: string
+        - name: _select
+          in: query
+          description: Fields to select
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: vehicleId
+          in: path
+          required: true
+          description: The id of vehicle
+          schema:
+            type: string
+        - name: level
+          in: query
+          description: 根据等级查询报警
+          required: false
+          schema:
+            oneOf:
+              - type: array
+                items:
+                  type: integer
+                  format: int32
+                  minLength: 1
+              - type: integer
+                format: int32
+                minLength: 1
+      responses:
+        "200":
+          description: A paged array of vehicle alerts
+          headers:
+            X-Total-Count:
+              description: Total count of all warnings match the query
+              required: true
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Alert"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /repairs:
+    post:
+      summary: Create a repair order
+      operationId: createRepair
+      tags:
+        - repair
+      requestBody:
+        description: repair order to add
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RepairCreateDoc"
+      responses:
+        "201":
+          description: The repair order created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Repair"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    get:
+      summary: List all repair orders
+      operationId: listRepairs
+      tags:
+        - repair
+      parameters:
+        - name: _limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: _offset
+          in: query
+          description: How many items to escape
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: _sort
+          in: query
+          description: Fields to sort
+          required: false
+          schema:
+            type: string
+        - name: _select
+          in: query
+          description: Fields to select
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: id
+          in: query
+          description: repair order id
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - name: id_like
+          in: query
+          description: repair id 模糊查询
+          required: false
+          schema:
+            type: string
+        - name: sequence_like
+          in: query
+          description: 根据序号模糊查询
+          required: false
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: repair order status
+          required: false
+          schema:
+            oneOf:
+              - type: string
+                enum:
+                  [
+                    "NOSEND",
+                    "CREATING",
+                    "REPARING",
+                    "PAUSING",
+                    "REJECTED",
+                    "PENDING",
+                    "PASSED",
+                  ]
+              - type: array
+                items:
+                  type: string
+                  enum:
+                    [
+                      "NOSEND",
+                      "CREATING",
+                      "REPARING",
+                      "PAUSING",
+                      "REJECTED",
+                      "PENDING",
+                      "PASSED",
+                    ]
+        - name: createAt_gte
+          in: query
+          description: greater than createAt
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: createAt_lte
+          in: query
+          description: less than createAt
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: assignee
+          in: query
+          description: 承修人
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - name: vehiclePlate_like
+          in: query
+          description: plate, regix
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - name: crm_like
+          in: query
+          description: crm, regix
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - name: vehicleVin_like
+          in: query
+          description: vin, regix
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - name: ticketNs
+          in: query
+          description: vin, regix
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - name: ticketNs_like
+          in: query
+          description: vin, regix
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - name: vehicleNo_like
+          in: query
+          description: 自编号查询
+          required: false
+          schema:
+            type: string
+        - name: collaborators
+          in: query
+          description: vin, regix
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - name: participant
+          in: query
+          description: vin, regix
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - name: leaderNs
+          in: query
+          description: 用于搜索leader所有的维修单，与participant联合使用
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - name: withNoSend
+          in: query
+          description: 是否可以查看所有未派送的单子
+          required: false
+          schema:
+            type: boolean
+        - name: vehicleBrands
+          in: query
+          description: vehicle brands
+          required: false
+          schema:
+            oneOf:
+              - type: string
+              - type: array
+                items:
+                  type: string
+        - name: vehicleBrands_like
+          in: query
+          description: vehicle brand
+          required: false
+          schema:
+            type: string
+        - name: vehicleTerminal
+          in: query
+          description: vehicle brands
+          required: false
+          schema:
+            oneOf:
+              - type: string
+              - type: array
+                items:
+                  type: string
+        - name: vehicleTerminal_like
+          in: query
+          description: vehicle termianl
+          required: false
+          schema:
+            type: string
+        - name: vehicleScrapped
+          in: query
+          description: vehicle 是否报废
+          required: false
+          schema:
+            oneOf:
+              - type: boolean
+              - type: array
+                items:
+                  type: boolean
+        - name: backupAbnormal
+          in: query
+          description: 备件异常
+          required: false
+          schema:
+            oneOf:
+              - type: boolean
+              - type: array
+                items:
+                  type: boolean
+        - name: vehicle
+          in: query
+          description: vehicle id
+          required: false
+          schema:
+            type: string
+        - name: vehicleCatl_like
+          in: query
+          description: CATL项目名称查询
+          required: false
+          schema:
+            type: string
+        - name: vehicleBatteryPN_like
+          in: query
+          description: 电池PN查询
+          required: false
+          schema:
+            type: string
+        - name: vehicleBatteryNum_like
+          in: query
+          description: 电池号查询
+          required: false
+          schema:
+            type: string
+        - name: maintainExist
+          in: query
+          description: 是否为关联维修单，即是否存在维保单信息
+          required: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - name: assignAt_gte
+          in: query
+          description: greater than assignAt
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: assignAt_lte
+          in: query
+          description: less than assignAt
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: passedAt_gte
+          in: query
+          description: greater than passedAt
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: passedAt_lte
+          in: query
+          description: less than passedAt
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: passRemark_like
+          in: query
+          description: 审核备注模糊
+          required: false
+          schema:
+            type: string
+        - name: passedBy
+          in: query
+          description: 审核通过人
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A paged array of repair orders
+          headers:
+            X-Total-Count:
+              description: Total count of all warnings match the query
+              required: true
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Repair"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /repairs/{repairId}:
+    get:
+      summary: Find repair order by id
+      operationId: getRepair
+      tags:
+        - repair
+      parameters:
+        - name: repairId
+          in: path
+          required: true
+          description: The id of the repair order to retrieve
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Repair"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    put:
+      summary: update repair order
+      operationId: updateRepair
+      tags:
+        - repair
+      parameters:
+        - name: repairId
+          in: path
+          required: true
+          description: The id of repair order
+          schema:
+            type: string
+      requestBody:
+        description: repair order to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RepairDoc"
+      responses:
+        "200":
+          description: The repair order
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Repair"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    delete:
+      description: deletes a single repair order based on the ID supplied
+      operationId: deleteRepair
+      tags:
+        - repair
+      parameters:
+        - name: repairId
+          in: path
+          description: ID of repair order to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: repair order deleted
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /repairs/{repairId}/record:
+    put:
+      summary: update repair order record
+      operationId: updateRepairRecord
+      tags:
+        - repair
+      parameters:
+        - name: repairId
+          in: path
+          required: true
+          description: The id of repair order
+          schema:
+            type: string
+      requestBody:
+        description: repair order record to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/RepairRecordDoc"
+                - type: object
+                  properties:
+                    collaborators:
+                      type: array
+                      items:
+                        type: string
+      responses:
+        "200":
+          description: The repair order
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Repair"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /maintains:
+    post:
+      summary: Create a maintain order
+      operationId: createMaintain
+      tags:
+        - maintain
+      requestBody:
+        description: maintain order to add
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MaintainDoc"
+      responses:
+        "201":
+          description: The maintain order created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Maintain"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    get:
+      summary: List all maintain orders
+      operationId: listMaintains
+      tags:
+        - maintain
+      parameters:
+        - name: _limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: _offset
+          in: query
+          description: How many items to escape
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: _sort
+          in: query
+          description: Fields to sort
+          required: false
+          schema:
+            type: string
+        - name: _select
+          in: query
+          description: Fields to select
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: id
+          in: query
+          description: repair order id
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - name: id_like
+          in: query
+          description: maintain id 模糊查询
+          required: false
+          schema:
+            type: string
+        - name: sequence_like
+          in: query
+          description: 根据序号模糊查询
+          required: false
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: maintain order status
+          required: false
+          schema:
+            oneOf:
+              - type: string
+                enum:
+                  [
+                    "CREATING",
+                    "MAINTAINING",
+                    "REPARING",
+                    "PENDING",
+                    "REJECTED",
+                    "PASSED",
+                  ]
+              - type: array
+                items:
+                  type: string
+                  enum:
+                    [
+                      "CREATING",
+                      "MAINTAINING",
+                      "REPARING",
+                      "PENDING",
+                      "REJECTED",
+                      "PASSED",
+                    ]
+        - name: createAt_gte
+          in: query
+          description: greater than createAt
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: createAt_lte
+          in: query
+          description: less than createAt
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: vehiclePlate_like
+          in: query
+          description: plate, regix
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - name: crm_like
+          in: query
+          description: crm, regix
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - name: vehicleVin_like
+          in: query
+          description: vin, regix
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - name: vehicleVin
+          in: query
+          description: vin, regix
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - name: vehicleNo_like
+          in: query
+          description: 自编号查询
+          required: false
+          schema:
+            type: string
+        - name: vehicleTerminal_like
+          in: query
+          description: 终端用户模糊查询
+          required: false
+          schema:
+            type: string
+        - name: appearance
+          in: query
+          description: vin, regix
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - name: software
+          in: query
+          description: vin, regix
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - name: participant
+          in: query
+          description: vin, regix
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - name: vehicleBrands
+          in: query
+          description: vehicle brands
+          required: false
+          schema:
+            oneOf:
+              - type: string
+              - type: array
+                items:
+                  type: string
+        - name: vehicleBrands_like
+          in: query
+          description: 车辆品牌模糊查询
+          required: false
+          schema:
+            type: string
+        - name: vehicleTerminal
+          in: query
+          description: vehicle brands
+          required: false
+          schema:
+            oneOf:
+              - type: string
+              - type: array
+                items:
+                  type: string
+        - name: vehiclePark
+          in: query
+          description: park
+          required: false
+          schema:
+            oneOf:
+              - type: string
+              - type: array
+                items:
+                  type: string
+        - name: vehicleScrapped
+          in: query
+          description: vehicle 是否报废
+          required: false
+          schema:
+            oneOf:
+              - type: boolean
+              - type: array
+                items:
+                  type: boolean
+        - name: vehicle
+          in: query
+          description: vehicle id
+          required: false
+          schema:
+            type: string
+        - name: prePeriod
+          in: query
+          description: 上一个维保周期
+          required: false
+          schema:
+            type: string
+        - name: period
+          in: query
+          description: 当前维保周期
+          required: false
+          schema:
+            type: string
+        - name: preCloseAt_gte
+          in: query
+          description: 上次维保完工时间完成大于
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: preCloseAt_lte
+          in: query
+          description: 上次维保完工时间完成小于
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: passedAt_gte
+          in: query
+          description: greater than passedAt
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: passedAt_lte
+          in: query
+          description: less than passedAt
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: vehicleBatteryPropRight
+          in: query
+          description: 电池产权
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A paged array of maintain orders
+          headers:
+            X-Total-Count:
+              description: Total count of all warnings match the query
+              required: true
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Maintain"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /maintains/{maintainId}:
+    get:
+      summary: Find maintain order by id
+      operationId: getMaintain
+      tags:
+        - maintain
+      parameters:
+        - name: maintainId
+          in: path
+          required: true
+          description: The id of the maintain order to retrieve
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Maintain"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    put:
+      summary: update maintain order
+      operationId: updateMaintain
+      tags:
+        - maintain
+      parameters:
+        - name: maintainId
+          in: path
+          required: true
+          description: The id of maintain order
+          schema:
+            type: string
+      requestBody:
+        description: maintain order to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MaintainDoc"
+      responses:
+        "200":
+          description: The maintain order
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Maintain"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    delete:
+      description: deletes a single maintain order based on the ID supplied
+      operationId: deleteMaintain
+      tags:
+        - maintain
+      parameters:
+        - name: maintainId
+          in: path
+          description: ID of maintain order to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: maintain order deleted
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /maintains/{maintainId}/appearanceRecord:
+    put:
+      summary: update maintain order appearance record
+      operationId: updateAppearanceRecord
+      tags:
+        - maintain
+      parameters:
+        - name: maintainId
+          in: path
+          required: true
+          description: The id of maintain order
+          schema:
+            type: string
+      requestBody:
+        description: maintain order appearance record to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MaintainAppearanceRecord"
+      responses:
+        "200":
+          description: The maintain order
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MaintainAppearanceRecord"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /maintains/{maintainId}/softwareRecord:
+    put:
+      summary: update maintain order software record
+      operationId: updateSoftwareRecord
+      tags:
+        - maintain
+      parameters:
+        - name: maintainId
+          in: path
+          required: true
+          description: The id of maintain order
+          schema:
+            type: string
+      requestBody:
+        description: maintain order software record to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MaintainSoftwareRecord"
+      responses:
+        "200":
+          description: The maintain order
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MaintainSoftwareRecord"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /records:
+    post:
+      summary: Create a record
+      operationId: createRecord
+      tags:
+        - record
+      requestBody:
+        description: record to add
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RecordDoc"
+      responses:
+        "201":
+          description: The repair order created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Record"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    get:
+      summary: List all records
+      operationId: listRecords
+      tags:
+        - record
+      parameters:
+        - name: _limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+            maximum: 1000
+        - name: _offset
+          in: query
+          description: How many items to escape
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: _sort
+          in: query
+          description: Fields to sort
+          required: false
+          schema:
+            type: string
+        - name: _select
+          in: query
+          description: Fields to select
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: ticket_like
+          in: query
+          description: repair order id, regix
+          required: false
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        "200":
+          description: A paged array of repair orders
+          headers:
+            X-Total-Count:
+              description: Total count of all warnings match the query
+              required: true
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Record"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /records/{recordId}:
+    get:
+      summary: Find record by id
+      operationId: getRecord
+      tags:
+        - record
+      parameters:
+        - name: recordId
+          in: path
+          required: true
+          description: The id of the record to retrieve
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Record"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    put:
+      summary: Update record
+      operationId: updateRecord
+      tags:
+        - record
+      parameters:
+        - name: recordId
+          in: path
+          required: true
+          description: The id of record
+          schema:
+            type: string
+      requestBody:
+        description: record to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RecordDoc"
+      responses:
+        "200":
+          description: The record
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Record"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    delete:
+      description: deletes a single record based on the ID supplied
+      operationId: deleteRecord
+      tags:
+        - record
+      parameters:
+        - name: recordId
+          in: path
+          description: ID of record to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: record deleted
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /notifications:
+    post:
+      summary: Create a notification
+      operationId: createNotification
+      tags:
+        - notification
+      requestBody:
+        description: Notification to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NotificationCreateDoc"
+      responses:
+        "201":
+          description: The Notification created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Notification"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    get:
+      summary: List all notifications
+      operationId: listNotifications
+      tags:
+        - notification
+      parameters:
+        - name: _limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: _offset
+          in: query
+          description: How many items to escape
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: _sort
+          in: query
+          description: Fields to sort
+          required: false
+          schema:
+            type: string
+        - name: _select
+          in: query
+          description: Fields to select
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: title_like
+          in: query
+          description: title like of notification
+          required: false
+          schema:
+            type: string
+        - name: createAt_gte
+          in: query
+          description: createAt grater
+          required: false
+          schema:
+            type: string
+        - name: createAt_lte
+          in: query
+          description: createAt litter
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A paged array of notifications
+          headers:
+            X-Total-Count:
+              description: Total count of all warnings match the query
+              required: true
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Notification"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /notifications/{notificationId}:
+    get:
+      summary: Find notification by id
+      operationId: getNotification
+      tags:
+        - notification
+      parameters:
+        - name: notificationId
+          in: path
+          required: true
+          description: The id of the park to retrieve
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Notification"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    put:
+      summary: Update notification
+      operationId: updateNotification
+      tags:
+        - notification
+      parameters:
+        - name: notificationId
+          in: path
+          required: true
+          description: The id of notification
+          schema:
+            type: string
+      requestBody:
+        description: Notification to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NotificationDoc"
+      responses:
+        "200":
+          description: The notification
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Notification"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    delete:
+      description: deletes a single notification based on the ID supplied
+      operationId: deleteNotification
+      tags:
+        - notification
+      parameters:
+        - name: notificationId
+          in: path
+          description: ID of notification to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: notification deleted
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /notifications/{notificationId}/!read:
+    put:
+      summary: update notification read
+      operationId: updateNotificationRead
+      tags:
+        - notification
+      parameters:
+        - name: notificationId
+          in: path
+          required: true
+          description: The id of notification
+          schema:
+            type: string
+      requestBody:
+        description: Notification readUser to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReadUserDoc"
+      responses:
+        "200":
+          description: The notification
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Notification"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /summary/repairs/rank:
+    get:
+      summary: 统计-维修单分布排序
+      operationId: summaryRepairsRank
+      tags:
+        - repair
+      parameters:
+        - name: createAt_gte
+          in: query
+          description: greater than createAt
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: createAt_lte
+          in: query
+          description: less than createAt
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: keyword
+          in: query
+          description: summary keyword
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A array of repair summary rank
+          content:
+            application/json:
+              schema:
+                type: array
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /summary/repairs/faultByMonth:
+    get:
+      summary: 统计-维修单维修故障按月统计
+      operationId: summaryRepairsFaultByMonth
+      tags:
+        - repair
+      parameters:
+        - name: createAt_gte
+          in: query
+          description: greater than createAt
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: createAt_lte
+          in: query
+          description: less than createAt
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: fault
+          in: query
+          description: fault
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A array of repair summary fault by month
+          content:
+            application/json:
+              schema:
+                type: array
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /summary/repairs/maintainByMonth:
+    get:
+      summary: 统计-关联维修单完成情况 按月
+      operationId: summaryRepairsMaintainByMonth
+      tags:
+        - repair
+      parameters:
+        - name: createAt_gte
+          in: query
+          description: greater than createAt
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: createAt_lte
+          in: query
+          description: less than createAt
+          required: true
+          schema:
+            type: string
+            format: date-time
+      responses:
+        "200":
+          description: A array of repair summary maintain by month
+          content:
+            application/json:
+              schema:
+                type: array
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /summary/maintains/byMonth:
+    get:
+      summary: 统计-维保单完成情况 按月
+      operationId: summaryMaintainsByMonth
+      tags:
+        - maintain
+      parameters:
+        - name: createAt_gte
+          in: query
+          description: greater than createAt
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: createAt_lte
+          in: query
+          description: less than createAt
+          required: true
+          schema:
+            type: string
+            format: date-time
+      responses:
+        "200":
+          description: A array of maintain summary by month
+          content:
+            application/json:
+              schema:
+                type: array
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /summary/maintains/faultByMonth:
+    get:
+      summary: 统计-按月维保单故障修复情况
+      operationId: summaryMaintainsFaultByMonth
+      tags:
+        - maintain
+      parameters:
+        - name: createAt_gte
+          in: query
+          description: greater than createAt
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: createAt_lte
+          in: query
+          description: less than createAt
+          required: true
+          schema:
+            type: string
+            format: date-time
+      responses:
+        "200":
+          description: A array of maintain summary
+          content:
+            application/json:
+              schema:
+                type: array
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /summary/maintains/faultRank:
+    get:
+      summary: 统计-维保单故障按故障分类统计修复情况
+      operationId: summaryMaintainsFaultRank
+      tags:
+        - maintain
+      parameters:
+        - name: createAt_gte
+          in: query
+          description: greater than createAt
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: createAt_lte
+          in: query
+          description: less than createAt
+          required: true
+          schema:
+            type: string
+            format: date-time
+      responses:
+        "200":
+          description: A array of maintain summary
+          content:
+            application/json:
+              schema:
+                type: array
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /summary/repairs/person/fault:
+    get:
+      summary: 统计-维修组组内人员故障元件分布
+      operationId: summaryRepairsPersonFault
+      tags:
+        - repair
+      parameters:
+        - name: createAt_gte
+          in: query
+          description: greater than createAt
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: createAt_lte
+          in: query
+          description: less than createAt
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: ticketNs
+          in: query
+          description: repair ticketNs
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A array of repair summary fault
+          content:
+            application/json:
+              schema:
+                type: array
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /summary/repairs/person/effect:
+    get:
+      summary: 统计-维修组组内人员故障元件分布
+      operationId: summaryRepairsPersonEffect
+      tags:
+        - repair
+      parameters:
+        - name: createAt_gte
+          in: query
+          description: greater than createAt
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: createAt_lte
+          in: query
+          description: less than createAt
+          required: true
+          schema:
+            type: string
+            format: date-time
+      responses:
+        "200":
+          description: A array of repair summary effect by month
+          content:
+            application/json:
+              schema:
+                type: array
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /summary/repairs/person/state:
+    get:
+      summary: 统计-正在处理维修单的人员情况
+      operationId: summaryRepairsPersonState
+      tags:
+        - repair
+      responses:
+        "200":
+          description: A array of repair summary effect by month
+          content:
+            application/json:
+              schema:
+                type: array
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /summary/all:
+    get:
+      summary: 统计-概览
+      operationId: summaryAll
+      tags:
+        - vehicle
+      parameters:
+        - name: createAt_gte
+          in: query
+          description: greater than createAt
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: createAt_lte
+          in: query
+          description: less than createAt
+          required: true
+          schema:
+            type: string
+            format: date-time
+      responses:
+        "200":
+          description: A array of repair summary effect by month
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SummaryAllDoc"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+security:
+  - bearerAuth: []
+
+components:
+  responses:
+    NoContent:
+      description: The resource was deleted successfully.
+    BadRequest:
+      description: The request is invalid.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Err"
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Err"
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Err"
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Err"
+    InternalError:
+      description: unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Err"
+
+  schemas:
+    SummaryAllDoc:
+      type: object
+      properties:
+        vehicle:
+          type: number
+          description: 车辆总数
+        repair:
+          type: number
+          description: 维修单总数
+        maintain:
+          type: number
+          description: 维保单总数
+        person:
+          type: number
+          description: 人员数
+
+    ParkDoc:
+      description: 停保场信息
+      type: object
+      properties:
+        name:
+          type: string
+          description: 停保场名
+        address:
+          type: string
+          description: 停保场地址
+        terminal:
+          type: string
+          description: 终端用户
+        terminalShort:
+          type: string
+          description: 终端用户简称
+        appearance:
+          type: string
+          description: 外观检测默认组ns
+        software:
+          type: string
+          description: 软件诊断默认组ns
+
+    ParkCreateDoc:
+      allOf:
+        - $ref: "#/components/schemas/ParkDoc"
+        - type: object
+          required:
+            - name
+            - address
+            - terminal
+            - appearance
+            - software
+          properties:
+            name:
+              type: string
+            address:
+              type: string
+            terminal:
+              type: string
+            appearance:
+              type: string
+            software:
+              type: string
+
+    Park:
+      allOf:
+        - $ref: "#/components/schemas/ParkDoc"
+        - $ref: "#/components/schemas/MongoDefault"
+
+    ReadUserDoc:
+      description: 通知已读用户
+      type: object
+      required:
+        - id
+        - nickname
+      properties:
+        id:
+          type: string
+          description: 用户id
+        nickname:
+          type: string
+          description: 用户昵称
+
+    NotificationDoc:
+      description: 通知
+      type: object
+      properties:
+        title:
+          type: string
+          description: 标题
+        content:
+          type: string
+          description: 内容
+        files:
+          $ref: "#/components/schemas/FileList"
+          description: 附件
+        readUsers:
+          description: 已读用户数组
+          type: array
+          items:
+            $ref: "#/components/schemas/ReadUserDoc"
+
+    NotificationCreateDoc:
+      allOf:
+        - $ref: "#/components/schemas/NotificationDoc"
+        - type: object
+          required:
+            - title
+            - content
+          properties:
+            title:
+              type: string
+            content:
+              type: string
+
+    Notification:
+      allOf:
+        - $ref: "#/components/schemas/NotificationDoc"
+        - $ref: "#/components/schemas/MongoDefault"
+
+    DraftDoc:
+      description: 草稿箱信息
+      type: object
+      properties:
+        resource:
+          type: string
+          description: 关联资源 id
+        content:
+          type: string
+          description: 草稿箱内容
+        createBy:
+          type: string
+          description: 创建用户id
+        ticketNs:
+          type: string
+          description: 创建用户id
+
+    DraftCreateDoc:
+      allOf:
+        - $ref: "#/components/schemas/DraftDoc"
+        - type: object
+          required:
+            - createBy
+          properties:
+            createBy:
+              type: string
+
+    Draft:
+      allOf:
+        - $ref: "#/components/schemas/DraftDoc"
+        - $ref: "#/components/schemas/MongoDefault"
+
+    VehicleRecordDoc:
+      properties:
+        ticketNs:
+          type: string
+          description: 车辆工单所属部门
+        createBy:
+          type: string
+          description: 录入者
+        terminal:
+          type: string
+          description: 终端用户
+        park:
+          type: string
+          description: 车场
+        purchaseAt:
+          type: string
+          format: date-time
+          description: 购买日期
+        plateAt:
+          type: string
+          format: date-time
+          description: 上牌日期
+        operateAt:
+          type: string
+          format: date-time
+          description: 运营日期
+        retireAt:
+          type: string
+          format: date-time
+          description: 报废日期
+        year:
+          type: number
+          description: 年份
+        brands:
+          type: string
+          description: 整车品牌
+        plate:
+          type: string
+          description: 车牌号
+        vin:
+          type: string
+          description: VIN号
+        jobNum:
+          type: string
+          description: 车辆工号
+        num:
+          type: string
+          description: 车辆自编号
+        catl:
+          type: string
+          description: CATL项目名称
+        batteryPN:
+          type: string
+          description: 电池PN
+        batteryNum:
+          type: string
+          description: 电池号
+        batteryPropRight:
+          type: string
+          description: 电池产权
+        power:
+          type: number
+          description: 功率
+        bmuHardware:
+          type: string
+          description: BMU硬件版本
+        bmuSoftware:
+          type: string
+          description: BMU软件版本
+        cscHardware:
+          type: string
+          description: CSC硬件版本
+        cscSoftware:
+          type: string
+          description: CSC软件版本
+        rdb:
+          type: string
+          description: RDB
+        remark:
+          type: string
+          description: 备注
+        softwarePic:
+          $ref: "#/components/schemas/FileList"
+          description: 上位机软件图片
+        frontPic:
+          $ref: "#/components/schemas/FileList"
+          description: 正面车头图片
+        nameplatePic:
+          $ref: "#/components/schemas/FileList"
+          description: 车辆铭牌图片
+        meterPic:
+          $ref: "#/components/schemas/FileList"
+          description: 车辆仪表图片
+        batteryPic:
+          $ref: "#/components/schemas/FileList"
+          description: 电池号图片
+        appearancePic:
+          $ref: "#/components/schemas/FileList"
+          description: 整车外观图片
+        license:
+          $ref: "#/components/schemas/FileList"
+          description: 车辆行驶证图片
+        otherPic:
+          $ref: "#/components/schemas/FileList"
+          description: 其他图片
+        faultPic:
+          $ref: "#/components/schemas/FileList"
+          description: 故障部位图片
+        softwareStartPic:
+          $ref: "#/components/schemas/FileList"
+          description: 上位机软件截图-开始图片
+        softwareFaultPic:
+          $ref: "#/components/schemas/FileList"
+          description: 上位机故障显示图片
+        softwareEndPic:
+          $ref: "#/components/schemas/FileList"
+          description: 上位机软件截图-结束图片
+
+    VehicleInfoDoc:
+      type: object
+      properties:
+        sequence:
+          type: string
+          description: 车辆的sequence编号
+        ticket:
+          type: string
+          description: 关联的工单 id
+        status:
+          type: string
+          enum: ["CREATING", "REJECTED", "PENDING", "PASSED"]
+          description: 车辆录入工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
+        maintaining:
+          type: string
+          description: 是否在维保中
+        maintainPeriod:
+          type: string
+          description: 当前的维保周期
+        maintainPeriodEndAt:
+          type: string
+          format: date-time
+          description: 当前维保周期结束时间
+        passAt:
+          type: string
+          format: date-time
+          description: 新车录入通过的时间
+        rejected:
+          type: boolean
+          description: 工单曾经被驳回
+        rejectAt:
+          type: string
+          format: date-time
+          description: 驳回时间
+        rejectReason:
+          type: string
+          description: 驳回时间
+        rejectBy:
+          type: string
+          description: 驳回人
+        scrapped:
+          type: boolean
+          description: 车辆是否报废
+        scrappedRemark:
+          type: string
+          description: 车辆报废备注
+        scrappedBy:
+          type: string
+          description: 车辆报废人
+        crm:
+          type: string
+          description: CRM 订单号
+
+    VehicleDoc:
+      allOf:
+        - $ref: "#/components/schemas/VehicleRecordDoc"
+        - $ref: "#/components/schemas/VehicleInfoDoc"
+
+    VehicleRecordCreateDoc:
+      allOf:
+        - $ref: "#/components/schemas/VehicleRecordDoc"
+        - type: object
+          required:
+            - ticketNs
+            - createBy
+          properties:
+            ticketNs:
+              type: string
+            createBy:
+              type: string
+
+    Vehicle:
+      allOf:
+        - $ref: "#/components/schemas/VehicleRecordDoc"
+        - $ref: "#/components/schemas/VehicleInfoDoc"
+        - $ref: "#/components/schemas/MongoDefault"
+
+    FileDoc:
+      type: object
+      required:
+        - "name"
+        - "ossName"
+        - "uid"
+        - "url"
+      properties:
+        name:
+          type: string
+          description: 原始文件名
+        ossName:
+          type: string
+          description: oss上的文件名
+        remark:
+          type: string
+          description: 备注
+        size:
+          type: number
+          description: 文件大小
+        status:
+          type: string
+          description: 上传状态
+        uid:
+          type: string
+          description: uid
+        url:
+          type: string
+          description: url
+
+    FileList:
+      type: array
+      items:
+        $ref: "#/components/schemas/FileDoc"
+
+    MaintainCheckItem:
+      type: object
+      required:
+        - key
+      description: 维保检查项
+      properties:
+        result:
+          type: string
+          description: 检查结果
+        record:
+          type: string
+          description: 检查记录
+        key:
+          type: string
+          description: 检查的key
+
+    MaintainCheckItemList:
+      type: array
+      items:
+        $ref: "#/components/schemas/MaintainCheckItem"
+
+    MaintainCheckItemError:
+      type: object
+      required:
+        - key
+      description: 维保检查项错误
+      properties:
+        key:
+          type: string
+          description: 检查的key
+        message:
+          type: string
+          description: 错误信息
+
+    MaintainCheckItemErrorList:
+      type: array
+      items:
+        $ref: "#/components/schemas/MaintainCheckItemError"
+
+    AlertDoc:
+      type: object
+      properties:
+        level:
+          type: integer
+          format: int32
+          description: "故障等级"
+        code:
+          type: string
+          description: "故障码"
+        name:
+          type: string
+          description: "故障名称"
+        startedAt:
+          type: string
+          format: date-time
+          description: "开始报警的时间"
+        count:
+          type: integer
+          format: int32
+          description: "次数"
+
+    Alert:
+      allOf:
+        - $ref: "#/components/schemas/AlertDoc"
+        - $ref: "#/components/schemas/MongoDefault"
+
+    BackupDoc:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: id
+        itemNo:
+          type: string
+          description: 物料号
+        name:
+          type: string
+          description: 物料名称
+        flowNo:
+          type: string
+          description: 物流编号
+        flowPrice:
+          type: number
+          description: 物流费
+        unitPrice:
+          type: number
+          description: 单价
+        quantity:
+          type: number
+          description: 数量
+        free:
+          type: boolean
+          description: 是否收费
+        newBarcode:
+          type: string
+          description: 新件barcode
+        oldBarcode:
+          type: string
+          description: 旧件barcode
+
+    WorkerDoc:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: id
+        user:
+          type: string
+          description: 关联 user id
+        mileages:
+          type: number
+          description: 出工里程
+        workload:
+          type: number
+          description: 工作量
+        linePic:
+          $ref: "#/components/schemas/FileDoc"
+          description: 线路图
+
+    RepairRecordDoc:
+      type: object
+      description: 维修单维修记录
+      properties:
+        mileages:
+          type: number
+          description: 车辆里程数
+        soc:
+          type: string
+          description: 容量数据
+        signAddress:
+          type: string
+          description: 签到地址
+        arrivalAt:
+          type: string
+          format: date-time
+          description: 到场时间
+        submitAt:
+          type: string
+          format: date-time
+          description: 提交时间，需同步至repair中
+        submitBy:
+          type: string
+          description: 提交人，需同步至repair中
+        pauseReason:
+          type: string
+          description: 暂停原因，需同步至repair中
+        faultCells:
+          type: array
+          items:
+            type: string
+          description: 故障元件
+        faultCellsRemark:
+          type: string
+          description: 故障备注
+        workHours:
+          type: number
+          description: 工时
+        failReason:
+          type: string
+          description: 失效原因
+        processMethod:
+          type: string
+          description: 处理方式
+        faultPhenomenon:
+          type: string
+          description: 故障现象
+        faultAttr:
+          type: string
+          description: 故障属性
+        faultMode:
+          type: string
+          description: 故障模式分类
+        backups:
+          type: array
+          description: 备件
+          items:
+            $ref: "#/components/schemas/BackupDoc"
+        clientDesc:
+          type: string
+          description: 客户的故障描述
+        clientOrigin:
+          type: string
+          description: 客户反馈
+        ownDesc:
+          type: string
+          description: 己方的故障描述, 检查过程
+        livePic:
+          $ref: "#/components/schemas/FileList"
+          description: 现场图片
+        resultDesc:
+          type: string
+          description: 处理结果描述
+        softwarePic:
+          $ref: "#/components/schemas/FileList"
+          description: 上位机图片
+        frontPic:
+          $ref: "#/components/schemas/FileList"
+          description: 车头正面图片
+        nameplatePic:
+          $ref: "#/components/schemas/FileList"
+          description: 整车铭牌图片
+        meterPic:
+          $ref: "#/components/schemas/FileList"
+          description: 仪表图片
+        batteryPic:
+          $ref: "#/components/schemas/FileList"
+          description: 电池号图片
+        otherPic:
+          $ref: "#/components/schemas/FileList"
+          description: 其他图片
+        faultPic:
+          $ref: "#/components/schemas/FileList"
+          description: 故障部位图片
+        softwareStartPic:
+          $ref: "#/components/schemas/FileList"
+          description: 上位机软件截图-开始图片
+        softwareFaultPic:
+          $ref: "#/components/schemas/FileList"
+          description: 上位机故障显示图片
+        softwareEndPic:
+          $ref: "#/components/schemas/FileList"
+          description: 上位机软件截图-结束图片
+        dataFile:
+          $ref: "#/components/schemas/FileList"
+          description: 采集数据文件
+        otherCost:
+          type: number
+          description: 其他花费
+        remark:
+          type: string
+          description: 备注
+        bmuSoftware:
+          type: string
+          description: bmu软件版本
+        cscSoftware:
+          type: string
+          description: csc软件版本
+        syncSoftware:
+          type: boolean
+          description: 审核通过后是否同步软件信息到车辆
+        workers:
+          type: array
+          items:
+            $ref: "#/components/schemas/WorkerDoc"
+        rdb:
+          type: string
+          description: 车辆rdb信息
+
+    RepairInfoDoc:
+      type: object
+      properties:
+        createBy:
+          type: string
+          description: 创建者
+        ticketNs:
+          type: string
+          description: 维修单所属部门
+        rejected:
+          type: boolean
+          description: 工单曾经被驳回
+        rejectAt:
+          type: string
+          format: date-time
+          description: 驳回时间
+        rejectReason:
+          type: string
+          description: 驳回时间
+        rejectBy:
+          type: string
+          description: 驳回人
+        auditTimeout:
+          type: boolean
+          description: 是否存在审核超时，一旦有过超时，便不再修改
+        resubmitTimedOut:
+          type: boolean
+          description: 曾经是否超时
+        resubmitDeadline:
+          type: string
+          format: date-time
+          description: 驳回后再次提交审核的截止日期
+        crm:
+          type: string
+          description: CRM 订单号
+        vehicle:
+          type: string
+          description: 关联车辆 id
+        vehiclePlate:
+          type: string
+          description: 关联车辆车牌
+        vehicleVin:
+          type: string
+          description: 关联车辆vin码
+        vehicleNo:
+          type: string
+          description: 关联车辆自编号
+        vehicleBrands:
+          type: string
+          description: 关联车辆品牌
+        vehicleTerminal:
+          type: string
+          description: 关联车辆终端用户
+        vehicleCatl:
+          type: string
+          description: 关联车辆CATL项目名称
+        vehicleBatteryPN:
+          type: string
+          description: 关联车辆电池PN
+        vehicleBatteryNum:
+          type: string
+          description: 关联车辆电池号
+        vehicleBatteryPropRight:
+          type: string
+          description: 关联车辆电池产权
+        vehiclePark:
+          type: string
+          description: 关联车辆停保场
+        vehicleScrapped:
+          type: boolean
+          description: 关联车辆是否退役
+        address:
+          type: string
+          description: 故障地点
+        reporter:
+          type: string
+          description: 报修人姓名
+        reportAt:
+          type: string
+          format: date-time
+          description: 报修时间
+        reporterPhone:
+          type: string
+          description: 报修人联系方式
+        reporterPosition:
+          type: string
+          description: 报修人职称
+        orderAt:
+          type: string
+          format: date-time
+          description: 预约上门时间
+        problem:
+          type: string
+          description: 问题描述
+        maintain:
+          type: string
+          description: 关联维保单id
+        maintainSequence:
+          type: string
+          description: 关联维保单序号
+        assignee:
+          type: string
+          description: 派工人员 id
+        assignAt:
+          type: string
+          format: date-time
+          description: 派送时间
+        closeAt:
+          type: string
+          format: date-time
+          description: 工单关闭时间
+        record:
+          $ref: "#/components/schemas/RepairRecordDoc"
+        collaborators:
+          description: 共同出工人id数组
+          type: array
+          items:
+            type: string
+        pauseReason:
+          type: string
+          description: 暂停原因
+        submitAt:
+          type: string
+          format: date-time
+          description: 提交时间
+        firstSubmitAt:
+          type: string
+          format: date-time
+          description: 初次提交时间
+        submitBy:
+          type: string
+          description: 提交人
+        passRemark:
+          type: string
+          description: 审核备注
+        passedAt:
+          type: string
+          format: date-time
+          description: 审核通过时间，一般与工单关闭时间相同
+        passedBy:
+          type: string
+          description: 审核通过人
+        workHoursCalc:
+          type: string
+          description: 工时计算公式
+        workHours:
+          type: number
+          description: 工时
+        backupAbnormal:
+          type: boolean
+          description: 备件异常
+
+    RepairOtherDoc:
+      type: object
+      properties:
+        ticket:
+          type: string
+          description: 关联的工单 id
+        sequence:
+          type: string
+          description: 维修单的sequence编号
+        status:
+          type: string
+          enum:
+            [
+              "NOSEND",
+              "CREATING",
+              "REPARING",
+              "PAUSING",
+              "REJECTED",
+              "PENDING",
+              "PASSED",
+            ]
+          description: 维修单工单状态，以KANBAN ticket状态为准，该字段只作用于筛选功能
+        perStatusAt:
+          type: string
+          format: date-time
+          description: 前一次状态修改时间
+        needActualWorkHours:
+          type: boolean
+          description: 只有在第一次提交时才记录实际出工时长 后续不在纪录 默认为true
+        actualWorkHours:
+          type: number
+          description: 实际出工时长（小时）
+
+    RepairCreateDoc:
+      allOf:
+        - $ref: "#/components/schemas/RepairInfoDoc"
+        - type: object
+          required:
+            - createBy
+            - ticketNs
+            - vehicle
+          properties:
+            createBy:
+              type: string
+            ticketNs:
+              type: string
+            vehicle:
+              type: string
+            assignee:
+              type: string
+            assignAt:
+              type: string
+              format: date-time
+
+    RepairDoc:
+      allOf:
+        - $ref: "#/components/schemas/RepairInfoDoc"
+        - $ref: "#/components/schemas/RepairOtherDoc"
+
+    Repair:
+      allOf:
+        - $ref: "#/components/schemas/RepairInfoDoc"
+        - $ref: "#/components/schemas/RepairOtherDoc"
+        - $ref: "#/components/schemas/MongoDefault"
+
+    MaintainAppearanceRecord:
+      type: object
+      description: 维保单外观诊断记录
+      properties:
+        mileages:
+          type: number
+          description: 车辆里程
+        signAddress:
+          type: string
+          description: 外观检查组签到地址
+        signBy:
+          type: string
+          description: 签到人
+        signRoles:
+          type: array
+          items:
+            type: string
+          description: 签到人角色
+        signPhone:
+          type: string
+          description: 签到人手机号
+        signName:
+          type: string
+          description: 签到人名字
+        arrivalAt:
+          type: string
+          format: date-time
+          description: 外观诊断组到场时间
+        routeMap:
+          $ref: "#/components/schemas/FileList"
+          description: 路线图
+        workers:
+          type: array
+          description: 外观检查组实际出工人
+          items:
+            type: string
+        frontPic:
+          $ref: "#/components/schemas/FileList"
+          description: 车牌（车头照）
+        nameplatePic:
+          $ref: "#/components/schemas/FileList"
+          description: 整车铭牌图片
+        meterPic:
+          $ref: "#/components/schemas/FileList"
+          description: 车辆仪表图片
+        batteryPic:
+          $ref: "#/components/schemas/FileList"
+          description: 电池号图片
+        batteryCompartmentPic:
+          $ref: "#/components/schemas/FileList"
+          description: 电池仓图片
+        hvBoxPic:
+          $ref: "#/components/schemas/FileList"
+          description: 高压盒图片
+        maintenanceSitePic:
+          $ref: "#/components/schemas/FileList"
+          description: 维保现场图片
+        faultPic:
+          $ref: "#/components/schemas/FileList"
+          description: 故障图片
+        softwareStartPic:
+          $ref: "#/components/schemas/FileList"
+          description: 上位机软件截图-开始图片
+        softwareFaultPic:
+          $ref: "#/components/schemas/FileList"
+          description: 上位机故障显示图片
+        softwareEndPic:
+          $ref: "#/components/schemas/FileList"
+          description: 上位机软件截图-结束图片
+        items:
+          $ref: "#/components/schemas/MaintainCheckItemList"
+          description: 外观检查项
+        itemErrors:
+          $ref: "#/components/schemas/MaintainCheckItemErrorList"
+          description: 外观检查项错误
+        checkPass:
+          type: boolean
+          description: 是否待审通过
+
+    MaintainSoftwareRecord:
+      type: object
+      description: 维保单软件诊断记录
+      properties:
+        signAddress:
+          type: string
+          description: 软件诊断组签到地址
+        signBy:
+          type: string
+          description: 签到人
+        signRoles:
+          type: array
+          items:
+            type: string
+          description: 签到人角色
+        signPhone:
+          type: string
+          description: 签到人手机号
+        signName:
+          type: string
+          description: 签到人名字
+        routeMap:
+          $ref: "#/components/schemas/FileList"
+          description: 路线图
+        arrivalAt:
+          type: string
+          format: date-time
+          description: 软件诊断组到场时间
+        workers:
+          type: array
+          description: 软件诊断组实际出工人
+          items:
+            type: string
+        startPic:
+          $ref: "#/components/schemas/FileList"
+          description: 上位机软件截图-开始图片
+        endPic:
+          $ref: "#/components/schemas/FileList"
+          description: 上位机软件截图-最后图片
+        batteryPN:
+          type: string
+          description: 电池PN
+        batteryNum:
+          type: string
+          description: 电池号
+        bmuHardware:
+          type: string
+          description: BMU硬件版本
+        bmuSoftware:
+          type: string
+          description: BMU软件版本
+        cscHardware:
+          type: string
+          description: CSC硬件版本
+        cscSoftware:
+          type: string
+          description: CSC软件版本
+        rdb:
+          type: string
+          description: RDB
+        vehicleRemark:
+          type: string
+          description: 整车信息-车辆备注
+        items:
+          $ref: "#/components/schemas/MaintainCheckItemList"
+          description: 外观检查项
+        itemErrors:
+          $ref: "#/components/schemas/MaintainCheckItemErrorList"
+          description: 外观检查项错误
+        checkPass:
+          type: boolean
+          description: 是否待审通过
+
+    MaintainDoc:
+      type: object
+      properties:
+        ticket:
+          type: string
+          description: 关联的工单 id
+        sequence:
+          type: string
+          description: 维修单的sequence编号
+        status:
+          type: string
+          enum:
+            [
+              "CREATING",
+              "MAINTAINING",
+              "REPARING",
+              "PENDING",
+              "REJECTED",
+              "PASSED",
+            ]
+          description: 维保单工单状态
+        appearance:
+          type: string
+          description: 外观检查组ns
+        software:
+          type: string
+          description: 软件诊断组ns
+        maintainAt:
+          type: string
+          format: date-time
+          description: 应维保时间
+        rejected:
+          type: boolean
+          description: 工单曾经被驳回
+        rejectAt:
+          type: string
+          format: date-time
+          description: 驳回时间
+        rejectReason:
+          type: string
+          description: 驳回时间
+        rejectBy:
+          type: string
+          description: 驳回人
+        auditTimeout:
+          type: boolean
+          description: 是否存在审核超时，一旦有过超时，便不再修改
+        crm:
+          type: string
+          description: CRM 订单号
+        vehicle:
+          type: string
+          description: 关联车辆 id
+        vehicleTerminal:
+          type: string
+          description: 关联车辆 终端用户
+        vehicleNo:
+          type: string
+          description: 关联车辆 自编号
+        vehiclePlate:
+          type: string
+          description: 关联车辆 车牌号
+        vehicleVin:
+          type: string
+          description: 关联车辆 vin
+        vehicleBrands:
+          type: string
+          description: 关联车辆 整车品牌
+        vehiclePark:
+          type: string
+          description: 关联车辆 停保场地址
+        vehicleCatl:
+          type: string
+          description: 关联车辆 CATL项目名称
+        vehicleBatteryPn:
+          type: string
+          description: 关联车辆 电池pn
+        vehicleBatteryNo:
+          type: string
+          description: 关联车辆 电池号
+        vehicleBatteryPropRight:
+          type: string
+          description: 关联车辆电池产权
+        vehicleOperateAt:
+          type: string
+          format: date-time
+          description: 关联车辆 运营日期
+        vehicleScrapped:
+          type: boolean
+          description: 关联车辆是否退役
+        appearanceRecord:
+          $ref: "#/components/schemas/MaintainAppearanceRecord"
+        softwareRecord:
+          $ref: "#/components/schemas/MaintainSoftwareRecord"
+        repair:
+          type: string
+          description: 关联维修单 id
+        repairSequence:
+          type: string
+          description: 关联维修单 序号
+        closeAt:
+          type: string
+          format: date-time
+          description: 完工时间
+        period:
+          type: string
+          description: 维保周期
+        prePeriod:
+          type: string
+          description: 上一个维保周期
+        deadline:
+          type: string
+          format: date-time
+          description: 维保完成的截止日期
+        preCloseAt:
+          type: string
+          format: date-time
+          description: 上次维保完成日期
+        submitAt:
+          type: string
+          format: date-time
+          description: 提交时间
+        firstSubmitAt:
+          type: string
+          format: date-time
+          description: 初次提交时间
+        submitBy:
+          type: string
+          description: 提交人
+        passRemark:
+          type: string
+          description: 审核备注
+        passedAt:
+          type: string
+          format: date-time
+          description: 审核通过时间，一般与工单关闭时间相同
+        passedBy:
+          type: string
+          description: 审核通过人
+        reportUrl:
+          type: string
+          description: 点检报告URL
+
+    Maintain:
+      allOf:
+        - $ref: "#/components/schemas/MaintainDoc"
+        - $ref: "#/components/schemas/MongoDefault"
+
+    RecordDoc:
+      type: object
+      properties:
+        ticket:
+          type: string
+          description: 关联工单 id
+        title:
+          type: string
+          description: 操作记录简介
+        desc:
+          type: string
+          description: 操作记录详情
+        username:
+          type: string
+          description: 操作者用户名
+        nickname:
+          type: string
+          description: 操作者昵称
+
+    Record:
+      allOf:
+        - $ref: "#/components/schemas/RecordDoc"
+        - $ref: "#/components/schemas/MongoDefault"
+
+    MongoDefault:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+        updateAt:
+          type: string
+          format: date-time
+        updateBy:
+          type: string
+        createAt:
+          type: string
+          format: date-time
+        createBy:
+          type: string
+
+    Err:
+      type: object
+      required:
+        - name
+        - message
+      properties:
+        code:
+          type: string
+        type:
+          type: string
+        message:
+          type: boolean
+        name:
+          type: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              keyword:
+                type: string
+              message:
+                type: string
+              path:
+                type: string
+              value:
+                type: string
+
+  securitySchemes:
+    bearerAuth: # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

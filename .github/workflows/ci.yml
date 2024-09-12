@@ -11,14 +11,21 @@ on:
     branches:
       - main
 
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:
   build-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: '14'
+          registry-url: 'https://npm.pkg.github.com'
       - name: Cache Dependencies
         id: cache-node-modules
         uses: actions/cache@v2

@@ -1159,14 +1159,6 @@ declare global {
          */
         url: string;
       }[];
-      /**
-       * 维保次数
-       */
-      maintainNumber?: number;
-      /**
-       * 车型
-       */
-      model?: string;
       [k: string]: any;
     } & {
       /**
@@ -1229,26 +1221,6 @@ declare global {
        * CRM 订单号
        */
       crm?: string;
-      /**
-       * 首年是否赠送2次维保
-       */
-      maintainFree?: boolean;
-      /**
-       * 维保外观组-季度保4为止
-       */
-      maintainAppearanceFirst?: string;
-      /**
-       * 维保外观组-季度保5开始
-       */
-      maintainAppearanceLast?: string;
-      /**
-       * 维保软件组-季度保4为止
-       */
-      maintainSoftwareFirst?: string;
-      /**
-       * 维保软件组-季度保5开始
-       */
-      maintainSoftwareLast?: string;
     };
   }
   export interface CreateVehicleResponse {
@@ -1749,14 +1721,6 @@ declare global {
          */
         url: string;
       }[];
-      /**
-       * 维保次数
-       */
-      maintainNumber?: number;
-      /**
-       * 车型
-       */
-      model?: string;
       [k: string]: any;
     } & {
       /**
@@ -1819,26 +1783,6 @@ declare global {
        * CRM 订单号
        */
       crm?: string;
-      /**
-       * 首年是否赠送2次维保
-       */
-      maintainFree?: boolean;
-      /**
-       * 维保外观组-季度保4为止
-       */
-      maintainAppearanceFirst?: string;
-      /**
-       * 维保外观组-季度保5开始
-       */
-      maintainAppearanceLast?: string;
-      /**
-       * 维保软件组-季度保4为止
-       */
-      maintainSoftwareFirst?: string;
-      /**
-       * 维保软件组-季度保5开始
-       */
-      maintainSoftwareLast?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -1876,12 +1820,6 @@ declare global {
       status?: ("PENDING" | "PASSED" | "REJECTED") | ("PENDING" | "PASSED" | "REJECTED")[];
       passAt_gte?: Date;
       passAt_lte?: Date;
-      year?: number;
-      batteryPropRight_like?: string;
-      model_like?: string;
-      terminal_like?: string;
-      maintaining?: boolean[];
-      maintainNumber?: number;
     };
   }
   export interface ListVehiclesResponse {
@@ -2382,14 +2320,6 @@ declare global {
          */
         url: string;
       }[];
-      /**
-       * 维保次数
-       */
-      maintainNumber?: number;
-      /**
-       * 车型
-       */
-      model?: string;
       [k: string]: any;
     } & {
       /**
@@ -2452,26 +2382,6 @@ declare global {
        * CRM 订单号
        */
       crm?: string;
-      /**
-       * 首年是否赠送2次维保
-       */
-      maintainFree?: boolean;
-      /**
-       * 维保外观组-季度保4为止
-       */
-      maintainAppearanceFirst?: string;
-      /**
-       * 维保外观组-季度保5开始
-       */
-      maintainAppearanceLast?: string;
-      /**
-       * 维保软件组-季度保4为止
-       */
-      maintainSoftwareFirst?: string;
-      /**
-       * 维保软件组-季度保5开始
-       */
-      maintainSoftwareLast?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -2984,14 +2894,6 @@ declare global {
          */
         url: string;
       }[];
-      /**
-       * 维保次数
-       */
-      maintainNumber?: number;
-      /**
-       * 车型
-       */
-      model?: string;
       [k: string]: any;
     } & {
       /**
@@ -3054,26 +2956,6 @@ declare global {
        * CRM 订单号
        */
       crm?: string;
-      /**
-       * 首年是否赠送2次维保
-       */
-      maintainFree?: boolean;
-      /**
-       * 维保外观组-季度保4为止
-       */
-      maintainAppearanceFirst?: string;
-      /**
-       * 维保外观组-季度保5开始
-       */
-      maintainAppearanceLast?: string;
-      /**
-       * 维保软件组-季度保4为止
-       */
-      maintainSoftwareFirst?: string;
-      /**
-       * 维保软件组-季度保5开始
-       */
-      maintainSoftwareLast?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -3581,14 +3463,6 @@ declare global {
          */
         url: string;
       }[];
-      /**
-       * 维保次数
-       */
-      maintainNumber?: number;
-      /**
-       * 车型
-       */
-      model?: string;
       [k: string]: any;
     } & {
       /**
@@ -3651,26 +3525,6 @@ declare global {
        * CRM 订单号
        */
       crm?: string;
-      /**
-       * 首年是否赠送2次维保
-       */
-      maintainFree?: boolean;
-      /**
-       * 维保外观组-季度保4为止
-       */
-      maintainAppearanceFirst?: string;
-      /**
-       * 维保外观组-季度保5开始
-       */
-      maintainAppearanceLast?: string;
-      /**
-       * 维保软件组-季度保4为止
-       */
-      maintainSoftwareFirst?: string;
-      /**
-       * 维保软件组-季度保5开始
-       */
-      maintainSoftwareLast?: string;
     };
   }
   export interface UpdateVehicleResponse {
@@ -4171,14 +4025,6 @@ declare global {
          */
         url: string;
       }[];
-      /**
-       * 维保次数
-       */
-      maintainNumber?: number;
-      /**
-       * 车型
-       */
-      model?: string;
       [k: string]: any;
     } & {
       /**
@@ -4241,26 +4087,6 @@ declare global {
        * CRM 订单号
        */
       crm?: string;
-      /**
-       * 首年是否赠送2次维保
-       */
-      maintainFree?: boolean;
-      /**
-       * 维保外观组-季度保4为止
-       */
-      maintainAppearanceFirst?: string;
-      /**
-       * 维保外观组-季度保5开始
-       */
-      maintainAppearanceLast?: string;
-      /**
-       * 维保软件组-季度保4为止
-       */
-      maintainSoftwareFirst?: string;
-      /**
-       * 维保软件组-季度保5开始
-       */
-      maintainSoftwareLast?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -4776,14 +4602,6 @@ declare global {
          */
         url: string;
       }[];
-      /**
-       * 维保次数
-       */
-      maintainNumber?: number;
-      /**
-       * 车型
-       */
-      model?: string;
       [k: string]: any;
     } & {
       ticketNs: string;
@@ -5288,14 +5106,6 @@ declare global {
          */
         url: string;
       }[];
-      /**
-       * 维保次数
-       */
-      maintainNumber?: number;
-      /**
-       * 车型
-       */
-      model?: string;
       [k: string]: any;
     } & {
       /**
@@ -5358,26 +5168,6 @@ declare global {
        * CRM 订单号
        */
       crm?: string;
-      /**
-       * 首年是否赠送2次维保
-       */
-      maintainFree?: boolean;
-      /**
-       * 维保外观组-季度保4为止
-       */
-      maintainAppearanceFirst?: string;
-      /**
-       * 维保外观组-季度保5开始
-       */
-      maintainAppearanceLast?: string;
-      /**
-       * 维保软件组-季度保4为止
-       */
-      maintainSoftwareFirst?: string;
-      /**
-       * 维保软件组-季度保5开始
-       */
-      maintainSoftwareLast?: string;
     } & {
       id: string;
       updateAt?: Date;
@@ -5885,14 +5675,6 @@ declare global {
          */
         url: string;
       }[];
-      /**
-       * 维保次数
-       */
-      maintainNumber?: number;
-      /**
-       * 车型
-       */
-      model?: string;
       [k: string]: any;
     };
   }
@@ -6394,14 +6176,6 @@ declare global {
          */
         url: string;
       }[];
-      /**
-       * 维保次数
-       */
-      maintainNumber?: number;
-      /**
-       * 车型
-       */
-      model?: string;
       [k: string]: any;
     } & {
       /**
@@ -6464,26 +6238,6 @@ declare global {
        * CRM 订单号
        */
       crm?: string;
-      /**
-       * 首年是否赠送2次维保
-       */
-      maintainFree?: boolean;
-      /**
-       * 维保外观组-季度保4为止
-       */
-      maintainAppearanceFirst?: string;
-      /**
-       * 维保外观组-季度保5开始
-       */
-      maintainAppearanceLast?: string;
-      /**
-       * 维保软件组-季度保4为止
-       */
-      maintainSoftwareFirst?: string;
-      /**
-       * 维保软件组-季度保5开始
-       */
-      maintainSoftwareLast?: string;
     } & {
       id: string;
       updateAt?: Date;
